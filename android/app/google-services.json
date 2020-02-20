@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "222161804885",
+    "firebase_url": "https://food-savior-5fe15.firebaseio.com",
+    "project_id": "food-savior-5fe15",
+    "storage_bucket": "food-savior-5fe15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222161804885:android:f87313330937ac431bfedc",
+        "android_client_info": {
+          "package_name": "com.lokesh.food_savior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222161804885-imph7bhbuib47udu59rb35be7h8njnjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFASMyA512C4CTi2Y3FCcJp5ZuHAIp318"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222161804885-imph7bhbuib47udu59rb35be7h8njnjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
