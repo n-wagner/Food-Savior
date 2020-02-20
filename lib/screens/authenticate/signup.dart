@@ -1,5 +1,157 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'package:food_savior/services/auth.dart';
+import '../home/home_page.dart';
+
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  
+  final AuthService _auth = AuthService();
+
+  // text field state
+  String email_val = '';
+  String password_val = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final logo = Hero(
+      tag: 'food savior',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 100.0,
+        child: Image.asset('assets/images/logo.jpg'),
+      ),
+    );
+
+    final email = TextFormField(
+      //Track the value of email whenever the field is changed (same done for password)
+      onChanged: (val) {
+        setState(() => email_val = val);
+      },
+      keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      initialValue: '',
+      decoration: InputDecoration(
+        hintText: 'Email',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
+
+    final password = TextFormField(
+      onChanged: (val) {
+        setState(() => password_val = val);
+      },
+      keyboardType: TextInputType.visiblePassword,
+      autofocus: false,
+      initialValue: '',
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
+
+    final loginButton = Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        color: Colors.lime[700],
+        child: Text(
+          'Log In',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () async {
+          //dynamic result = await _auth.signInEmailPassword();     // dynamic because it can be a user or null
+          Navigator.of(context).pushNamed(HomePage.tag);
+        }
+      ),
+    );
+
+    final signupButton = Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+          //Navigator.of(context).pushNamed(SignUp.tag);
+        },
+        padding: EdgeInsets.all(8),
+        color: Colors.lime[700],
+        child: Text('Sign up', style: TextStyle(color: Colors.white)),
+      ),
+    );
+    final forgotLabel = FlatButton(
+      child: Text(
+        'Forgot password?',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {},
+    );
+    final body = Container(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      padding: EdgeInsets.all(28.0),
+      decoration: BoxDecoration(
+//        gradient: LinearGradient(colors: [
+//          Colors.pink[400],
+//          Colors.lime[200],
+//        ])
+      ),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            logo,
+            SizedBox(height: 48.0),
+            email,
+            SizedBox(height: 8.0),
+            password,
+            //SizedBox(height: 24.0),
+            loginButton,
+            //SizedBox(height: 8.0),
+            signupButton,
+            //SizedBox(height: 8.0),
+            forgotLabel],
+        ),
+      ),
+    );
+
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            logo,
+            SizedBox(height: 48.0),
+            email,
+            SizedBox(height: 8.0),
+            password,
+            SizedBox(height: 24.0),
+            loginButton,
+            signupButton,
+            forgotLabel
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
 class SignUp extends StatelessWidget {
   static String tag = 'SignUp';
 
@@ -174,3 +326,4 @@ class SignUp extends StatelessWidget {
     );
   }
 }
+*/
