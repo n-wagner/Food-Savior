@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>222161804885-jq4rh16ka3f1gja4vl6dd51g42slk42t.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.222161804885-jq4rh16ka3f1gja4vl6dd51g42slk42t</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDj0WjFpfB4I0CjKZSm9JAhLmsQkJORboU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>222161804885</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lokesh.food-savior</string>
+	<key>PROJECT_ID</key>
+	<string>food-savior-5fe15</string>
+	<key>STORAGE_BUCKET</key>
+	<string>food-savior-5fe15.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:222161804885:ios:d74b9a3a5ca4bbc81bfedc</string>
+	<key>DATABASE_URL</key>
+	<string>https://food-savior-5fe15.firebaseio.com</string>
+</dict>
+</plist>
