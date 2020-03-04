@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:food_savior/services/database.dart';
 
 class AuthService {
   //final implies the value won't change in the future, _auth implies the value is private to the class, FirebaseAuth.instance gets thee singular instance of the Auth to work with
@@ -52,6 +53,10 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+
+      // Create a new document for the user with a uid
+      await DatabaseService(uid: user.uid).updateUserData('fname', 'lname');
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
