@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User>.value(
+    return StreamProvider<User>.value( // keeps  track of particular user
       value: AuthService().user,    //Creates an instance and listens to the stream here (provider makes it available to all its decendents)
       child: MaterialApp(
         title: 'food savior',
