@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:food_savior/models/food_item.dart';
+import 'package:food_savior/screens/home/food_item_card.dart';
+
+class SwipePage extends StatefulWidget {
+  @override
+  _SwipePageState createState() => _SwipePageState();
+}
+
+class _SwipePageState extends State<SwipePage> {
+  List<FoodItem> foodItems = [
+    FoodItem(name: 'Burger', distance: '3 miles', img: 'assets/images/burger.jpeg'),
+    FoodItem(name: 'Pasta', distance: '1.5 miles', img: 'assets/images/pasta.jpg'),
+    FoodItem(name: 'Pizza', distance: '0.6 miles', img: 'assets/images/pizza.jpg'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+        //child: Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget> [
+              //Con
+              Expanded(
+                child: Stack(
+                  children: foodItems.map((foodItem) {
+                    return Draggable(
+                      onDragEnd: (dragDetails) {
+                        setState(() {
+                          foodItems.remove(foodItem);
+                        });
+                      },
+                      child: FoodItemCard(foodItem: foodItem),
+                      childWhenDragging: Container(),
+                      feedback: FoodItemCard(foodItem: foodItem),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:food_savior/screens/home/home_page.dart';
+import 'package:food_savior/screens/home/swipes.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
-import 'screens/authenticate/login_page.dart';
+import 'package:food_savior/screens/authenticate/login_page.dart';
+import 'package:food_savior/screens/home/home_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +27,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lime,
         ),
-        home: Wrapper(),
-        routes: routes,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Wrapper(),
+          '/home': (context) => HomePage(),
+          '/swipes': (context) => SwipePage(),
+        },
       ),
     );
   }
