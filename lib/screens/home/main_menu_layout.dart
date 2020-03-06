@@ -5,21 +5,27 @@ class MenuLayout extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-        title: Text('test'),
-        backgroundColor: Colors.blueGrey,
-        ),
-    drawer: Drawer(
+  return 
+  // Scaffold(
+  //   appBar: AppBar(
+  //       title: Text('test'),
+  //       backgroundColor: Colors.blueGrey,
+  //       ),
+  //   drawer: 
+    Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: <Color>)[
-                Colors.blue,
-                Colors.lightBlue,
-              ]),
-            child: Text('HEADER')),
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Colors.blue,
+                  Colors.lightBlue,
+                ]
+              )
+            ),
+            child: Text('HEADER')
+          ),
           CustomListTile(),
           ListTile(
             title: Text('Donate')
@@ -29,7 +35,7 @@ class MenuLayout extends StatelessWidget {
             ),
         ],
       ),
-    ),
+    //),
   );
 }  
 
@@ -53,9 +59,14 @@ return Padding(
               children: <Widget>[
               Icon(Icons.person),
               Padding(
-                  padding: const EdgeInsets.all(8.0)
-                  child: Text('profile', style: TextStyle(fontSize: 16.0)), 
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'profile', 
+                  style: TextStyle(
+                    fontSize: 16.0
                   )
+                ), 
+              )
               
               
             ],

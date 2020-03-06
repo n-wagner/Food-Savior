@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/screens/home/food_item_card.dart';
+import 'package:provider/provider.dart';
 
 class SwipePage extends StatefulWidget {
   @override
@@ -16,6 +18,9 @@ class _SwipePageState extends State<SwipePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final users = Provider.of<QuerySnapshot>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -23,7 +28,7 @@ class _SwipePageState extends State<SwipePage> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget> [
-              //Con
+              Container(),
               Expanded(
                 child: Stack(
                   children: foodItems.map((foodItem) {
@@ -40,6 +45,7 @@ class _SwipePageState extends State<SwipePage> {
                   }).toList(),
                 ),
               ),
+              Container(),
             ],
           ),
         ),
