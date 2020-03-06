@@ -104,9 +104,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="873" />
+    <option name="x" value="333" />
+    <option name="y" value="23" />
     <option name="width" value="1047" />
-    <option name="height" value="1032" />
+    <option name="height" value="1027" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -146,6 +147,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         title: 'food savior',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.lime,
+          primarySwatch: Colors.deepPurple,
         ),
         initialRoute: '/',
         routes: {
