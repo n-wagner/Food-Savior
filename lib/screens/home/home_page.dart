@@ -3,7 +3,7 @@ import 'package:food_savior/services/auth.dart';
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
-
+  
   final AuthService _auth = AuthService();
 
   @override
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  await _auth.signOut();
+                  Navigator.pushNamed(context, '/new-food');
                 },
               ),
             ),

@@ -24,6 +24,8 @@ dependencies:
   cloud_firestore: ^0.13.3
   provider: ^4.0.4
   flutter_tags: ^0.4.7
+  flutter_tagging: ^2.2.0+3
+  flutter_syntax_view: ^1.0.0
   google_maps_flutter: ^0.5.11
 
 dependency_overrides:  #added 

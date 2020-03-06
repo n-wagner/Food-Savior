@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     LoginPage.tag: (context) => LoginPage(),
     SignUp.tag: (context) => SignUp(),
+    //NewFoodPage.tag: (context) => NewFoodPage(),
   };
 
   @override
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => Wrapper(),
           '/home': (context) => HomePage(),
           '/swipes': (context) => SwipePage(),
+          '/new-food': (context) => NewFoodPage(),
+  
         },
       ),
     );

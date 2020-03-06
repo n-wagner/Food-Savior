@@ -3,6 +3,7 @@ import 'package:food_savior/services/auth.dart';
 import '../home/home_page.dart';
 
 class SignUp extends StatefulWidget {
+  static String tag = "SignUp";
   @override
   _SignUpState createState() => _SignUpState();
 }
