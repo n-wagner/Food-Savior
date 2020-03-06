@@ -8,7 +8,7 @@ class ChatMessage extends StatelessWidget{
       child: new Row(
         children: <Widget>[
           new Container(
-            margin: const EdgeInserts.only(right:16) 
+            margin: EdgeInsets.only(right:16) 
           )
       ],),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart'; 
+import 'package:food_savior/screens/chat/Charscreen.dart';
 
 
 class ChatAppHome extends StatelessWidget {
@@ -12,7 +13,7 @@ class ChatAppHome extends StatelessWidget {
         title: new Text("chat"),
       ),
 
-      body: new ChatScreen(),
+      body: ChatScreen(),
     );
 
 
