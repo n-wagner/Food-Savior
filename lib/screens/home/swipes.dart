@@ -16,6 +16,7 @@ class _SwipePageState extends State<SwipePage> {
     FoodItem(name: 'Pizza', distance: '0.6 miles', img: 'assets/images/pizza.jpg'),
   ];
 
+  
   @override
   Widget build(BuildContext context) {
 
@@ -28,7 +29,11 @@ class _SwipePageState extends State<SwipePage> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget> [
-              Container(),
+              Container(
+                height: 2.0,
+                width: 5.0,
+                color: Colors.lightGreen,
+              ),
               Expanded(
                 child: Stack(
                   children: foodItems.map((foodItem) {
@@ -39,13 +44,23 @@ class _SwipePageState extends State<SwipePage> {
                         });
                       },
                       child: FoodItemCard(foodItem: foodItem),
-                      childWhenDragging: Container(),
+                      childWhenDragging: Container(
+                        
+                      ),
                       feedback: FoodItemCard(foodItem: foodItem),
                     );
                   }).toList(),
                 ),
               ),
-              Container(),
+              Container(
+
+                        height: 2.0,
+                        width: 5.0,
+                        color: Colors.lightGreen,
+                
+                
+              ),
+              
             ],
           ),
         ),
