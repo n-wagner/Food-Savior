@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 100.0,
-        child: Image.asset('assets/images/logo.jpg'),
+        child: Image.asset('assets/images/logo1.jpg'),
       ),
     );
 
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        color: Colors.lime[700],
+        color: Colors.deepPurple,
         child: Text(
           'Log In',
           style: TextStyle(color: Colors.white),
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
           //Navigator.of(context).pushNamed(SignUp.tag);
         },
         padding: EdgeInsets.all(8),
-        color: Colors.lime[700],
+        color: Colors.deepPurple,
         child: Text('Sign up', style: TextStyle(color: Colors.white)),
       ),
     );
