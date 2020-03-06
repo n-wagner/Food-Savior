@@ -13,12 +13,11 @@ class Wrapper extends StatelessWidget {
 
     //Specifying that the provider should be giving us User data
     final user = Provider.of<User>(context);
-
-
     // return either authenticate or content portion of the app
     if (user == null) {
       return Authenticate();
-    } else {
+    } 
+    else {
       return HomePage();
     }
   }

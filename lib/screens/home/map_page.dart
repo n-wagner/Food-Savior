@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/screens/home/index.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapPage extends StatelessWidget {
-  static const String routeName = '/map';
+class MyMap extends StatefulWidget {
+  @override
+  State<MyMap> createState() => MyMapSampleState();
+}
 
+class MyMapSampleState extends State<MyMap> {
   @override
   Widget build(BuildContext context) {
-    var _mapBloc = MapBloc();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Map'),
+    return new Scaffold(
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(40.688841, -74.044015),
+          zoom: 11,
+        ),
       ),
-      body: MapScreen(mapBloc: _mapBloc),
     );
   }
 }

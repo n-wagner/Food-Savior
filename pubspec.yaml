@@ -23,6 +23,8 @@ dependencies:
   firebase_auth: 0.15.4 #^
   cloud_firestore: ^0.13.3
   provider: ^4.0.4
+  flutter_tags: ^0.4.7
+  google_maps_flutter: ^0.5.11
 
 dependency_overrides:  #added 
   firebase_core: 0.4.4 
