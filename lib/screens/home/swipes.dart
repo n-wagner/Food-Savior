@@ -11,9 +11,9 @@ class SwipePage extends StatefulWidget {
 
 class _SwipePageState extends State<SwipePage> {
   List<FoodItem> foodItems = [
-    FoodItem(name: 'Burger', distance: '3 miles', img: 'assets/images/burger.jpeg'),
-    FoodItem(name: 'Pasta', distance: '1.5 miles', img: 'assets/images/pasta.jpg'),
-    FoodItem(name: 'Pizza', distance: '0.6 miles', img: 'assets/images/pizza.jpg'),
+    FoodItem(name: 'Burger', time: DateTime(2020, 4, 20, 16, 37), img: 'assets/images/burger.jpeg'),
+    FoodItem(name: 'Pasta', time: DateTime(2020, 3, 6, 8, 2), img: 'assets/images/pasta.jpg'),
+    FoodItem(name: 'Pizza', time: DateTime(2020, 3, 8, 12, 20), img: 'assets/images/pizza.jpg'),
   ];
 
   

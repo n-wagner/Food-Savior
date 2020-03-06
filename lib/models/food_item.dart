@@ -1,5 +1,6 @@
 class FoodItem {
-  String name, distance, img;
+  String name, img;
+  DateTime time;
 
-  FoodItem({ this.name, this.distance, this.img });
+  FoodItem({ this.name, this.time, this.img });
 }

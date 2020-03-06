@@ -21,9 +21,10 @@ class FoodItemCard extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
+            SizedBox(height: 10.0),
             Text(foodItem.name),
             SizedBox(height: 10.0),
-            Text(foodItem.distance)
+            Text(foodItem.time.toLocal().toString())
           ],
         ),
       ),

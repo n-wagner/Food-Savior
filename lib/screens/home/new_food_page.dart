@@ -1,14 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_tagging/flutter_tagging.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
+import 'package:food_savior/services/database.dart';
 
 import '../home/home_page.dart';
 
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:food_savior/models/user.dart';
+
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
-  static const String title = "NewFood";
+  static const String title = "New Food";
+  final User u;
+
+  NewFoodPage({Key key, this.u }) : super(key: key);
+
   @override
   _NewFoodPageState createState() => new _NewFoodPageState();
 }
@@ -18,6 +28,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   String time_left = '';
   String description = '';
   String error = '';
+  DateTime dt;
   bool dairy = false;
   bool nuts = false;
   bool pork = false;
@@ -28,6 +39,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegetarian = false;
   bool sugar_free = false;
   final AuthService _auth = AuthService();
+  final DatabaseService _db = DatabaseService();
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
 
@@ -195,7 +207,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-            Navigator.pushNamed(context, '/map_page'); 
+            //Navigator.pushNamed(context, '/map_page'); 
+              DocumentReference result = await _db.addFoodItem(food_name, dt, "");
+              if (result != null) {
+                await _db.updateFoodItemForUser(widget.u.uid, result.documentID);
+              }
+              Navigator.pop(context);
             }
         },
         padding: EdgeInsets.all(8),
@@ -204,6 +221,30 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ),
     );
 
+    final camera_button = Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+          // Runs each validator from the Form Fields, only if all return null is this true
+          //if (_formKey.currentState.validate()) {
+            /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
+            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
+            if (result == null) {
+              setState(() => error = 'please supply a valid email');
+            }
+          }*/
+          Navigator.pop(context,);
+          //Navigator.pushNamed(context, '/home'); 
+          //}
+        },
+        padding: EdgeInsets.all(8),
+        color: Colors.lime[700],
+        child: Text('Take a Picture', style: TextStyle(color: Colors.white)),
+      ),
+    );
 
     final cancel_button = Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0),
@@ -211,7 +252,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () async {
+        onPressed: () {
           // Runs each validator from the Form Fields, only if all return null is this true
           //if (_formKey.currentState.validate()) {
             /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
@@ -254,6 +295,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
         ),
       );
 
+    final format = DateFormat("yyyy-MM-dd HH:mm");
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
@@ -276,9 +319,47 @@ class _NewFoodPageState extends State<NewFoodPage> {
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
+              camera_button,
+              SizedBox(
+                height: 20,
+              ),
               food_name_bar,
-              ingredients_warnings,
-              timer_bar,
+              //ingredients_warnings,
+              SizedBox(
+                height: 20,
+              ),
+              Text('Basic date & time field (${format.pattern})'),
+              DateTimeField(
+                format: format,
+                validator: (val) {
+                  return null;
+                },
+                onShowPicker: (context, currentValue) async {
+                  final date = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(1900),
+                      initialDate: currentValue ?? DateTime.now(),
+                      lastDate: DateTime(2100));
+                  if (date != null) {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime:
+                          TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                    );
+                    return DateTimeField.combine(date, time);
+                  } else {
+                    return currentValue;
+                  }
+                },
+                onChanged: (val) {
+                  setState(() {
+                    dt = val;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
               createNewFoodButton,
               cancel_button,
             ],

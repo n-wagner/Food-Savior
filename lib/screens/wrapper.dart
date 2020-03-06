@@ -18,7 +18,7 @@ class Wrapper extends StatelessWidget {
       return Authenticate();
     } 
     else {
-      return HomePage();
+      return HomePage(u: user);
     }
   }
 }
