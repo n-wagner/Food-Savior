@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 
-class MenuLayout extends StatelessWidget {
+class MenuLayout extends StatefulWidget {
   @override
+  _MenuLayoutState createState() => _MenuLayoutState();
+}
 
+class _MenuLayoutState extends State<MenuLayout> {
+  final AuthService _auth = AuthService();
+
+  @override
   Widget build(BuildContext context) {
   return 
   // Scaffold(
@@ -31,14 +37,17 @@ class MenuLayout extends StatelessWidget {
             title: Text('Donate')
             ),
           ListTile(
-            title: Text('LogOut')
-            ),
+            title: Text('Log Out'),
+            onTap: () async {
+              await _auth.signOut();
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     //),
   );
 }  
-
 } // end class 
 
 class CustomListTile extends StatelessWidget{
