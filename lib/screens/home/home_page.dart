@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/home/main_menu_layout.dart';
+import 'package:food_savior/models/user.dart';
+import 'package:food_savior/screens/home/new_food_page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
+  final User u;
+
+  const HomePage({ Key key, this.u }): super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -55,7 +60,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/new-food');
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => NewFoodPage(u: widget.u)
+                    )
+                  );
                 },
               ),
             ),
