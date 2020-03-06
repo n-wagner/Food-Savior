@@ -213,15 +213,16 @@ class _NewFoodPageState extends State<NewFoodPage> {
         ),
         onPressed: () async {
           // Runs each validator from the Form Fields, only if all return null is this true
-          if (_formKey.currentState.validate()) {
+          //if (_formKey.currentState.validate()) {
             /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
             // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
             if (result == null) {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-            Navigator.pushNamed(context, '/home'); 
-            }
+          Navigator.pop(context,);
+          //Navigator.pushNamed(context, '/home'); 
+          //}
         },
         padding: EdgeInsets.all(8),
         color: Colors.lime[700],
@@ -269,6 +270,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
           backgroundColor: Colors.lime,
           ),
       body: Form(
+        key: _formKey,
         child: Center(
           child: ListView(
             shrinkWrap: true,

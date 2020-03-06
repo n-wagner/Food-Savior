@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
+import 'package:food_savior/screens/home/main_menu_layout.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static String tag = 'home-page';
-  
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final AuthService _auth = AuthService();
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +24,7 @@ class HomePage extends StatelessWidget {
     //   ),
     // );
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.orange[100],
       // appBar: AppBar(   //Basically a top menu/bar thing
       //   title: Text('Food Savior'),
@@ -46,7 +54,7 @@ class HomePage extends StatelessWidget {
                     fontSize: 30,
                   ),
                 ),
-                onPressed: () async {
+                onPressed: () {
                   Navigator.pushNamed(context, '/new-food');
                 },
               ),
@@ -68,6 +76,17 @@ class HomePage extends StatelessWidget {
           ]
         ),
       ),
+      drawer: MenuLayout(),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(top: 130),
+        child: FloatingActionButton(
+          onPressed: () {
+            _scaffoldKey.currentState.openDrawer();
+          },
+          child: Icon(Icons.menu),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 }
