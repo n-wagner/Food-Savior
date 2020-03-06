@@ -236,7 +236,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-          Navigator.pop(context,);
+          //Navigator.pop(context,);
           //Navigator.pushNamed(context, '/home'); 
           //}
         },

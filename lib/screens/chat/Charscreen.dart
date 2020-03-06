@@ -20,7 +20,7 @@ Widget _textComposerWidget(){
     margin: const EdgeInsets.symmetric(horizontal:8.0),
       child: new Row(
         children: <Widget>[
-          new flexible(
+          new Flexible(
             child: new TextField(
               decoration: new InputDecoration.collapsed(hintText: "Send Message"),
               controller: _textcontroller,
