@@ -40,14 +40,14 @@ class _HomePageState extends State<HomePage> {
       //     )
       //   ],
       // ),
-      body: SafeArea(
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
             Expanded(
               child: FlatButton(
-                color: Colors.green[800],
+                color: Colors.lightBlue[100],
                 child: Text(
                   'Give Food',
                   style: TextStyle(
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: FlatButton(
-                color: Colors.blue[900],
+                color: Colors.blue[200],
                 child: Text(
                   'Get Food',
                   style: TextStyle(
