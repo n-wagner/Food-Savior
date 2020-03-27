@@ -1,56 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 
-class MenuLayout extends StatefulWidget {
+//class MenuLayout extends StatelessWidget {
+  class MenuLayout extends StatefulWidget {
   @override
-  _MenuLayoutState createState() => _MenuLayoutState();
+   _MenuLayoutState createState() => _MenuLayoutState();
 }
-
 class _MenuLayoutState extends State<MenuLayout> {
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-  return 
-  // Scaffold(
-  //   appBar: AppBar(
-  //       title: Text('test'),
-  //       backgroundColor: Colors.blueGrey,
-  //       ),
-  //   drawer: 
-    Drawer(
+  //return Scaffold(
+   // appBar: AppBar(
+    //    title: Text('test'),
+   //     backgroundColor: Colors.blueGrey,
+    //    ),
+  //  drawer: Drawer(
+
+    return Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  Colors.blue,
-                  Colors.lightBlue,
-                ]
-              )
-            ),
-            child: Text('HEADER')
-          ),
-          CustomListTile(),
-          ListTile(
-            title: Text('Donate')
-            ),
-          ListTile(
-            title: Text('Log Out'),
-            onTap: () async {
-              await _auth.signOut();
-              Navigator.pop(context);
-            },
-          ),
+              gradient: LinearGradient(colors: <Color>[
+                Colors.blue,
+                Colors.lightBlue,
+              ])
+              ),
+            child: Text('HEADER')),
+          CustomListTile(Icons.person, 'profile', ()=> {}),
+          CustomListTile(Icons.lock, 'Log out', ()=> {}),
+          CustomListTile(Icons.lock_open, 'Donate', ()=> {}),
+            //ListTile(
+           // title: Text('Log Out'),
+            //onTap: () async {
+             // await _auth.signOut();
+             // Navigator.pop(context);
+      
         ],
       ),
-    //),
+          
   );
 }  
+
 } // end class 
 
 class CustomListTile extends StatelessWidget{
+  
+  IconData icon;
+  String text;
+  Function onTap;
+
+  CustomListTile(this.icon,this.text,this.onTap);
   @override 
 
 Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ return Padding(
   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
   child: InkWell(
     splashColor: Colors.blueAccent,
-    onTap: ()=>{},
+    onTap: onTap,
     child: Container(
       height: 40,
       child: Row(
@@ -66,18 +68,11 @@ return Padding(
           children: <Widget> [
             Row(
               children: <Widget>[
-              Icon(Icons.person),
+              Icon(icon),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'profile', 
-                  style: TextStyle(
-                    fontSize: 16.0
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(text, style: TextStyle(fontSize: 16.0)), 
                   )
-                ), 
-              )
-              
-              
             ],
             ),
             Icon(Icons.arrow_right),

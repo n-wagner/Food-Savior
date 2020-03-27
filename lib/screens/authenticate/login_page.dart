@@ -1,3 +1,7 @@
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 import 'signup.dart';
@@ -25,9 +29,9 @@ class _LoginPageState extends State<LoginPage> {
     final logo = Hero(
       tag: 'food savior',
       child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 100.0,
-        child: Image.asset('assets/images/logo1.jpg'),
+        backgroundColor: Colors.brown[50],
+        radius: 250.0,
+        child: Image.asset('assets/images/logo.JPG'),
       ),
     );
 
@@ -72,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        color: Colors.deepPurple,
+        color: Colors.lightGreen[700],
         child: Text(
           'Log In',
           style: TextStyle(color: Colors.white),
@@ -98,19 +102,20 @@ class _LoginPageState extends State<LoginPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () async {
+        onPressed: () {//async {
           // Runs each validator from the Form Fields, only if all return null is this true
-          if (_formKey.currentState.validate()) {
-            dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
+          //if (_formKey.currentState.validate()) {
+           // dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
             // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-            if (result == null) {
-              setState(() => error = 'please supply a valid email');
-            }
-          }
+           // if (result == null) {
+            //  setState(() => error = 'please supply a valid email');
+           // }
+        //  }
           //Navigator.of(context).pushNamed(SignUp.tag);
+          Navigator.pushNamed(context, '/sign-up');
         },
         padding: EdgeInsets.all(8),
-        color: Colors.deepPurple,
+        color: Colors.lightGreen[700],
         child: Text('Sign up', style: TextStyle(color: Colors.white)),
       ),
     );
@@ -135,10 +140,10 @@ class _LoginPageState extends State<LoginPage> {
           .width,
       padding: EdgeInsets.all(28.0),
       decoration: BoxDecoration(
-//        gradient: LinearGradient(colors: [
-//          Colors.pink[400],
-//          Colors.lime[200],
-//        ])
+        //gradient: LinearGradient(colors: [
+          // Colors.brown[50],
+          // Colors.lime[200],
+       // ])
       ),
       child: Center(
         child: Column(
@@ -162,7 +167,8 @@ class _LoginPageState extends State<LoginPage> {
 
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      
+      backgroundColor: Colors.brown[50],
       // Form associated with global key, allows for future validation of the form
       body: Form(
         key: _formKey,

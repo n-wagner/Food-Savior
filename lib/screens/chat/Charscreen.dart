@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_savior/screens/chat/Chat_message.dart';
 
 class ChatScreen extends StatefulWidget{
 @override
@@ -8,9 +9,17 @@ State createState() => new ChatScreenState();
 class ChatScreenState  extends State <ChatScreen>{
 
 final TextEditingController _textcontroller = new TextEditingController();
+final List<ChatMessage> _messages = <ChatMessages>[]; 
+
 
 void _handleSubmitted(String text){
 _textcontroller.clear();
+ChatMessage message= new ChatMessage(
+  text:text,
+);
+setState(() {
+  _messages.insert(0,message);
+});
 }
 
 Widget _textComposerWidget(){
@@ -43,6 +52,24 @@ Widget _textComposerWidget(){
 
 @override
 Widget build(BuildContext context){
-   return _textComposerWidget();
+   return new Column(
+        children: <Widget>[
+          new Flexible(
+            child: new ListView.builder(
+              padding: new EdgeInsets.all(8.0),
+              reverse: true,
+              itemBuilder:(_,int index)=>  _messages[index],
+              itemCount: _messages.length,
+            ),
+          )
+          new  Divider (height: 1.0,),
+          new Container(
+            decoration: New BoxDecoration(
+              color: Theme.of(context).cardColor,
+            ),
+            child: _textComposerWidget(),
+          ),
+        ],
+      ),;
   }
 }

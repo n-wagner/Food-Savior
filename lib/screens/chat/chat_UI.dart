@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart'; 
-import 'package:food_savior/screens/chat/Charscreen.dart';
+import 'package:flutter/foundation.dart';
+import 'package:food_savior/screens/chat/Charscreen.dart'; 
 
 
 class ChatAppHome extends StatelessWidget {
@@ -12,12 +12,9 @@ class ChatAppHome extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("chat"),
       ),
-
-      body: ChatScreen(),
+   
+      body: new ChatScreen()
     );
-
-
-
     
   }
 }
