@@ -15,7 +15,7 @@ class FoodItemCard extends StatelessWidget {
         height: 500.0,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(foodItem.img),
+            image: Image.network(foodItem.img).image, //(foodItem.img),
             fit: BoxFit.cover,
           ),
         ),

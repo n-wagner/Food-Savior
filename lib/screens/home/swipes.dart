@@ -10,17 +10,32 @@ class SwipePage extends StatefulWidget {
 }
 
 class _SwipePageState extends State<SwipePage> {
-  List<FoodItem> foodItems = [
-    FoodItem(name: 'Burger', time: DateTime(2020, 4, 20, 16, 37), img: 'assets/images/burger.jpeg'),
-    FoodItem(name: 'Pasta', time: DateTime(2020, 3, 6, 8, 2), img: 'assets/images/pasta.jpg'),
-    FoodItem(name: 'Pizza', time: DateTime(2020, 3, 8, 12, 20), img: 'assets/images/pizza.jpg'),
-  ];
+  // List<FoodItem> foodItems = [
+  //   FoodItem(name: 'Burger', time: DateTime(2020, 4, 20, 16, 37), img: 'assets/images/burger.jpeg'),
+  //   FoodItem(name: 'Pasta', time: DateTime(2020, 3, 6, 8, 2), img: 'assets/images/pasta.jpg'),
+  //   FoodItem(name: 'Pizza', time: DateTime(2020, 3, 8, 12, 20), img: 'assets/images/pizza.jpg'),
+  // ];
 
   
   @override
   Widget build(BuildContext context) {
 
-    final users = Provider.of<QuerySnapshot>(context);
+    final foodItems = Provider.of<List<FoodItem>>(context);
+    foodItems.remove(null);
+    print('food items 2 $foodItems');
+    if (foodItems != null) {
+      print('not null');
+      //print('docs ${foodItems2.}');
+      foodItems.forEach((item) {
+        print('item ${item.name}');
+      });
+      //print('det = ${foodItems2.documents.forEach(}')
+    }
+    // foodItems.forEach((item) {
+    //   print(item.name);
+    //   print(item.img);
+    //   print(item.time);
+    // });
 
     return Scaffold(
       body: SafeArea(
@@ -37,18 +52,22 @@ class _SwipePageState extends State<SwipePage> {
               Expanded(
                 child: Stack(
                   children: foodItems.map((foodItem) {
-                    return Draggable(
-                      onDragEnd: (dragDetails) {
-                        setState(() {
-                          foodItems.remove(foodItem);
-                        });
-                      },
-                      child: FoodItemCard(foodItem: foodItem),
-                      childWhenDragging: Container(
-                        
-                      ),
-                      feedback: FoodItemCard(foodItem: foodItem),
-                    );
+                    if (foodItem != null) {
+                      return Draggable(
+                        onDragEnd: (dragDetails) {
+                          setState(() {
+                            foodItems.remove(foodItem);
+                          });
+                        },
+                        child: FoodItemCard(foodItem: foodItem),
+                        childWhenDragging: Container(
+                          
+                        ),
+                        feedback: FoodItemCard(foodItem: foodItem),
+                      );
+                    } else {
+                      return Container();
+                    }
                   }).toList(),
                 ),
               ),

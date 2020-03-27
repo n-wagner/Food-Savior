@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/home/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
+import 'package:food_savior/screens/home/images_selection.dart';
 
 import 'package:food_savior/screens/home/swipes.dart';
 import 'package:food_savior/screens/home/main_menu_layout.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
           '/new-food': (context) => NewFoodPage(),
           '/main-menu': (context) => MenuLayout(),
           '/test': (context) => CameraTest(),
-          '/sign-up':(context) => SignUp(),
+          '/sign-up': (context) => SignUp(),
+          '/image-select': (context) => ImageSelect(),
         },
       ),
     );

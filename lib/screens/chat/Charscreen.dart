@@ -9,7 +9,7 @@ State createState() => new ChatScreenState();
 class ChatScreenState  extends State <ChatScreen>{
 
 final TextEditingController _textcontroller = new TextEditingController();
-final List<ChatMessage> _messages = <ChatMessages>[]; 
+final List<ChatMessage> _messages = <ChatMessage>[]; 
 
 
 void _handleSubmitted(String text){
@@ -61,15 +61,15 @@ Widget build(BuildContext context){
               itemBuilder:(_,int index)=>  _messages[index],
               itemCount: _messages.length,
             ),
-          )
+          ),
           new  Divider (height: 1.0,),
           new Container(
-            decoration: New BoxDecoration(
+            decoration: new BoxDecoration(
               color: Theme.of(context).cardColor,
             ),
             child: _textComposerWidget(),
           ),
         ],
-      ),;
+      );
   }
 }
