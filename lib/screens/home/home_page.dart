@@ -6,9 +6,9 @@ import 'package:food_savior/screens/home/new_food_page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
-  final User u;
+  // final User u;
 
-  const HomePage({ Key key, this.u }): super(key: key);
+  // const HomePage({ Key key, this.u }): super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -60,12 +60,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) => NewFoodPage(u: widget.u)
-                    )
-                  );
+                  Navigator.pushNamed(context, '/new-food');
+                  // Navigator.push(
+                  //   context, 
+                  //   MaterialPageRoute(
+                  //     builder: (context) => NewFoodPage(u: widget.u)
+                  //   )
+                  // );
                 },
               ),
             ),

@@ -30,7 +30,10 @@ class _MenuLayoutState extends State<MenuLayout> {
               ),
             child: Text('HEADER')),
           CustomListTile(Icons.person, 'profile', ()=> {}),
-          CustomListTile(Icons.lock, 'Log out', ()=> {}),
+          CustomListTile(Icons.lock, 'Log out', () async {
+            await _auth.signOut();
+            Navigator.pop(context);
+          }),
           CustomListTile(Icons.lock_open, 'Donate', ()=> {}),
             //ListTile(
            // title: Text('Log Out'),

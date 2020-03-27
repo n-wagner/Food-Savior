@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
@@ -5,19 +7,21 @@ import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_tagging/flutter_tagging.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:food_savior/services/database.dart';
+import 'package:food_savior/services/storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../home/home_page.dart';
 
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
   static const String title = "New Food";
-  final User u;
-
-  NewFoodPage({Key key, this.u }) : super(key: key);
 
   @override
   _NewFoodPageState createState() => new _NewFoodPageState();
@@ -38,10 +42,42 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegan = false;
   bool vegetarian = false;
   bool sugar_free = false;
+  File _image;  // = File('assets/images/noImage.jpg');
+
+  // final user = Provider.of<User>(context);
   final AuthService _auth = AuthService();
-  final DatabaseService _db = DatabaseService();
+  DatabaseService _db = DatabaseService();
+  StorageService _stor = StorageService();
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
+  
+  Future<File> loadImage () async {
+    ByteData image =  await rootBundle.load('assets/images/noImage.jpg');
+    String name = '${(await getTemporaryDirectory()).path}/noImage.jpg';
+    print('name $name');
+    final file = File(name);
+    await file.writeAsBytes(image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes));
+    _image = file;
+    return file;
+    // print('imageName = $imageName');    //for debug
+    // return imageName;
+  }
+
+  Future chooseFile() async {    
+    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+      setState(() {    
+        _image = image;    
+      });    
+    });    
+  }
+
+  Image getImage () {
+    if (_image == null) {
+      return Image.asset('assets/images/noImage.jpg', height: 150);
+    } else {
+      return Image.asset(_image.path, height: 150);
+    }
+  }
 
   Widget checkbox(String title, bool boolValue) {
     return Column(
@@ -91,18 +127,21 @@ class _NewFoodPageState extends State<NewFoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    loadImage();
+
     final appBar = AppBar(
         title: Text(NewFoodPage.title),
         leading: MaterialButton(
           onPressed: () {
-            Navigator.pop(context,);
+            Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
-        backgroundColor: Colors.lime,
+        backgroundColor: Colors.lightGreen
       );
 
     final food_name_bar = TextFormField(
@@ -184,7 +223,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       autofocus: false,
       initialValue: '',
       decoration: InputDecoration(
-        hintText: 'ex: Tuna Sandwish with Pesto Sauce',
+        hintText: 'ex: Tuna Sandwich with Pesto Sauce',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -207,42 +246,51 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-            //Navigator.pushNamed(context, '/map_page'); 
-              DocumentReference result = await _db.addFoodItem(food_name, dt, "");
+            //Navigator.pushNamed(context, '/map_page');
+            String image_url = await _stor.uploadFoodItemImage(_image.path);
+            //return;
+            if (image_url != null) {
+              DocumentReference result = await _db.addFoodItem(food_name, dt, image_url);
               if (result != null) {
-                await _db.updateFoodItemForUser(widget.u.uid, result.documentID);
+                print('user ${user.uid} with docID ${result.documentID}');
+                await _db.updateFoodItemForUser(user.uid, result.documentID);
+                Navigator.pop(context);
+              } else {
+                //error - failed to create food iteam
+                print("Failed to create food item");
               }
-              Navigator.pop(context);
+            } else {
+              //error - failed to upload image to storage
+              print("Failed to upload image");
             }
+          } else {
+            //error - invalid form fields
+            print("Not all form fields are valid");
+          }
         },
         padding: EdgeInsets.all(8),
-        color: Colors.lime[700],
+        color: Colors.lightGreen,
         child: Text('Post New Food', style: TextStyle(color: Colors.white)),
       ),
     );
 
-    final camera_button = Padding(
+    final image_button = Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {
-          // Runs each validator from the Form Fields, only if all return null is this true
-          //if (_formKey.currentState.validate()) {
-            /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-            if (result == null) {
-              setState(() => error = 'please supply a valid email');
-            }
-          }*/
-          //Navigator.pop(context,);
-          //Navigator.pushNamed(context, '/home'); 
-          //}
+        onPressed: () async {
+          await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+            setState(() {    
+              _image = image;    
+            });    
+          }); 
+          //Navigator.pushNamed(context, '/image-select');
         },
         padding: EdgeInsets.all(8),
-        color: Colors.lime[700],
-        child: Text('Take a Picture', style: TextStyle(color: Colors.white)),
+        color: Colors.lightGreen,
+        child: Text('Select a Picture', style: TextStyle(color: Colors.white)),
       ),
     );
 
@@ -261,12 +309,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-          Navigator.pop(context,);
+          Navigator.pop(context);
           //Navigator.pushNamed(context, '/home'); 
           //}
         },
         padding: EdgeInsets.all(8),
-        color: Colors.lime[700],
+        color: Colors.lightGreen,
         child: Text('Cancel', style: TextStyle(color: Colors.white)),
       ),
     );
@@ -319,7 +367,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
-              camera_button,
+              getImage(), //Image.asset(_image.path, height: 150),
+              image_button,
               SizedBox(
                 height: 20,
               ),
@@ -332,7 +381,11 @@ class _NewFoodPageState extends State<NewFoodPage> {
               DateTimeField(
                 format: format,
                 validator: (val) {
-                  return null;
+                  if (val != null && val.isAfter(DateTime.now())) {
+                    return null;
+                  } else {
+                    return "Please select a valid date/time";
+                  }
                 },
                 onShowPicker: (context, currentValue) async {
                   final date = await showDatePicker(

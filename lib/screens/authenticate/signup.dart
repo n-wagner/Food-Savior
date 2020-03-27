@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:food_savior/models/user.dart';
 import 'package:food_savior/services/auth.dart';
+import 'package:food_savior/services/database.dart';
 import 'signup.dart';
 import '../home/home_page.dart';
 
@@ -14,6 +16,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
+  final DatabaseService _db = DatabaseService();
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
 
@@ -23,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   String firstNameVal = '';
   String lastNameVal = '';
   String phoneVal = '';
-  String adressVal = '';
+  String addressVal = '';
   String confirmpassVal = '';
   String error = '';
   @override
@@ -52,7 +55,7 @@ class _SignUpState extends State<SignUp> {
     final first_name = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
-      validator: (val) => val.isEmpty ? 'Enter a name' : null,
+      validator: (val) => val.isEmpty ? 'Enter a first name' : null,
       onChanged: (val) {
         setState(() => firstNameVal = val);
       },
@@ -81,13 +84,13 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-final address = TextFormField(
+  final address = TextFormField(
       autofocus: false,
       //initialValue: 'Last name',
       //obscureText: true,
       validator: (val) => val.isEmpty ? 'Enter an address' : null,
       onChanged: (val) {
-        setState(() => adressVal = val);
+        setState(() => addressVal = val);
       },
       decoration: InputDecoration(
         icon: Icon(Icons.home),
@@ -102,7 +105,19 @@ final address = TextFormField(
     final phoneNumber = TextFormField(
       keyboardType: TextInputType.phone,
       autofocus: false,
-      validator: (val) => val.isEmpty ? 'Enter a phone number' : null,
+      validator: (val) {
+        if (val.length < 10) {
+          return 'Enter a full phone number';
+        } else {
+          try {
+            int.parse(val);
+            return null;
+          } catch (e) {
+            return 'Enter a valid phone number';
+          }
+        }
+        // ? 'Enter a phone number' : null,
+      },
       onChanged: (val) {
         setState(() => phoneVal = val);
       },
@@ -134,7 +149,7 @@ final address = TextFormField(
     final confirmPassword = TextFormField(
       keyboardType: TextInputType.visiblePassword,
       autofocus: false,
-      validator: (val) => val.isEmpty ? 'passwords do not match' : null,
+      validator: (val) => val != passwordVal ? 'passwords do not match' : null,
       onChanged: (val) {
         setState(() => confirmpassVal = val);
       },
@@ -157,12 +172,15 @@ final address = TextFormField(
         onPressed: () async {
           // Runs each validator from the Form Fields, only if all return null is this true
           if (_formKey.currentState.validate()) {
-            dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
+            User result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
+
             // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
             if (result == null) {
               setState(() => error = 'please supply a valid email');
+            } else {
+              await _db.updateUserData(result.uid, firstNameVal, lastNameVal, phoneVal, addressVal);
+              Navigator.pop(context);
             }
-            Navigator.pop(context);
           }
         
           //Navigator.of(context).pushNamed(SignUp.tag);
