@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
-import 'package:food_savior/screens/home/main_menu_layout.dart';
+import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/home/new_food_page.dart';
+import 'package:food_savior/screens/givefood/new_food_page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';

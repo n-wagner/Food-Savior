@@ -3,18 +3,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/home/camera_test.dart';
+import 'package:food_savior/screens/givefood/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
-import 'package:food_savior/screens/home/images_selection.dart';
+import 'package:food_savior/screens/givefood/images_selection.dart';
 
-import 'package:food_savior/screens/home/swipes.dart';
-import 'package:food_savior/screens/home/main_menu_layout.dart';
-import 'package:food_savior/screens/home/swipes_wrapper.dart';
+import 'package:food_savior/screens/getfood/swipes.dart';
+import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
+import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/authenticate/login_page.dart';
 import 'package:food_savior/screens/home/home_page.dart';
-import 'package:food_savior/screens/home/new_food_page.dart';
+import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
