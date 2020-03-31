@@ -10,6 +10,7 @@ import 'package:food_savior/screens/givefood/images_selection.dart';
 import 'package:food_savior/screens/getfood/swipes.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/profile.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/authenticate/login_page.dart';
@@ -50,6 +51,8 @@ class MyApp extends StatelessWidget {
           '/test': (context) => CameraTest(),
           '/sign-up': (context) => SignUp(),
           '/image-select': (context) => ImageSelect(),
+          '/profile-page': (context) => ProfilePage(),
+          
         },
       ),
     );

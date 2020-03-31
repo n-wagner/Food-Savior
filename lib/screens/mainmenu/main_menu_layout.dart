@@ -29,12 +29,18 @@ class _MenuLayoutState extends State<MenuLayout> {
               ])
               ),
             child: Text('HEADER')),
-          CustomListTile(Icons.person, 'profile', ()=> {}),
-          CustomListTile(Icons.lock, 'Log out', () async {
+          CustomListTile(Icons.person, 'Profile', () 
+          {
+            Navigator.pushNamed(context, '/profile-page');
+          }),
+          CustomListTile(Icons.history, 'Past Orders', ()=> {}),
+          CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
+           CustomListTile(Icons.info, 'About', ()=> {}),
+          CustomListTile(Icons.settings, 'Settings', ()=> {}),
+                    CustomListTile(Icons.lock, 'Log out', () async {
             await _auth.signOut();
             Navigator.pop(context);
           }),
-          CustomListTile(Icons.lock_open, 'Donate', ()=> {}),
             //ListTile(
            // title: Text('Log Out'),
             //onTap: () async {
