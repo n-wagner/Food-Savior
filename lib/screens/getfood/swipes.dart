@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/food_item.dart';
-import 'package:food_savior/screens/home/food_item_card.dart';
+import 'package:food_savior/screens/getfood/food_item_card.dart';
 import 'package:provider/provider.dart';
 
 class SwipePage extends StatefulWidget {
