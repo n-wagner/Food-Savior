@@ -13,22 +13,22 @@ class StorageService {
 
   final StorageReference storageRef = FirebaseStorage.instance.ref();
 
-  Future uploadFoodItemImage (String filePath) async {
+  Future<String> uploadImage (File upload, [String folder]) async {
     while (true) {
       String fileName = Uuid().v4();
       print('path ${p.current}');
-      StorageReference sRef = storageRef.child('food-item-images/' + fileName);
+      StorageReference sRef = storageRef.child(folder + fileName);
       String result = await sRef.getDownloadURL().then(
         (url) {
           print('filename already exists "$url" "$fileName"');
           return '';
         }, 
         onError: (error) async {
-          print('file does not exist - path = $filePath');
+          // print('file does not exist - path = ${upload.path}');
           
-          File f = File(filePath);
-          print('file $f');
-          StorageUploadTask uploadTask = sRef.putFile(f);
+          // File f = File(filePath);
+          print('file "$upload" path "${upload.path}"');
+          StorageUploadTask uploadTask = sRef.putFile(upload);
           StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
           print('File Uploaded');
           String url = await downloadUrl.ref.getDownloadURL();
@@ -37,6 +37,7 @@ class StorageService {
         }
       );
       if (!(result != null && result.length == 0)) {
+        print('file name in Storage Server $result');
         return result;
       }
     }

@@ -7,6 +7,7 @@ import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_tagging/flutter_tagging.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:food_savior/services/database.dart';
+import 'package:food_savior/services/image.dart';
 import 'package:food_savior/services/storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -42,42 +43,35 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegan = false;
   bool vegetarian = false;
   bool sugar_free = false;
-  File _image;  // = File('assets/images/noImage.jpg');
+  //File _image;  // = File('assets/images/noImage.jpg');
 
   // final user = Provider.of<User>(context);
-  final AuthService _auth = AuthService();
-  DatabaseService _db = DatabaseService();
-  StorageService _stor = StorageService();
+  // final AuthService _auth = AuthService();
+  DatabaseService _db;
+  // final StorageService _stor = StorageService();
+  final ImageService _img = ImageService();
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
   
-  Future<File> loadImage () async {
-    ByteData image =  await rootBundle.load('assets/images/noImage.jpg');
-    String name = '${(await getTemporaryDirectory()).path}/noImage.jpg';
-    print('name $name');
-    final file = File(name);
-    await file.writeAsBytes(image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes));
-    _image = file;
-    return file;
-    // print('imageName = $imageName');    //for debug
-    // return imageName;
-  }
+  // Future<File> loadImage () async {
+  //   ByteData image =  await rootBundle.load('assets/images/noImage.jpg');
+  //   String name = '${(await getTemporaryDirectory()).path}/noImage.jpg';
+  //   print('name $name');
+  //   final file = File(name);
+  //   await file.writeAsBytes(image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes));
+  //   _image = file;
+  //   return file;
+  //   // print('imageName = $imageName');    //for debug
+  //   // return imageName;
+  // }
 
-  Future chooseFile() async {    
-    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
-      setState(() {    
-        _image = image;    
-      });    
-    });    
-  }
-
-  Image getImage () {
-    if (_image == null) {
-      return Image.asset('assets/images/noImage.jpg', height: 150);
-    } else {
-      return Image.asset(_image.path, height: 150);
-    }
-  }
+  // Future chooseFile() async {    
+  //   await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+  //     setState(() {    
+  //       _image = image;    
+  //     });    
+  //   });    
+  // }
 
   Widget checkbox(String title, bool boolValue) {
     return Column(
@@ -128,7 +122,13 @@ class _NewFoodPageState extends State<NewFoodPage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    loadImage();
+    if (user != null) {
+      _db = DatabaseService(uid: user.uid);
+    } else {
+      print("*********************USER NOT LOGGED IN*********************");
+      _db = DatabaseService();
+    }
+    // _image = loadImage();
 
     final appBar = AppBar(
         title: Text(NewFoodPage.title),
@@ -247,21 +247,21 @@ class _NewFoodPageState extends State<NewFoodPage> {
             }
           }*/
             //Navigator.pushNamed(context, '/map_page');
-            String image_url = await _stor.uploadFoodItemImage(_image.path);
+            String imageUrl = await _img.uploadFoodItemImage();
             //return;
-            if (image_url != null) {
-              DocumentReference result = await _db.addFoodItem(food_name, dt, image_url);
-              if (result != null) {
-                print('user ${user.uid} with docID ${result.documentID}');
-                await _db.updateFoodItemForUser(user.uid, result.documentID);
+            if (imageUrl != null) {
+              String referenceID = await _db.addFoodItem(name: food_name, dateTime: dt, img: imageUrl);
+              if (referenceID != null) {
+                print('user ${user.uid} with docID $referenceID');
+                await _db.updateFoodItemForUser(referenceID);
                 Navigator.pop(context);
               } else {
                 //error - failed to create food iteam
-                print("Failed to create food item");
+                print("Failed to create food item - referenceID is null");
               }
             } else {
               //error - failed to upload image to storage
-              print("Failed to upload image");
+              print("Failed to upload image - imageURL is null");
             }
           } else {
             //error - invalid form fields
@@ -281,11 +281,13 @@ class _NewFoodPageState extends State<NewFoodPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
-            setState(() {    
-              _image = image;    
-            });    
-          }); 
+          _img.getImageFromGallery();
+          // _image = _img.getImageFromGallery();
+          // await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+          //   setState(() {    
+          //     _image = image;    
+          //   });    
+          // }); 
           //Navigator.pushNamed(context, '/image-select');
         },
         padding: EdgeInsets.all(8),
@@ -367,7 +369,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
-              getImage(), //Image.asset(_image.path, height: 150),
+              _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
               image_button,
               SizedBox(
                 height: 20,

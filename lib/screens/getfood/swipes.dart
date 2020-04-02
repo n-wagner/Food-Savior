@@ -21,7 +21,7 @@ class _SwipePageState extends State<SwipePage> {
   Widget build(BuildContext context) {
 
     final foodItems = Provider.of<List<FoodItem>>(context);
-    foodItems.remove(null);
+    //foodItems.remove(null);
     print('food items 2 $foodItems');
     if (foodItems != null) {
       print('not null');
@@ -30,6 +30,8 @@ class _SwipePageState extends State<SwipePage> {
         print('item ${item.name}');
       });
       //print('det = ${foodItems2.documents.forEach(}')
+    } else {
+      print('very much null');
     }
     // foodItems.forEach((item) {
     //   print(item.name);
@@ -43,6 +45,7 @@ class _SwipePageState extends State<SwipePage> {
         //child: Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            // TODO: Here (or below) we need to put a loading screen for when foodItems == null
             children: <Widget> [
               Container(
                 height: 2.0,
@@ -51,7 +54,8 @@ class _SwipePageState extends State<SwipePage> {
               ),
               Expanded(
                 child: Stack(
-                  children: foodItems.map((foodItem) {
+                  // TODO: Here we need to put a loading screen for when foodItems == null
+                  children: foodItems == null ? [Container()] : foodItems.map((foodItem) {
                     if (foodItem != null) {
                       return Draggable(
                         onDragEnd: (dragDetails) {
@@ -72,14 +76,10 @@ class _SwipePageState extends State<SwipePage> {
                 ),
               ),
               Container(
-
-                        height: 2.0,
-                        width: 5.0,
-                        color: Colors.lightGreen,
-                
-                
+                height: 2.0,
+                width: 5.0,
+                color: Colors.lightGreen,
               ),
-              
             ],
           ),
         ),
