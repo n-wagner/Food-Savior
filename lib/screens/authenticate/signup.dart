@@ -178,7 +178,7 @@ class _SignUpState extends State<SignUp> {
             if (result == null) {
               setState(() => error = 'please supply a valid email');
             } else {
-              await _db.updateUserData(result.uid, firstNameVal, lastNameVal, phoneVal, addressVal);
+              await _db.updateUserData(firstNameVal, lastNameVal, phoneVal, addressVal, userID: result.uid);
               Navigator.pop(context);
             }
           }

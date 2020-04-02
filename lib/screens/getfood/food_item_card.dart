@@ -24,7 +24,9 @@ class FoodItemCard extends StatelessWidget {
             SizedBox(height: 10.0),
             Text(foodItem.name),
             SizedBox(height: 10.0),
-            Text(foodItem.time.toLocal().toString())
+            Text(foodItem.time.toLocal().toString()),
+            // SizedBox(height: 10.0),
+            // Text(foodItem.docID),
           ],
         ),
       ),

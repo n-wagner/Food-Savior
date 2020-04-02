@@ -63,7 +63,7 @@ class _ImageSelectState extends State<ImageSelect> {
                ? RaisedButton(    
                    child: Text('Upload File'),    
                    onPressed: () async {
-                     await _stor.uploadFoodItemImage(_image.path);
+                     // await _stor.uploadFoodItemImage(filePath: _image.path);
                      Navigator.pop(context);
                    },
                    color: Colors.cyan,    
