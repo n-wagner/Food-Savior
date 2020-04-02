@@ -34,8 +34,12 @@ class _MenuLayoutState extends State<MenuLayout> {
             Navigator.pushNamed(context, '/profile-page');
           }),
           CustomListTile(Icons.history, 'Past Orders', ()=> {}),
+          CustomListTile(Icons.chat, 'Chat', () 
+          {
+            Navigator.pushNamed(context, '/chat');
+          }),
           CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
-           CustomListTile(Icons.info, 'About', ()=> {}),
+          CustomListTile(Icons.info, 'About', ()=> {}),
           CustomListTile(Icons.settings, 'Settings', ()=> {}),
                     CustomListTile(Icons.lock, 'Log out', () async {
             await _auth.signOut();

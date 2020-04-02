@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
+import 'package:food_savior/models/user.dart';
+import 'package:food_savior/services/database.dart';
+import 'package:provider/provider.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -10,6 +14,7 @@ class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  DatabaseService _ds; 
 
   @override
   void initState() {
@@ -19,7 +24,25 @@ class MapScreenState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<User>(context);
+    _ds = DatabaseService(uid: user.uid);
+     User complete_user = _ds.user;
+
     return new Scaffold(
+        appBar: AppBar(
+            title: Text('Chat'),
+        leading: MaterialButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+             
+        ),
         body: new Container(
       color: Colors.white,
       child: new ListView(
@@ -32,24 +55,25 @@ class MapScreenState extends State<ProfilePage>
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        padding: EdgeInsets.only(left: 20.0, top: 10.0),
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            new Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: 22.0,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 25.0),
-                              child: new Text('Profile',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
-                                      fontFamily: 'sans-serif-light',
-                                      color: Colors.black)),
-                            )
+                           // new Icon(
+                          // Icons.arrow_back_ios,
+                          //    color: Colors.black,
+                            //  size: 22.0,
+                          // ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(left: 25.0),
+                            //   child: new Text('Back',
+                            //       style: TextStyle(
+                            //           fontWeight: FontWeight.bold,
+                            //           fontSize: 20.0,
+                            //           fontFamily: 'sans-serif-light',
+                            //           color: Colors.black)),
+                            // )
+
                           ],
                         )),
                     Padding(
@@ -78,7 +102,7 @@ class MapScreenState extends State<ProfilePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new CircleAvatar(
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: Colors.lightGreen,
                                   radius: 25.0,
                                   child: new Icon(
                                     Icons.camera_alt,
@@ -112,7 +136,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Parsonal Information',
+                                    'PROFILE',
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
@@ -139,7 +163,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Name',
+                                    'First Name',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -156,8 +180,10 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Enter Your Name",
+                                  decoration: const  InputDecoration(
+                                    hintText: 'First Name'
+                                    //complete_user.firstName,
+
                                   ),
                                   enabled: !_status,
                                   autofocus: !_status,
@@ -177,7 +203,47 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Email ID',
+                                    'Last Name',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: new TextField(
+                                  decoration: const  InputDecoration(
+                                    hintText: 'Last Name'
+                                    //complete_user.firstName,
+
+                                  ),
+                                  enabled: !_status,
+                                  autofocus: !_status,
+
+                                ),
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Email Address',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -195,7 +261,7 @@ class MapScreenState extends State<ProfilePage>
                               new Flexible(
                                 child: new TextField(
                                   decoration: const InputDecoration(
-                                      hintText: "Enter Email ID"),
+                                      hintText: "Enter Email Adress"),
                                   enabled: !_status,
                                 ),
                               ),
@@ -236,65 +302,65 @@ class MapScreenState extends State<ProfilePage>
                               ),
                             ],
                           )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  child: new Text(
-                                    'Pin Code',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                flex: 2,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: new Text(
-                                    'State',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                flex: 2,
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
-                                  child: new TextField(
-                                    decoration: const InputDecoration(
-                                        hintText: "Enter Pin Code"),
-                                    enabled: !_status,
-                                  ),
-                                ),
-                                flex: 2,
-                              ),
-                              Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter State"),
-                                  enabled: !_status,
-                                ),
-                                flex: 2,
-                              ),
-                            ],
-                          )),
+                      // Padding(
+                      //     padding: EdgeInsets.only(
+                      //         left: 25.0, right: 25.0, top: 25.0),
+                          // child: new Row(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: <Widget>[
+                          //     Expanded(
+                          //       child: Container(
+                          //         child: new Text(
+                          //           'NJNJEOSFN',
+                          //           style: TextStyle(
+                          //               fontSize: 16.0,
+                          //               fontWeight: FontWeight.bold),
+                          //         ),
+                          //       ),
+                          //       flex: 2,
+                          //     ),
+                          //     Expanded(
+                          //       child: Container(
+                          //         child: new Text(
+                          //           'Confirm Password',
+                          //           style: TextStyle(
+                          //               fontSize: 16.0,
+                          //               fontWeight: FontWeight.bold),
+                          //         ),
+                          //       ),
+                          //       flex: 2,
+                          //     ),
+                          //   ],
+                          // )),
+                      // Padding(
+                      //     padding: EdgeInsets.only(
+                      //         left: 25.0, right: 25.0, top: 2.0),
+                      //     child: new Row(
+                      //       mainAxisSize: MainAxisSize.max,
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       children: <Widget>[
+                      //         Flexible(
+                      //           child: Padding(
+                      //             padding: EdgeInsets.only(right: 10.0),
+                      //             child: new TextField(
+                      //               decoration: const InputDecoration(
+                      //                   hintText: "Enter Password"),
+                      //               enabled: !_status,
+                      //             ),
+                      //           ),
+                      //           flex: 2,
+                      //         ),
+                      //         Flexible(
+                      //           child: new TextField(
+                      //             decoration: const InputDecoration(
+                      //                 hintText: "Confirm Password"),
+                      //             enabled: !_status,
+                      //           ),
+                      //           flex: 2,
+                      //         ),
+                      //       ],
+                      //     )),
                       !_status ? _getActionButtons() : new Container(),
                     ],
                   ),
@@ -328,7 +394,7 @@ class MapScreenState extends State<ProfilePage>
                   child: new RaisedButton(
                 child: new Text("Save"),
                 textColor: Colors.black,
-                color: Colors.green,
+                color: Colors.lightGreen,
                 onPressed: () {
                   setState(() {
                     _status = true;
@@ -348,7 +414,7 @@ class MapScreenState extends State<ProfilePage>
                   child: new RaisedButton(
                 child: new Text("Cancel"),
                 textColor: Colors.white,
-                color: Colors.red,
+                color: Colors.red[500],
                 onPressed: () {
                   setState(() {
                     _status = true;
@@ -369,7 +435,7 @@ class MapScreenState extends State<ProfilePage>
   Widget _getEditIcon() {
     return new GestureDetector(
       child: new CircleAvatar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.lightGreen,
         radius: 14.0,
         child: new Icon(
           Icons.edit,

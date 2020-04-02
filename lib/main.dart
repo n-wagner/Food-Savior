@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:food_savior/screens/chat/Chatscreen.dart';
+import 'package:food_savior/screens/chat/chat_UI.dart';
 import 'package:food_savior/screens/givefood/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
 import 'package:food_savior/screens/givefood/images_selection.dart';
@@ -52,6 +54,7 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUp(),
           '/image-select': (context) => ImageSelect(),
           '/profile-page': (context) => ProfilePage(),
+          '/chat': (context) => ChatAppHome(),
           
         },
       ),

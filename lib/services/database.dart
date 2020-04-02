@@ -80,16 +80,31 @@ class DatabaseService {
     }).toList();
   }
 
-  Future<User> get user async {
-    DocumentSnapshot ds = await userCollection.document(uid).get();
-    return ds == null ? User(uid: uid) : User (
-      uid: uid,
-      firstName: ds.data['firstName'] ?? "",
-      lastName: ds.data['lastName'] ?? "",
-      phone: ds.data['phoneNumber'] ?? "",
-      address: ds.data['address'] ?? "",
-    );
+User get user {
+    User result;
+    userCollection.document(uid).get().then((DocumentSnapshot ds) {
+      result = ds == null ? User(uid: uid) : User (
+        uid: uid,
+        firstName: ds.data['firstName'] ?? "",
+        lastName: ds.data['lastName'] ?? "",
+        phone: ds.data['phoneNumber'] ?? "",
+        address: ds.data['address'] ?? "",
+      );
+    });
+    return result;
   }
+
+
+  // Future<User> get user async {
+  //   DocumentSnapshot ds = await userCollection.document(uid).get();
+  //   return ds == null ? User(uid: uid) : User (
+  //     uid: uid,
+  //     firstName: ds.data['firstName'] ?? "",
+  //     lastName: ds.data['lastName'] ?? "",
+  //     phone: ds.data['phoneNumber'] ?? "",
+  //     address: ds.data['address'] ?? "",
+  //   );
+  // }
 
   //Get user stream
   // Stream<QuerySnapshot> get users {
