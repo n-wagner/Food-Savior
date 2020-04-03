@@ -26,7 +26,8 @@ dependencies:
   flutter_tags: ^0.4.7
   flutter_tagging: ^2.2.0+3
   flutter_syntax_view: ^1.0.0
-  google_maps_flutter: ^0.5.11
+  flutter_map: ^0.8.2
+  location: ^3.0.1
 
   datetime_picker_formfield: ^1.0.0
   uuid: 2.0.4

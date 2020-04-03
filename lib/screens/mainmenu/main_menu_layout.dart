@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
+import 'package:food_savior/screens/maps/map_page.dart';
 
 //class MenuLayout extends StatelessWidget {
   class MenuLayout extends StatefulWidget {
@@ -32,6 +33,9 @@ class _MenuLayoutState extends State<MenuLayout> {
           CustomListTile(Icons.person, 'Profile', () 
           {
             Navigator.pushNamed(context, '/profile-page');
+          }),
+          CustomListTile(Icons.room, 'Map', ()=> {
+            Navigator.pushNamed(context, '/map')
           }),
           CustomListTile(Icons.history, 'Past Orders', ()=> {}),
           CustomListTile(Icons.chat, 'Chat', () 

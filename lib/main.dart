@@ -23,6 +23,10 @@ import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
 
+import 'package:food_savior/services/location_service.dart';
+import 'package:food_savior/screens/maps/map_page.dart';
+import 'package:food_savior/models/user_location.dart';
+import 'package:food_savior/screens/maps/map_wrapper.dart';
 
 void main() => runApp(MyApp());
 
@@ -47,7 +51,6 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Wrapper(),
           '/home': (context) => HomePage(),
-          //'/swipes': (context) => SwipePage(),
            '/swipes': (context) => SwipesWrapper(),
           '/new-food': (context) => NewFoodPage(),
           '/main-menu': (context) => MenuLayout(),
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
           '/profile-page': (context) => ProfilePage(),
           '/chat': (context) => ChatAppHome(),
            '/questions': (context) => Questions(),
+           '/map': (context) => MapWrapper(),
           
         },
       ),
