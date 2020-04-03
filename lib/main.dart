@@ -13,6 +13,7 @@ import 'package:food_savior/screens/getfood/swipes.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
 import 'package:food_savior/screens/mainmenu/profile.dart';
+import 'package:food_savior/screens/mainmenu/FAQs.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/authenticate/login_page.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
           '/image-select': (context) => ImageSelect(),
           '/profile-page': (context) => ProfilePage(),
           '/chat': (context) => ChatAppHome(),
+           '/questions': (context) => Questions(),
           
         },
       ),

@@ -24,8 +24,8 @@ class _MenuLayoutState extends State<MenuLayout> {
           DrawerHeader(
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: <Color>[
-                Colors.blue,
-                Colors.lightBlue,
+                Colors.green,
+                Colors.lightGreen,
               ])
               ),
             child: Text('HEADER')),
@@ -39,7 +39,10 @@ class _MenuLayoutState extends State<MenuLayout> {
             Navigator.pushNamed(context, '/chat');
           }),
           CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
-          CustomListTile(Icons.info, 'About', ()=> {}),
+          CustomListTile(Icons.feedback, 'FAQ', () 
+          {
+            Navigator.pushNamed(context, '/questions');
+          }),
           CustomListTile(Icons.settings, 'Settings', ()=> {}),
                     CustomListTile(Icons.lock, 'Log out', () async {
             await _auth.signOut();
@@ -72,7 +75,7 @@ Widget build(BuildContext context) {
 return Padding(
   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
   child: InkWell(
-    splashColor: Colors.blueAccent,
+    splashColor: Colors.lightGreen,
     onTap: onTap,
     child: Container(
       height: 40,
