@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/services/database.dart';
-import 'signup.dart';
-import '../home/home_page.dart';
 
 
 class SignUp extends StatefulWidget {
@@ -16,7 +13,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
-  final DatabaseService _db = DatabaseService();
+  DatabaseService _db;
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
 
@@ -52,7 +49,7 @@ class _SignUpState extends State<SignUp> {
     */
 
 
-    final first_name = TextFormField(
+    final firstName = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
       validator: (val) => val.isEmpty ? 'Enter a first name' : null,
@@ -68,7 +65,7 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-    final last_name = TextFormField(
+    final lastName = TextFormField(
       autofocus: false,
       //initialValue: 'Last name',
       //obscureText: true,
@@ -178,7 +175,8 @@ class _SignUpState extends State<SignUp> {
             if (result == null) {
               setState(() => error = 'please supply a valid email');
             } else {
-              await _db.updateUserData(firstNameVal, lastNameVal, phoneVal, addressVal, userID: result.uid);
+              _db = DatabaseService(uid: result.uid);
+              await _db.updateUserData(firstName: firstNameVal, lastName: lastNameVal, phoneNumber: phoneVal, address: addressVal);
               Navigator.pop(context);
             }
           }
@@ -207,22 +205,22 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-    final body = Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(28.0),
-      //decoration: BoxDecoration(
-       // gradient: LinearGradient(colors: [
-         // Colors.brown[50],
-        //  Colors.brown[50],
-       // ]),
-      //),
-      child: Column(
-        children: <Widget>[ first_name, last_name,
-          address, phoneNumber,
-          password, confirmPassword,
-          createAccount],
-      ),
-    );
+    // final body = Container(
+    //   width: MediaQuery.of(context).size.width,
+    //   padding: EdgeInsets.all(28.0),
+    //   //decoration: BoxDecoration(
+    //    // gradient: LinearGradient(colors: [
+    //      // Colors.brown[50],
+    //     //  Colors.brown[50],
+    //    // ]),
+    //   //),
+    //   child: Column(
+    //     children: <Widget>[ firstName, lastName,
+    //       address, phoneNumber,
+    //       password, confirmPassword,
+    //       createAccount],
+    //   ),
+    // );
 
     return Scaffold(
       body: Form(
@@ -234,9 +232,9 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
               logo,
               SizedBox(height: 48.0),
-              first_name,
+              firstName,
               SizedBox(height: 8.0),
-              last_name,
+              lastName,
               SizedBox(height: 8.0),
               email,
               SizedBox(height: 8.0),

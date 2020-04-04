@@ -14,7 +14,7 @@ class _CameraTestState extends State<CameraTest> {
   
   bool isCameraReady = false;
   bool showCapturedPhoto = false;
-  var ImagePath;
+  var imagePath;
   
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _CameraTestState extends State<CameraTest> {
     });
   }
 
-  @override
+  //@override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _controller != null
@@ -52,7 +52,7 @@ class _CameraTestState extends State<CameraTest> {
         '${DateTime.now()}.png',
         );
       print(path);
-      ImagePath = path;
+      imagePath = path;
       await _controller.takePicture(path); //take photo
 
       setState(() {

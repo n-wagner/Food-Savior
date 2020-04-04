@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
-import 'package:food_savior/models/user.dart';
-import 'package:food_savior/services/database.dart';
-import 'package:provider/provider.dart';
-
 
 class Questions extends StatefulWidget {
   @override

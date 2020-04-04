@@ -1,24 +1,12 @@
-import 'dart:io';
-import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_savior/services/auth.dart';
-import 'package:flutter_tags/flutter_tags.dart';
-import 'package:flutter_tagging/flutter_tagging.dart';
-import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:food_savior/services/image.dart';
-import 'package:food_savior/services/storage.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
-import '../home/home_page.dart';
 
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
@@ -29,20 +17,20 @@ class NewFoodPage extends StatefulWidget {
 }
 
 class _NewFoodPageState extends State<NewFoodPage> {
-  String food_name = '';
-  String time_left = '';
+  String foodName = '';
+  String timeLeft = '';
   String description = '';
   String error = '';
   DateTime dt;
   bool dairy = false;
   bool nuts = false;
   bool pork = false;
-  bool shell_fish = false;
+  bool shellFish = false;
   bool beef = false;
   bool gluten = false;
   bool vegan = false;
   bool vegetarian = false;
-  bool sugar_free = false;
+  bool sugarFree = false;
   //File _image;  // = File('assets/images/noImage.jpg');
 
   // final user = Provider.of<User>(context);
@@ -94,7 +82,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
                   pork = value;
                   break;
                 case "Shellfish":
-                  shell_fish = value;
+                  shellFish = value;
                   break;
                 case "Beef":
                   beef = value;
@@ -109,7 +97,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
                   vegetarian = value;
                   break;
                 case "Sugar Free":
-                  sugar_free = value;
+                  sugarFree = value;
                   break;
               }
             });
@@ -130,26 +118,26 @@ class _NewFoodPageState extends State<NewFoodPage> {
     }
     // _image = loadImage();
 
-    final appBar = AppBar(
-        title: Text(NewFoodPage.title),
-        leading: MaterialButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Colors.lightGreen
-      );
+    // final appBar = AppBar(
+    //     title: Text(NewFoodPage.title),
+    //     leading: MaterialButton(
+    //       onPressed: () {
+    //         Navigator.pop(context);
+    //       },
+    //       child: Icon(
+    //         Icons.arrow_back,
+    //         color: Colors.black,
+    //       ),
+    //     ),
+    //     backgroundColor: Colors.lightGreen
+    //   );
 
-    final food_name_bar = TextFormField(
+    final foodNameBar = TextFormField(
       //Validates input, returns null if valid, helper text if not
       validator: (val) => val.isEmpty ? 'Enter a name for your food' : null,
       //Track the value of email whenever the field is changed (same done for password)
       onChanged: (val) {
-        setState(() =>  food_name = val);
+        setState(() =>  foodName = val);
       },
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -161,73 +149,73 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ),
     );
 
-    final description_field = TextFormField(
-      //Validates input, returns null if valid, helper text if not
-      validator: (val) => val.isEmpty ? 'add a few words to describe your food' : null,
-      //Track the value of email whenever the field is changed (same done for password)
-      onChanged: (val) {
-        setState(() =>  description = val);
-      },
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      initialValue: '',
-      decoration: InputDecoration(
-        hintText: 'ex. Fried tuna salad with watermelon and pickled apples',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 30.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    // final descriptionField = TextFormField(
+    //   //Validates input, returns null if valid, helper text if not
+    //   validator: (val) => val.isEmpty ? 'add a few words to describe your food' : null,
+    //   //Track the value of email whenever the field is changed (same done for password)
+    //   onChanged: (val) {
+    //     setState(() =>  description = val);
+    //   },
+    //   keyboardType: TextInputType.text,
+    //   autofocus: false,
+    //   initialValue: '',
+    //   decoration: InputDecoration(
+    //     hintText: 'ex. Fried tuna salad with watermelon and pickled apples',
+    //     contentPadding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 30.0),
+    //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+    //   ),
+    // );
 
-    final ingredients_warnings = Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              checkbox( "Dairy", dairy),
-              checkbox("Nuts", nuts),
-              checkbox("Sugar-Free", sugar_free)
-            ],
-          ),
-          SizedBox(height: 12.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              checkbox( "Pork", pork),
-              checkbox("Shellfish", shell_fish),
-              checkbox("Beef", beef)
-            ],
-          ),
-          SizedBox(height: 12.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              checkbox( "Vegan", vegan),
-              checkbox("Vegetarian", vegetarian),
-              checkbox("Gluten-Free", gluten)
-            ],
-          ),
-        ],
-      ),
-    );
+    // final ingredientsWarnings = Center(
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: <Widget>[
+    //       Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //           checkbox( "Dairy", dairy),
+    //           checkbox("Nuts", nuts),
+    //           checkbox("Sugar-Free", sugarFree)
+    //         ],
+    //       ),
+    //       SizedBox(height: 12.0),
+    //       Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //           checkbox( "Pork", pork),
+    //           checkbox("Shellfish", shellFish),
+    //           checkbox("Beef", beef)
+    //         ],
+    //       ),
+    //       SizedBox(height: 12.0),
+    //       Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //           checkbox( "Vegan", vegan),
+    //           checkbox("Vegetarian", vegetarian),
+    //           checkbox("Gluten-Free", gluten)
+    //         ],
+    //       ),
+    //     ],
+    //   ),
+    // );
 
-    final timer_bar =  TextFormField(
-      //Validates input, returns null if valid, helper text if not
-      validator: (val) => val.isEmpty ? 'available until...' : null,
-      //Track the value of email whenever the field is changed (same done for password)
-      onChanged: (val) {
-        setState(() =>  time_left = val);
-      },
-      keyboardType: TextInputType.datetime ,
-      autofocus: false,
-      initialValue: '',
-      decoration: InputDecoration(
-        hintText: 'ex: Tuna Sandwich with Pesto Sauce',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    // final timerBar =  TextFormField(
+    //   //Validates input, returns null if valid, helper text if not
+    //   validator: (val) => val.isEmpty ? 'available until...' : null,
+    //   //Track the value of email whenever the field is changed (same done for password)
+    //   onChanged: (val) {
+    //     setState(() =>  timeLeft = val);
+    //   },
+    //   keyboardType: TextInputType.datetime ,
+    //   autofocus: false,
+    //   initialValue: '',
+    //   decoration: InputDecoration(
+    //     hintText: 'ex: Tuna Sandwich with Pesto Sauce',
+    //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+    //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+    //   ),
+    // );
 
 
 
@@ -250,10 +238,10 @@ class _NewFoodPageState extends State<NewFoodPage> {
             String imageUrl = await _img.uploadFoodItemImage();
             //return;
             if (imageUrl != null) {
-              String referenceID = await _db.addFoodItem(name: food_name, dateTime: dt, img: imageUrl);
+              String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl);
               if (referenceID != null) {
                 print('user ${user.uid} with docID $referenceID');
-                await _db.updateFoodItemForUser(referenceID);
+                await _db.updateFoodItemForUser(reference: referenceID);
                 Navigator.pop(context);
               } else {
                 //error - failed to create food iteam
@@ -274,7 +262,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ),
     );
 
-    final image_button = Padding(
+    final imageButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -296,7 +284,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ),
     );
 
-    final cancel_button = Padding(
+    final cancelButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -322,46 +310,46 @@ class _NewFoodPageState extends State<NewFoodPage> {
     );
 
 
-    final errorMessage = Text(
-      error,
-      style: TextStyle(color: Colors.red, fontSize: 14.0),
-    );
+    // final errorMessage = Text(
+    //   error,
+    //   style: TextStyle(color: Colors.red, fontSize: 14.0),
+    // );
 
-    final checkboxes = Center(
-        child: Column(
-          children: <Widget>[
-            appBar,
-            SizedBox(height: 20.0),
-            //SizedBox(height: 48.0),
-            food_name_bar,
-            ingredients_warnings,
-            //SizedBox(height: 24.0),
-            timer_bar,
-            //SizedBox(height: 8.0),
-            createNewFoodButton,
-            //SizedBox(height: 8.0),
-            cancel_button
-          ],
-        ),
-      );
+    // final checkboxes = Center(
+    //     child: Column(
+    //       children: <Widget>[
+    //         appBar,
+    //         SizedBox(height: 20.0),
+    //         //SizedBox(height: 48.0),
+    //         foodNameBar,
+    //         ingredientsWarnings,
+    //         //SizedBox(height: 24.0),
+    //         timerBar,
+    //         //SizedBox(height: 8.0),
+    //         createNewFoodButton,
+    //         //SizedBox(height: 8.0),
+    //         cancelButton
+    //       ],
+    //     ),
+    //   );
 
     final format = DateFormat("yyyy-MM-dd HH:mm");
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
-        title:  Text(NewFoodPage.title),
-          leading: MaterialButton(
-            onPressed: () {
-              Navigator.pop(context,);
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+        title: Text(NewFoodPage.title),
+        leading: MaterialButton(
+          onPressed: () {
+            Navigator.pop(context,);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
-          backgroundColor: Colors.lime,
-          ),
+        ),
+        backgroundColor: Colors.lime,
+      ),
       body: Form(
         key: _formKey,
         child: Center(
@@ -370,11 +358,11 @@ class _NewFoodPageState extends State<NewFoodPage> {
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
               _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
-              image_button,
+              imageButton,
               SizedBox(
                 height: 20,
               ),
-              food_name_bar,
+              foodNameBar,
               //ingredients_warnings,
               SizedBox(
                 height: 20,
@@ -416,7 +404,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
                 height: 20,
               ),
               createNewFoodButton,
-              cancel_button,
+              cancelButton,
             ],
           ),
         ),

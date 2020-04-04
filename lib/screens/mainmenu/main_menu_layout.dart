@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
-import 'package:food_savior/screens/maps/map_page.dart';
 
 //class MenuLayout extends StatelessWidget {
   class MenuLayout extends StatefulWidget {
@@ -30,16 +29,16 @@ class _MenuLayoutState extends State<MenuLayout> {
               ])
               ),
             child: Text('HEADER')),
-          CustomListTile(Icons.person, 'Profile', () 
-          {
+          CustomListTile(Icons.person, 'Profile', () {
             Navigator.pushNamed(context, '/profile-page');
           }),
-          CustomListTile(Icons.room, 'Map', ()=> {
-            Navigator.pushNamed(context, '/map')
+          CustomListTile(Icons.room, 'Map', () {
+            Navigator.pushNamed(context, '/map');
           }),
-          CustomListTile(Icons.history, 'Past Orders', ()=> {}),
-          CustomListTile(Icons.chat, 'Chat', () 
-          {
+          CustomListTile(Icons.history, 'Past Orders', () {
+            Navigator.pushNamed(context, '/past-orders');
+          }),
+          CustomListTile(Icons.chat, 'Chat', () {
             Navigator.pushNamed(context, '/chat');
           }),
           CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
@@ -68,9 +67,9 @@ class _MenuLayoutState extends State<MenuLayout> {
 
 class CustomListTile extends StatelessWidget{
   
-  IconData icon;
-  String text;
-  Function onTap;
+  final IconData icon;
+  final String text;
+  final Function onTap;
 
   CustomListTile(this.icon,this.text,this.onTap);
   @override 

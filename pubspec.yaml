@@ -39,7 +39,7 @@ dependencies:
   path: ^1.6.4
 
 dependency_overrides:  #added 
-  firebase_core: 0.4.4 
+  firebase_core: 0.4.4
 
 dev_dependencies:
   flutter_test:

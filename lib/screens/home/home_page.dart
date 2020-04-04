@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
-import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/givefood/new_food_page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -15,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
@@ -80,6 +77,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
+                  // Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                  //   builder: (BuildContext context) {
+                  //     return SwipePage();
+                  //   }),
+                  // );
                   Navigator.pushNamed(context, '/swipes');
                 },
               ),

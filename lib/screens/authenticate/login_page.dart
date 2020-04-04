@@ -1,11 +1,5 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
-import 'signup.dart';
-import '../home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -128,42 +122,42 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {},
     );
 
-    final errorMessage = Text(
-      error,
-      style: TextStyle(color: Colors.red, fontSize: 14.0),
-    );
+    // final errorMessage = Text(
+    //   error,
+    //   style: TextStyle(color: Colors.red, fontSize: 14.0),
+    // );
 
-    final body = Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      padding: EdgeInsets.all(28.0),
-      decoration: BoxDecoration(
-        //gradient: LinearGradient(colors: [
-          // Colors.brown[50],
-          // Colors.lime[200],
-       // ])
-      ),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            logo,
-            //SizedBox(height: 48.0),
-            email,
-            SizedBox(height: 8.0),
-            password,
-            //SizedBox(height: 24.0),
-            loginButton,
-            //SizedBox(height: 8.0),
-            signupButton,
-            //SizedBox(height: 8.0),
-            forgotLabel,
-            errorMessage
-          ],
-        ),
-      ),
-    );
+    // final body = Container(
+    //   width: MediaQuery
+    //       .of(context)
+    //       .size
+    //       .width,
+    //   padding: EdgeInsets.all(28.0),
+    //   decoration: BoxDecoration(
+    //     //gradient: LinearGradient(colors: [
+    //       // Colors.brown[50],
+    //       // Colors.lime[200],
+    //    // ])
+    //   ),
+    //   child: Center(
+    //     child: Column(
+    //       children: <Widget>[
+    //         logo,
+    //         //SizedBox(height: 48.0),
+    //         email,
+    //         SizedBox(height: 8.0),
+    //         password,
+    //         //SizedBox(height: 24.0),
+    //         loginButton,
+    //         //SizedBox(height: 8.0),
+    //         signupButton,
+    //         //SizedBox(height: 8.0),
+    //         forgotLabel,
+    //         errorMessage
+    //       ],
+    //     ),
+    //   ),
+    // );
 
 
     return Scaffold(

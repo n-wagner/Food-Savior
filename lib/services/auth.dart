@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/services/database.dart';
 
 class AuthService {
   //final implies the value won't change in the future, _auth implies the value is private to the class, FirebaseAuth.instance gets thee singular instance of the Auth to work with
