@@ -1,13 +1,8 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:googleapis/tasks/v1.dart';
-//import 'package:googleapis/fusiontables/v2.dart';
-//import 'package:googleapis/fusiontables/v1.dart';
-//import 'package:googleapis/cloudtasks/v2.dart';
 import 'package:path/path.dart' as p;
 import 'package:uuid/uuid.dart';
-import 'package:food_savior/services/database.dart';
 
 class StorageService {
 

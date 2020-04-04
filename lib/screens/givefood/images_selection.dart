@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:food_savior/services/storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSelect extends StatefulWidget {
@@ -12,7 +11,7 @@ class ImageSelect extends StatefulWidget {
 class _ImageSelectState extends State<ImageSelect> {
   File _image;    
   String _uploadedFileURL;
-  StorageService _stor = StorageService();
+  // StorageService _stor = StorageService();
 
   Future chooseFile() async {    
     await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    

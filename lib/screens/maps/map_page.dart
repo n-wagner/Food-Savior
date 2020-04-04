@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user_location.dart';
-import 'package:food_savior/services/location_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';

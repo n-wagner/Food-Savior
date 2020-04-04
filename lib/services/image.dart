@@ -10,7 +10,7 @@ import 'storage.dart';
 
 class ImageService {
 
-  final String _foodItemImagesFolder = 'food-item-images/';
+  static const String _foodItemImagesFolder = 'food-item-images/';
   File _image;
   final StorageService _stor = StorageService();
 

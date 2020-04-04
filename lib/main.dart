@@ -1,31 +1,21 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/chat/Chatscreen.dart';
 import 'package:food_savior/screens/chat/chat_UI.dart';
 import 'package:food_savior/screens/givefood/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
 import 'package:food_savior/screens/givefood/images_selection.dart';
 
-import 'package:food_savior/screens/getfood/swipes.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
-import 'package:food_savior/screens/mainmenu/profile.dart';
+import 'package:food_savior/screens/mainmenu/pastOrders/past_orders_wrapper.dart';
 import 'package:food_savior/screens/mainmenu/FAQs.dart';
+import 'package:food_savior/screens/mainmenu/profile/profile_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
-import 'package:food_savior/screens/authenticate/login_page.dart';
-import 'package:food_savior/screens/home/home_page.dart';
 import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
-import 'package:camera/camera.dart';
 
-import 'package:food_savior/services/location_service.dart';
-import 'package:food_savior/screens/maps/map_page.dart';
-import 'package:food_savior/models/user_location.dart';
 import 'package:food_savior/screens/maps/map_wrapper.dart';
 
 void main() => runApp(MyApp());
@@ -51,16 +41,17 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Wrapper(),
           '/home': (context) => HomePage(),
-           '/swipes': (context) => SwipesWrapper(),
+          '/swipes': (context) => SwipesWrapper(),
           '/new-food': (context) => NewFoodPage(),
           '/main-menu': (context) => MenuLayout(),
           '/test': (context) => CameraTest(),
           '/sign-up': (context) => SignUp(),
           '/image-select': (context) => ImageSelect(),
-          '/profile-page': (context) => ProfilePage(),
+          '/profile-page': (context) => ProfilePageWrapper(),
           '/chat': (context) => ChatAppHome(),
-           '/questions': (context) => Questions(),
-           '/map': (context) => MapWrapper(),
+          '/questions': (context) => Questions(),
+          '/map': (context) => MapWrapper(),
+          '/past-orders': (context) => PastOrdersWrapper(),
           
         },
       ),

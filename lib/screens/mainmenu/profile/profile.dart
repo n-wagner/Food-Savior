@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/services/database.dart';
+import 'package:food_savior/services/image.dart';
 import 'package:provider/provider.dart';
 
 
@@ -14,8 +13,8 @@ class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
-  DatabaseService _ds; 
-
+  //DatabaseService _ds; 
+  ImageService _is = ImageService();
   @override
   void initState() {
     // TODO: implement initState
@@ -25,9 +24,10 @@ class MapScreenState extends State<ProfilePage>
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<User>(context);
-    _ds = DatabaseService(uid: user.uid);
-     User complete_user = _ds.user;
+    User user = Provider.of<User>(context);
+    print(user);
+    //_ds = DatabaseService(uid: user.uid);
+    //User complete_user = _ds.user;
 
     return new Scaffold(
         appBar: AppBar(
@@ -55,27 +55,28 @@ class MapScreenState extends State<ProfilePage>
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 10.0),
-                        child: new Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                           // new Icon(
-                          // Icons.arrow_back_ios,
-                          //    color: Colors.black,
-                            //  size: 22.0,
-                          // ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 25.0),
-                            //   child: new Text('Back',
-                            //       style: TextStyle(
-                            //           fontWeight: FontWeight.bold,
-                            //           fontSize: 20.0,
-                            //           fontFamily: 'sans-serif-light',
-                            //           color: Colors.black)),
-                            // )
+                      padding: EdgeInsets.only(left: 20.0, top: 10.0),
+                      child: new Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          // new Icon(
+                        // Icons.arrow_back_ios,
+                        //    color: Colors.black,
+                          //  size: 22.0,
+                        // ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(left: 25.0),
+                          //   child: new Text('Back',
+                          //       style: TextStyle(
+                          //           fontWeight: FontWeight.bold,
+                          //           fontSize: 20.0,
+                          //           fontFamily: 'sans-serif-light',
+                          //           color: Colors.black)),
+                          // )
 
-                          ],
-                        )),
+                        ],
+                      )
+                    ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: new Stack(fit: StackFit.loose, children: <Widget>[
@@ -89,28 +90,59 @@ class MapScreenState extends State<ProfilePage>
                                 decoration: new BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
-                                    image: new ExactAssetImage(
-                                        'assets/images/as.png'),
+                                    image: _is.getImageForDisplay().image,
+                                    // new ExactAssetImage(
+                                    //     'assets/images/as.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 )),
                           ],
                         ),
                         Padding(
-                            padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new CircleAvatar(
+                          padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RaisedButton(
+                                shape: CircleBorder(),
+                                onPressed: () { // async {
+                                  // TODO: Camera service
+                                  // _is.getImageFromGallery();
+                                },
+                                child: new CircleAvatar(
                                   backgroundColor: Colors.lightGreen,
                                   radius: 25.0,
                                   child: new Icon(
                                     Icons.camera_alt,
                                     color: Colors.white,
                                   ),
-                                )
-                              ],
-                            )),
+                                ),
+                              )
+                            ],
+                          )
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 90.0, left: 100.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RaisedButton(
+                                shape: CircleBorder(),
+                                onPressed: () async {
+                                  _is.getImageFromGallery();
+                                },
+                                child: new CircleAvatar(
+                                  backgroundColor: Colors.lightGreen,
+                                  radius: 25.0,
+                                  child: new Icon(
+                                    Icons.image,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ),
                       ]),
                     )
                   ],
@@ -180,8 +212,8 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const  InputDecoration(
-                                    hintText: 'First Name'
+                                  decoration: InputDecoration(
+                                    hintText: user == null ? '' : user.firstName ?? '', // 'First Name'
                                     //complete_user.firstName,
 
                                   ),
@@ -220,8 +252,8 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const  InputDecoration(
-                                    hintText: 'Last Name'
+                                  decoration: InputDecoration(
+                                    hintText: user == null ? '' : user.lastName ?? '', // 'Last Name'
                                     //complete_user.firstName,
 
                                   ),
@@ -243,7 +275,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Email Address',
+                                    'Address',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -260,8 +292,9 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Email Adress"),
+                                  decoration: InputDecoration(
+                                      hintText: user == null ? '' : user.address ?? '',
+                                   ), // "Enter Email Adress"),
                                   enabled: !_status,
                                 ),
                               ),
@@ -278,7 +311,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Mobile',
+                                    'Phone Number',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -295,8 +328,9 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Mobile Number"),
+                                  decoration: InputDecoration(
+                                    hintText: user == null ? '' : user.phone ?? '',
+                                  ), // "Enter Mobile Number"),
                                   enabled: !_status,
                                 ),
                               ),

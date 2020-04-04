@@ -10,7 +10,8 @@ class MapWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserLocation>(
-        create: (context) => LocationService().locationStream,
-        child: MaterialApp(title: 'Flutter Demo', home: MapView()));
+      create: (context) => LocationService().locationStream,
+      child: MapView(),
+    );
   }
 }
