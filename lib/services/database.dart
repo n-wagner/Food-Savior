@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:googleapis/datastore/v1.dart';
 
 class DatabaseService {
 
@@ -55,12 +56,13 @@ class DatabaseService {
   //   });
   // }
 
-  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img}) async {
+  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img, @required List<double> location}) async {
     return foodItemCollection.add({
-      'name': name,
-      'time': dateTime,
-      'img': img,
-      'uid': uid,
+      'name':     name,
+      'time':     dateTime,
+      'img':      img,
+      'uid':      uid,
+      'location': location,
     }).then((DocumentReference doc) {
       if (doc != null) {
         print("Document ID ${doc.documentID}");
@@ -94,6 +96,7 @@ class DatabaseService {
           img: item.data['img'] ?? '',
           docID: item.documentID ?? '',
           uid: item['uid'] ?? '',
+
         );
     }).toList();
   }
