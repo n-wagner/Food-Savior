@@ -12,7 +12,7 @@ class FoodItem {
     result += "imageURL: $img";
     result += "Date Time: ${time.toString()}";
     result += "uid: $uid";  
-    result += "Location: ( " + latitudeLongitude[0].toString() + ", " + latitudeLongitude[1].toString() + " )";
+    result += "Location: ( " + (latitudeLongitude == null ? 'null' : latitudeLongitude[0].toString()) + ", " + (latitudeLongitude == null ? 'null' : latitudeLongitude[1].toString()) + " )";
     return result;
   }
 }

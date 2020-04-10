@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           '/chat': (context) => ChatAppHome(),
           '/questions': (context) => Questions(),
          // '/map': (context) => MapWrapper(),
-          
+          '/past-orders': (context) => PastOrdersWrapper(),
           '/location_picker' :(context) => LocationPicker()
           ,          
         },
