@@ -306,7 +306,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          _img.getImage(fromGallery: true);
+          _img.getImage(fromGallery: false);
           
           // _image = _img.getImageFromGallery();
           // await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
@@ -318,7 +318,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen,
-        child: Text('Select a Picture', style: TextStyle(color: Colors.white)),
+        child: Text('Take a Picture', style: TextStyle(color: Colors.white)),
       ),
     );
 
