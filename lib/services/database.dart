@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:googleapis/datastore/v1.dart';
 
 class DatabaseService {
 

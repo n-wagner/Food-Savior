@@ -28,12 +28,9 @@ class _MenuLayoutState extends State<MenuLayout> {
                 Colors.lightGreen,
               ])
               ),
-            child: Text('HEADER')),
+            child: Text('Food Savior')),
           CustomListTile(Icons.person, 'Profile', () {
             Navigator.pushNamed(context, '/profile-page');
-          }),
-          CustomListTile(Icons.room, 'Map', () {
-            Navigator.pushNamed(context, '/map');
           }),
           CustomListTile(Icons.history, 'Past Orders', () {
             Navigator.pushNamed(context, '/past-orders');

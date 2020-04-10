@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nominatim_location_picker/nominatim_location_picker.dart';
-import 'package:flutter_map/flutter_map.dart';
+
 
 
 class LocationPicker extends StatelessWidget {
