@@ -269,7 +269,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          _img.getImageFromGallery();
+          _img.getImage(fromGallery: true);
+          
           // _image = _img.getImageFromGallery();
           // await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
           //   setState(() {    

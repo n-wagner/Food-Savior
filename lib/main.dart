@@ -15,7 +15,8 @@ import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:camera/camera.dart';
 import 'package:food_savior/screens/maps/map_wrapper.dart';
 
 void main() => runApp(MyApp());

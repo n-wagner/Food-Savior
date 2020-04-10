@@ -66,8 +66,8 @@ class ImageService {
     // return result;
   }
 
-  Future<File> getImageFromGallery () async {
-    return await ImagePicker.pickImage(source: ImageSource.gallery).then((File imagePicked) {
+ Future<File> getImage ({bool fromGallery = true}) async {
+    return await ImagePicker.pickImage(source: fromGallery? ImageSource.gallery: ImageSource.camera).then((File imagePicked) {
       if (imagePicked != null) {
         _image = imagePicked;
       } else {
