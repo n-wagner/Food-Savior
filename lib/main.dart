@@ -17,6 +17,7 @@ import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 
 import 'package:food_savior/screens/maps/map_wrapper.dart';
+import 'package:food_savior/services/location_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,8 +52,9 @@ class MyApp extends StatelessWidget {
           '/chat': (context) => ChatAppHome(),
           '/questions': (context) => Questions(),
           '/map': (context) => MapWrapper(),
-          '/past-orders': (context) => PastOrdersWrapper(),
           
+          '/location_picker' :(context) => LocationPicker()
+          ,          
         },
       ),
     );

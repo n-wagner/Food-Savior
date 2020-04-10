@@ -8,6 +8,12 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:flutter/services.dart';
 
+import 'package:food_savior/services/location_service.dart';
+import 'package:nominatim_location_picker/nominatim_location_picker.dart';
+import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
+
+
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
   static const String title = "New Food";
@@ -31,6 +37,10 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegan = false;
   bool vegetarian = false;
   bool sugarFree = false;
+
+  List<double> targetCoordinates;
+  List<Placemark> placemark;
+  var address;
   //File _image;  // = File('assets/images/noImage.jpg');
 
   // final user = Provider.of<User>(context);
@@ -107,12 +117,33 @@ class _NewFoodPageState extends State<NewFoodPage> {
     );
   }
 
+  Widget getLocation() {
+    return MapBoxLocationPicker(
+      popOnSelect: true,
+      apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
+      limit: 10,
+      searchHint: 'Search',
+      awaitingForLocation: "Pick location",
+      onSelected: (place) {
+        setState(() {
+          targetCoordinates = place.geometry.coordinates; 
+          //Navigator.pop(context);
+          return targetCoordinates;
+        });
+      },
+      context: context,
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     if (user != null) {
       _db = DatabaseService(uid: user.uid);
-    } else {
+    } 
+    
+    else {
       print("*********************USER NOT LOGGED IN*********************");
       _db = DatabaseService();
     }
@@ -216,7 +247,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
     //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
     //   ),
     // );
-
+    
 
 
     final createNewFoodButton = Padding(
@@ -235,10 +266,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
             }
           }*/
             //Navigator.pushNamed(context, '/map_page');
+
+
             String imageUrl = await _img.uploadFoodItemImage();
             //return;
             if (imageUrl != null) {
-              String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl);
+              String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl, location: targetCoordinates);
               if (referenceID != null) {
                 print('user ${user.uid} with docID $referenceID');
                 await _db.updateFoodItemForUser(reference: referenceID);
@@ -247,11 +280,15 @@ class _NewFoodPageState extends State<NewFoodPage> {
                 //error - failed to create food iteam
                 print("Failed to create food item - referenceID is null");
               }
-            } else {
+            } 
+            
+            else {
               //error - failed to upload image to storage
               print("Failed to upload image - imageURL is null");
             }
-          } else {
+          } 
+          
+          else {
             //error - invalid form fields
             print("Not all form fields are valid");
           }
@@ -333,6 +370,30 @@ class _NewFoodPageState extends State<NewFoodPage> {
     //     ),
     //   );
 
+
+    final pickLocationButton = Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+          // Runs each validator from the Form Fields, only if all return null is this true
+          //if (_formKey.currentState.validate()) {
+            /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
+            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
+            if (result == null) {
+              setState(() => error = 'please supply a valid email');
+            }
+          }*/
+          return Navigator.push(context, MaterialPageRoute(builder: (context) => getLocation()),);
+        },
+        padding: EdgeInsets.all(8),
+        color: Colors.lightGreen,
+        child: Text('Pick Location', style: TextStyle(color: Colors.white)),
+        ),
+      ); 
+
     final format = DateFormat("yyyy-MM-dd HH:mm");
 
     return Scaffold(
@@ -352,6 +413,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ),
       body: Form(
         key: _formKey,
+
+
         child: Center(
           child: ListView(
             shrinkWrap: true,
@@ -359,14 +422,18 @@ class _NewFoodPageState extends State<NewFoodPage> {
             children: <Widget>[
               _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
               imageButton,
+
               SizedBox(
                 height: 20,
               ),
               foodNameBar,
               //ingredients_warnings,
+
               SizedBox(
                 height: 20,
               ),
+
+
               Text('Basic date & time field (${format.pattern})'),
               DateTimeField(
                 format: format,
@@ -377,6 +444,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
                     return "Please select a valid date/time";
                   }
                 },
+
                 onShowPicker: (context, currentValue) async {
                   final date = await showDatePicker(
                       context: context,
@@ -400,9 +468,13 @@ class _NewFoodPageState extends State<NewFoodPage> {
                   });
                 },
               ),
-              SizedBox(
+
+              Text( targetCoordinates.toString()),
+              pickLocationButton,
+              /*SizedBox(
                 height: 20,
-              ),
+              ),*/
+
               createNewFoodButton,
               cancelButton,
             ],

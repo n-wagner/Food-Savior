@@ -20,15 +20,24 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+#   DATABASE
+
   firebase_auth: 0.15.4 #^
   cloud_firestore: ^0.13.3
+
+#   ...
   provider: ^3.1.0 #^4.0.4
   flutter_tags: ^0.4.7
   flutter_tagging: ^2.2.0+3
   flutter_syntax_view: ^1.0.0
+  
+#   NAVIGATION AND MAPS
+
   flutter_map: ^0.8.2
   location: ^3.0.1
-
+  nominatim_location_picker: 0.1.0+5
+  geolocator: ^5.3.1
+# ...
   datetime_picker_formfield: ^1.0.0
   uuid: 2.0.4
   image_picker: ^0.6.3+4

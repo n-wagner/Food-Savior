@@ -55,12 +55,13 @@ class DatabaseService {
   //   });
   // }
 
-  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img}) async {
+  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img, @required List<double> location}) async {
     return foodItemCollection.add({
-      'name': name,
-      'time': dateTime,
-      'img': img,
-      'uid': uid,
+      'name':     name,
+      'time':     dateTime,
+      'img':      img,
+      'uid':      uid,
+      'location': location,
     }).then((DocumentReference doc) {
       if (doc != null) {
         print("Document ID ${doc.documentID}");
@@ -94,6 +95,7 @@ class DatabaseService {
           img: item.data['img'] ?? '',
           docID: item.documentID ?? '',
           uid: item['uid'] ?? '',
+
         );
     }).toList();
   }
