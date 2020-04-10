@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/services/image.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:camera/camera.dart';
 
+Future<void> _takePicture() async {
+  final imageFile = await ImagePicker.pickImage(
+    source: ImageSource.camera
+    );
+}
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -105,9 +112,9 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               RaisedButton(
                                 shape: CircleBorder(),
-                                onPressed: () { // async {
-                                  // TODO: Camera service
-                                  // _is.getImageFromGallery();
+                                onPressed: () async { 
+                                  _is.getImage(fromGallery: false);
+                                  setState(() {});
                                 },
                                 child: new CircleAvatar(
                                   backgroundColor: Colors.lightGreen,
@@ -129,7 +136,8 @@ class MapScreenState extends State<ProfilePage>
                               RaisedButton(
                                 shape: CircleBorder(),
                                 onPressed: () async {
-                                  _is.getImageFromGallery();
+                                  _is.getImage(fromGallery: true);
+                                  setState(() {});
                                 },
                                 child: new CircleAvatar(
                                   backgroundColor: Colors.lightGreen,
