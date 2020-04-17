@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:food_savior/screens/authenticate/forgot_pass.dart';
 
 import 'package:food_savior/screens/givefood/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
@@ -60,7 +61,8 @@ class MyApp extends StatelessWidget {
           '/questions': (context) => Questions(),
          // '/map': (context) => MapWrapper(),
           '/past-orders': (context) => PastOrdersWrapper(),
-          '/location_picker' :(context) => LocationPicker()
+          '/location_picker' :(context) => LocationPicker(),
+          '/forgot_pass' :(context) => ForgotPass()
           ,          
         },
       ),
