@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/chat/chat_UI.dart';
+
 import 'package:food_savior/screens/givefood/camera_test.dart';
 import 'package:food_savior/screens/home/home_page.dart';
 import 'package:food_savior/screens/givefood/images_selection.dart';
@@ -17,8 +17,14 @@ import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:food_savior/screens/chat/service.dart';
+import 'package:food_savior/screens/chat/messages.dart';
+
 //import 'package:food_savior/screens/maps/map_wrapper.dart';
 import 'package:food_savior/services/location_picker.dart';
+
+
 
 void main() => runApp(MyApp());
 
