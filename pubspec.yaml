@@ -46,6 +46,8 @@ dependencies:
   camera: ^0.5.7+4
   path_provider: ^1.6.5
   path: ^1.6.4
+  url_launcher: ^5.4.2
+  
 
 dependency_overrides:  #added 
   firebase_core: 0.4.4
