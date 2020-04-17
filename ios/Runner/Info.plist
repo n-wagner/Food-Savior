@@ -7,8 +7,8 @@
     <string>Application needs to access your current location</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Application needs to access your current location</string>
-
-
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Can I use the camera please?</string>
 	<key>NSMicrophoneUsageDescription</key>
