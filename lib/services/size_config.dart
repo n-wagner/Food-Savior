@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class SizeConfig {
+class SizeConfigService {
  static MediaQueryData _mediaQueryData;
  static double screenWidth;
  static double screenHeight;
@@ -9,10 +9,10 @@ class SizeConfig {
  
  static double _safeAreaHorizontal;
  static double _safeAreaVertical;
- static double _safeBlockHorizontal;
- static double _safeBlockVertical;
+ static double safeBlockHorizontal;
+ static double safeBlockVertical;
  
- void init(BuildContext context) {
+ static void init(BuildContext context) {
   _mediaQueryData = MediaQuery.of(context);
   screenWidth = _mediaQueryData.size.width;
   screenHeight = _mediaQueryData.size.height;
@@ -21,14 +21,14 @@ class SizeConfig {
   
   _safeAreaHorizontal = _mediaQueryData.padding.left + _mediaQueryData.padding.right;
   _safeAreaVertical = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
-  _safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
-  _safeBlockVertical = (screenHeight - _safeAreaVertical) / 100;
+  safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
+  safeBlockVertical = (screenHeight - _safeAreaVertical) / 100;
  }
 
- double get safeBlockHorizontal {
-   return safeBlockHorizontal;
- }
- double get safeBlockVertical {
-   return safeBlockVertical;
- }
+//  double get safeBlockHorizontal {
+//    return _safeBlockHorizontal;
+//  }
+//  double get safeBlockVertical {
+//    return _safeBlockVertical;
+//  }
 }
