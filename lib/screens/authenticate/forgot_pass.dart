@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPass extends StatefulWidget {
   static String tag = 'login-page';
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _ForgotPassState createState() => new _ForgotPassState ();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPassState extends State<ForgotPass> {
 
   final AuthService _auth = AuthService();
   //Use this key to ID the form and associate with the global form state key
@@ -119,9 +119,7 @@ class _LoginPageState extends State<LoginPage> {
         'Forgot password?',
         style: TextStyle(color: Colors.black54),
       ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/forgot_pass');
-      },
+      onPressed: () {},
     );
 
     // final errorMessage = Text(
@@ -174,7 +172,6 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
               logo,
-              error == null ? Container() : Text(error),
               SizedBox(height: 48.0),
               email,
               SizedBox(height: 8.0),
