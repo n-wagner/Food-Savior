@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/food_item.dart';
+import 'package:food_savior/services/size_config.dart';
 
 class FoodItemCard extends StatelessWidget {
 
@@ -8,11 +9,12 @@ class FoodItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfigService.init(context);
     return Card(
       margin: EdgeInsets.all(30.0),
       child: Container(
-        width: 300.0,
-        height: 500.0,
+        width: SizeConfigService.safeBlockHorizontal * 70, //3 00.0,
+        height: SizeConfigService.safeBlockVertical * 90, // 500.0,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: Image.network(foodItem.img).image, //(foodItem.img),
