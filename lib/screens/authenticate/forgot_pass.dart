@@ -56,71 +56,46 @@ class _ForgotPassState extends State<ForgotPass> {
       initialValue: '',
       obscureText: true,
       decoration: InputDecoration(
-        hintText: 'Password',
+        hintText: 'New Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
-    final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 4.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        color: Colors.lightGreen[700],
-        child: Text(
-          'Log In',
-          style: TextStyle(color: Colors.white),
-        ),
-        onPressed: () async {
-          //dynamic result = await _auth.signInEmailPassword();     // dynamic because it can be a user or null
-          // Runs each validator from the Form Fields, only if all return null is this true
-          if (_formKey.currentState.validate()) {
-            dynamic result = await _auth.signInWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-            if (result == null) {
-              setState(() => error = 'please supply a valid email');
-            }
-          }
-          //Navigator.of(context).pushNamed(HomePage.tag);
-        }
+    final confirmNewPass = TextFormField(
+      validator: (val) => val.length < 6 ? 'Enter a password 6+ characters long' : null,
+      onChanged: (val) {
+        setState(() => passwordVal = val);
+      },
+      keyboardType: TextInputType.visiblePassword,
+      autofocus: false,
+      initialValue: '',
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Confirm New Password',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
-    final signupButton = Padding(
+  
+
+    final changePass = Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {//async {
-          // Runs each validator from the Form Fields, only if all return null is this true
-          //if (_formKey.currentState.validate()) {
-           // dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-           // if (result == null) {
-            //  setState(() => error = 'please supply a valid email');
-           // }
-        //  }
-          //Navigator.of(context).pushNamed(SignUp.tag);
-          Navigator.pushNamed(context, '/sign-up');
+        onPressed: () {
+         // Navigator.pushNamed(context, '/sign-up');
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen[700],
-        child: Text('Sign up', style: TextStyle(color: Colors.white)),
+        child: Text('Change Password', style: TextStyle(color: Colors.white)),
       ),
     );
 
-    final forgotLabel = FlatButton(
-      child: Text(
-        'Forgot password?',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {},
-    );
+  
 
     // final errorMessage = Text(
     //   error,
@@ -176,10 +151,12 @@ class _ForgotPassState extends State<ForgotPass> {
               email,
               SizedBox(height: 8.0),
               password,
+              SizedBox(height: 8.0),
+              confirmNewPass,
               SizedBox(height: 24.0),
-              loginButton,
-              signupButton,
-              forgotLabel
+              changePass,
+              
+              
             ],
           ),
         ),

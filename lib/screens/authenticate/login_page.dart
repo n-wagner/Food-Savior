@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
             dynamic result = await _auth.signInWithEmailAndPassword(emailVal, passwordVal);
             // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
             if (result == null) {
-              setState(() => error = 'please supply a valid email');
+              setState(() => error = 'please supply a valid email or password');
             }
           }
           //Navigator.of(context).pushNamed(HomePage.tag);
