@@ -11,10 +11,12 @@ class SwipesWrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     if (user == null) {
-      return StreamProvider<List<FoodItem>>.value(
-        value: DatabaseService().foodItems,
-        child: SwipePage(),
-      );
+      // TODO: Loading Screen
+      return Text("Loading...");
+      // StreamProvider<List<FoodItem>>.value(
+      //   value: DatabaseService().foodItems,
+      //   child: SwipePage(),
+      // );
     } else {
       return StreamProvider<User>.value(
         value: DatabaseService(uid: user.uid).user,

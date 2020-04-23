@@ -37,11 +37,11 @@ class _PastOrdersState extends State<PastOrders>
       providerFoodItems.removeWhere((FoodItem item) {
         print("User " + user.toString());
         if (item.docID == null) return true;
-        // Keep only matches
-        if (!user.matches.contains(item.docID)) {
-          return true;
-        } else {
+        // Keep only things you've swiped on that are still active
+        if (item.closed == false && item.swipers.containsKey(user.uid)) {  // if (!user.matches.contains(item.docID)) {
           return false;
+        } else {
+          return true;
         }
       });
       foodItems = providerFoodItems;
@@ -64,7 +64,7 @@ class _PastOrdersState extends State<PastOrders>
       body: SafeArea(
         child: Center(
           child: ListView(
-            children: foodItems == null ? [Container()]: foodItems.length == 0 ? [Text("No past orders!")] : foodItems.map((FoodItem foodItem) {
+            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No past orders!")] : foodItems.map((FoodItem foodItem) {
               return FoodItemCard(foodItem: foodItem);
             }).toList(),
           ),

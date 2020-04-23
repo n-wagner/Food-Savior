@@ -28,16 +28,34 @@ class DatabaseService {
     return await userCollection.document(uid).get();
   }
 
-  Future<void> updateFoodItemForUser({@required String reference}) async {
-    return userCollection.document(uid).updateData({
-      'foodItems': FieldValue.arrayUnion([reference]),
-    });//, merge: true);
+  // Future<void> updateFoodItemForUser({@required String reference}) async {
+  //   return userCollection.document(uid).updateData({
+  //     'foodItems': FieldValue.arrayUnion([reference]),
+  //   });//, merge: true);
+  // }
+
+  // Future<void> updateMatchForUser({@required String reference}) async {
+  //   return userCollection.document(uid).updateData({
+  //     'matches': FieldValue.arrayUnion([reference]),
+  //   });//, merge: true);
+  // }
+
+  Future<void> updateSwipesForFoodItem ({@required String foodID, @required Map<String, String> swiper}) async {
+    return foodItemCollection.document(foodID).setData({
+      'swipers': swiper,
+    }, merge: true);
   }
 
-  Future<void> updateMatchForUser({@required String reference}) async {
-    return userCollection.document(uid).updateData({
-      'matches': FieldValue.arrayUnion([reference]),
-    });//, merge: true);
+  Future<void> updateAcceptedForFoodItem ({@required String foodID, @required String accepted}) async {
+    return foodItemCollection.document(foodID).setData({
+      'accepted': accepted,
+    });
+  }
+
+  Future<void> setClosedForFoodItem ({@required String foodID, bool closed = true}) async {
+    return foodItemCollection.document(foodID).setData({
+      'closed': closed,
+    });
   }
 
   // Future<String> addChat (String uid_1, String uid_2) async {
@@ -62,6 +80,9 @@ class DatabaseService {
       'img':      img,
       'uid':      uid,
       'location': location,
+      'swipers':  Map<String, String>(),  //No swipers yet, so an empty map
+      'accepted': null,                   //No one accepted yet so null
+      'closed':   false,                  //Not closed so false
     }).then((DocumentReference doc) {
       if (doc != null) {
         print("Document ID ${doc.documentID}");
@@ -73,6 +94,7 @@ class DatabaseService {
     });
   }
 
+  //TODO: update this to reflect model
   //Food Items list from snapshot
   List<FoodItem> _foodItemListFromSnapshot (QuerySnapshot snapshot) {
     // Timestamp t = Timestamp();
@@ -85,6 +107,10 @@ class DatabaseService {
           img: '',
           docID: '',
           uid: '',
+          latitudeLongitude: [double.nan, double.nan],
+          swipers: Map<String, String>(),
+          accepted: '',
+          closed: true,
         ) : FoodItem(
           name: item.data['name'] ?? '',
           time: DateTime.fromMillisecondsSinceEpoch(
@@ -94,8 +120,11 @@ class DatabaseService {
           ),
           img: item.data['img'] ?? '',
           docID: item.documentID ?? '',
-          uid: item['uid'] ?? '',
-
+          uid: item.data['uid'] ?? '',
+          latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List).cast<double>(),
+          swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map).cast<String, String>(),
+          accepted: item.data['accepted'] ?? '',
+          closed: item.data['closed'] ?? true,
         );
     }).toList();
   }
@@ -161,8 +190,8 @@ class DatabaseService {
       lastName: ds.data['lastName'] ?? '',
       phone: ds.data['phoneNumber'] ?? '',
       address: ds.data['address'] ?? '',
-      foodItems: ds.data['foodItems'] == null ? Set() : (ds.data['foodItems'] as List).cast<String>().toSet(),
-      matches: ds.data['matches'] == null ? Set() : (ds.data['matches'] as List).cast<String>().toSet(),
+      //foodItems: ds.data['foodItems'] == null ? Set() : (ds.data['foodItems'] as List).cast<String>().toSet(),
+      //matches: ds.data['matches'] == null ? Set() : (ds.data['matches'] as List).cast<String>().toSet(),
     );
   }
 

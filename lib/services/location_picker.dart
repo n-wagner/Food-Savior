@@ -25,7 +25,7 @@ class LocationPickerPage extends StatefulWidget {
 }
 
 class _LocationPickerPageState extends State<LocationPickerPage> {
-  var _pickedLocationText;
+  //var _pickedLocationText;
   List<double> targetCoordinates;
 
   Widget getLocation() {

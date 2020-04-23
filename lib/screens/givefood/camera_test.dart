@@ -37,10 +37,8 @@ class _CameraTestState extends State<CameraTest> {
 
   //@override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _controller != null
-          ? _initializeControllerFuture = _controller.initialize()
-          : null; //on pause camera is disposed, so we need to call again "issue is only for android"
+    if (state == AppLifecycleState.resumed && _controller != null) {
+      _initializeControllerFuture = _controller.initialize(); //on pause camera is disposed, so we need to call again "issue is only for android"
     }
   }
 

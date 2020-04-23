@@ -7,7 +7,7 @@ class AuthService {
 
   // Create user obj based on FirebaseUser, private function due to the underscore in the name
   User _userFromFirebaseUser (FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid, firstName: '', lastName: '', phone: '', address: '') : null;
   }
 
   // auth change user stream

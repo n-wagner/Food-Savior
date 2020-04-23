@@ -49,9 +49,14 @@ class _SwipePageState extends State<SwipePage> {
     if (providerFoodItems != null && user != null && foodItems == null) {
       providerFoodItems.removeWhere((FoodItem item) {
         print("User " + user.toString());
-        if (item.docID == null) return true;
-        // If you made the food Item or already swiped right on it, strip it out
-        if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
+        // If the item is improperly stored this is an error
+        if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
+        // If the item is closed or duration is expired or you made the food Item or already swiped right on it, strip it out
+        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
+          // Update items which are expired
+          if (item.time.isBefore(DateTime.now()) && item.closed == false) {
+            _databaseService.setClosedForFoodItem(foodID: item.docID);
+          }
           return true;
         } else {
           return false;
@@ -137,7 +142,7 @@ class _SwipePageState extends State<SwipePage> {
               Expanded(
                 child: Stack(
                   // TODO: Here we need to put a loading screen for when foodItems == null
-                  children: foodItems == null ? [Container()] : foodItems.length == 0 ? [Text("No new Items!")] : foodItems.map((FoodItem foodItem) {
+                  children: foodItems == null ? [Text("Loading!")] : foodItems.length == 0 ? [Text("No new Items!")] : foodItems.map((FoodItem foodItem) {
                     // if (foodItem != null) {
                     return Draggable(
                       onDragCompleted: null,
@@ -147,9 +152,7 @@ class _SwipePageState extends State<SwipePage> {
                       //   });
                       // },
                       child: FoodItemCard(foodItem: foodItem),
-                      childWhenDragging: Container(
-                        
-                      ),
+                      childWhenDragging: Container(),
                       feedback: FoodItemCard(foodItem: foodItem),
                       data: foodItem.docID,
                     );
@@ -169,9 +172,12 @@ class _SwipePageState extends State<SwipePage> {
                   },
                   onWillAccept: (data) => true,
                   onAccept: (String docID) {
-                    print("Accepted: docID $docID");
+                    Map<String, String> swiper = {user.uid: user.phone};
+                    print("Accepted: docID $docID, swiper: ${swiper.toString()}");
                     // FoodItem foundItem;
-                    _databaseService.updateMatchForUser(reference: docID);
+                    //_databaseService.updateMatchForUser(reference: docID);
+                    //Add the swiper to the existing map (swiper uid: swiper phone number)
+                    _databaseService.updateSwipesForFoodItem(foodID: docID, swiper: swiper);
                     setState(() {
                       foodItems.removeWhere((FoodItem item) {
                         if (docID == item.docID) {
