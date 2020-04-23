@@ -1,5 +1,4 @@
 
-import 'package:food_savior/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CallsAndMessagesService {

@@ -11,10 +11,12 @@ class ProfilePageWrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
     
     if (user == null) {
-      return StreamProvider<List<FoodItem>>.value(
-        value: DatabaseService().foodItems,
-        child: ProfilePage(),
-      );
+      // TODO: Loading Screen
+      return Text("Loading...");
+      // StreamProvider<List<FoodItem>>.value(
+      //   value: DatabaseService().foodItems,
+      //   child: ProfilePage(),
+      // );
     } else {
       return StreamProvider<User>.value(
         value: DatabaseService(uid: user.uid).user,

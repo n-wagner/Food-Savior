@@ -8,9 +8,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:flutter/services.dart';
 
-import 'package:food_savior/services/location_service.dart';
 import 'package:nominatim_location_picker/nominatim_location_picker.dart';
-import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
 
 
@@ -38,7 +36,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegetarian = false;
   bool sugarFree = false;
 
-  List<double> targetCoordinates;
+  List<double> targetCoordinates = [0, 0];    //TODO: make this initialized to current location in init function
   List<Placemark> placemark;
   var address;
   //File _image;  // = File('assets/images/noImage.jpg');
@@ -145,7 +143,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
     
     else {
       print("*********************USER NOT LOGGED IN*********************");
-      _db = DatabaseService();
+      //_db = DatabaseService();
     }
     // _image = loadImage();
 
@@ -256,7 +254,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () async {
+        //Disable button if _db is null
+        onPressed: _db == null ? null : () async {
           // Runs each validator from the Form Fields, only if all return null is this true
           if (_formKey.currentState.validate()) {
             /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
@@ -274,7 +273,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
               String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl, location: targetCoordinates);
               if (referenceID != null) {
                 print('user ${user.uid} with docID $referenceID');
-                await _db.updateFoodItemForUser(reference: referenceID);
+                //await _db.updateFoodItemForUser(reference: referenceID);
                 Navigator.pop(context);
               } else {
                 //error - failed to create food iteam

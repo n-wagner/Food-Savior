@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/services/auth.dart';
 
 class ForgotPass extends StatefulWidget {
   static String tag = 'login-page';
@@ -9,7 +8,7 @@ class ForgotPass extends StatefulWidget {
 
 class _ForgotPassState extends State<ForgotPass> {
 
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
   //Use this key to ID the form and associate with the global form state key
   final _formKey = GlobalKey<FormState>();
 

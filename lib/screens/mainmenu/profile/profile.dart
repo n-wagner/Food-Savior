@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/services/image.dart';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:camera/camera.dart';
 
-Future<void> _takePicture() async {
-  final imageFile = await ImagePicker.pickImage(
-    source: ImageSource.camera
-    );
-}
+// Future<void> _takePicture() async {
+//   final imageFile = await ImagePicker.pickImage(
+//     source: ImageSource.camera
+//     );
+// }
 
 class ProfilePage extends StatefulWidget {
   @override

@@ -1,18 +1,35 @@
+import 'package:flutter/foundation.dart';
+
 class FoodItem {
   String name, img, docID, uid;
   DateTime time;
   List<double> latitudeLongitude;
+  Map<String, String> swipers;
+  String accepted;
+  bool closed;
 
-  FoodItem({ this.name, this.time, this.img, this.docID, this.uid,
-             this.latitudeLongitude });
+  FoodItem({ 
+    @required this.name, 
+    @required this.time, 
+    @required this.img, 
+    @required this.docID, 
+    @required this.uid, 
+    @required this.latitudeLongitude, 
+    @required this.swipers, 
+    @required this.accepted, 
+    @required this.closed
+  });
 
   @override
   String toString () {
-    String result = "name: $name, docID: $docID";
-    result += "imageURL: $img";
-    result += "Date Time: ${time.toString()}";
-    result += "uid: $uid";  
-    result += "Location: ( " + (latitudeLongitude == null ? 'null' : latitudeLongitude[0].toString()) + ", " + (latitudeLongitude == null ? 'null' : latitudeLongitude[1].toString()) + " )";
+    String result = "FoodItem: name: $name, docID: $docID\n";
+    result += "\timageURL: $img\n";
+    result += "\tDate Time: ${time.toString()}\n";
+    result += "\tuid: $uid\n";  
+    result += "\tLocation: ( " + (latitudeLongitude == null ? 'null' : latitudeLongitude[0].toString()) + ", " + (latitudeLongitude == null ? 'null' : latitudeLongitude[1].toString()) + " )";
+    result += "\tSwipers: ${swipers.toString()}\n";
+    result += "\tAccepted: $accepted\n";
+    result += "\tClosed: $closed\n";
     return result;
   }
 }
