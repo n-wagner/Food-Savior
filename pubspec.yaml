@@ -49,6 +49,10 @@ dependencies:
   path: ^1.6.4
   url_launcher: ^5.4.2
   
+  flutter_polyline_points: ^0.1.0 
+  google_maps_flutter: ^0.5.26+2
+
+  flutter_cache_manager: ^1.2.2
 
 dependency_overrides:  #added 
   firebase_core: 0.4.4
