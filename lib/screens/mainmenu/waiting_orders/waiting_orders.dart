@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
+import 'package:food_savior/screens/chat/service.dart';
 import 'package:food_savior/screens/getfood/food_item_card.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/navigation/navigate.dart';
@@ -74,8 +75,10 @@ class _WaitingOrdersState extends State<WaitingOrders>
                       RaisedButton(
                         onPressed: () {
                           //TODO: Juliana: Chat functionality
-                          Navigator.pushNamed(context, '/chat');
+                          final CallsAndMessagesService _callsandmessagesservice = CallsAndMessagesService();
+                          //Navigator.pushNamed(context, '/chat');
                           String phoneNumber = foodItem.uid[1];
+                          _callsandmessagesservice.sendSms(phoneNumber);
                         },
                         child: Text("Chat"),
                       ),

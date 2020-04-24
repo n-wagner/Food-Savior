@@ -41,6 +41,9 @@ class _WaitingPickupState extends State<WaitingPickup>
     );
     if (result != null) {
       _db.updateAcceptedForFoodItem(foodID: foodID, accepted: result);
+      setState((){
+        foodItems = null;
+      });
     }
   }
 
@@ -99,6 +102,9 @@ class _WaitingPickupState extends State<WaitingPickup>
                       RaisedButton(
                         onPressed: foodItem.accepted == null || foodItem.accepted == '' ? null : () {
                           _db.setClosedForFoodItem(foodID: foodItem.docID);
+                          setState((){
+                            foodItems.remove(foodItem);
+                          });
                         },
                         child: Text("Close Order"),
                       )
