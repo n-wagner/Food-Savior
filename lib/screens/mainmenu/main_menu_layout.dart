@@ -32,8 +32,8 @@ class _MenuLayoutState extends State<MenuLayout> {
           CustomListTile(Icons.person, 'Profile', () {
             Navigator.pushNamed(context, '/profile-page');
           }),
-          CustomListTile(Icons.history, 'Past Orders', () {
-            Navigator.pushNamed(context, '/past-orders');
+          CustomListTile(Icons.history, 'Orders waiting', () {
+            Navigator.pushNamed(context, '/orders-waiting');
           }),
           CustomListTile(Icons.chat, 'Chat', () {
             Navigator.pushNamed(context, '/chat');
