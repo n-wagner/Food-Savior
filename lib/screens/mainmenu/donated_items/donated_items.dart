@@ -38,7 +38,7 @@ class _DonatedOrdersState extends State<DonatedOrders>
         print("User " + user.toString());
         if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
         // Keep only things you've swiped on that are still active
-        if (item.closed == true && item.uid == user.uid) {  // if (!user.matches.contains(item.docID)) {
+        if (item.closed == true && item.uid[0] == user.uid) {  // if (!user.matches.contains(item.docID)) {
           print(item);
           return false;
         } else {

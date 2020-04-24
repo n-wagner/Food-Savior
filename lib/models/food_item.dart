@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 class FoodItem {
-  String name, img, docID, uid;
+  String name, img, docID;
+  List<String> uid;
   DateTime time;
   List<double> latitudeLongitude;
   Map<String, String> swipers;
@@ -25,7 +26,7 @@ class FoodItem {
     String result = "FoodItem: name: $name, docID: $docID\n";
     result += "\timageURL: $img\n";
     result += "\tDate Time: ${time.toString()}\n";
-    result += "\tuid: $uid\n";  
+    result += "\tuid: ${uid.toString()}\n";  
     result += "\tLocation: ( " + (latitudeLongitude == null ? 'null' : latitudeLongitude[0].toString()) + ", " + (latitudeLongitude == null ? 'null' : latitudeLongitude[1].toString()) + " )";
     result += "\tSwipers: ${swipers.toString()}\n";
     result += "\tAccepted: $accepted\n";

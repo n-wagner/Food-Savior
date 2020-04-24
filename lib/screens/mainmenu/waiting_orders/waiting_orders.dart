@@ -65,7 +65,29 @@ class _WaitingOrdersState extends State<WaitingOrders>
         child: Center(
           child: ListView(
             children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No orders waiting!")] : foodItems.map((FoodItem foodItem) {
-              return FoodItemCard(foodItem: foodItem);
+              return Column(
+                children: <Widget>[
+                  FoodItemCard(foodItem: foodItem),
+                  Row(
+                    children: <Widget>[
+                      RaisedButton(
+                        onPressed: () {
+                          //TODO: Juliana: Chat functionality
+                          String phoneNumber = foodItem.uid[1];
+                        },
+                        child: Text("Chat"),
+                      ),
+                      RaisedButton(
+                        onPressed: foodItem.accepted != user.uid ? null : () {
+                          //TODO: Morina: Here is where you call your map
+                          List<double> latitudeLongitudeList = foodItem.latitudeLongitude;
+                        },
+                        child: Text("Take me there!"),
+                      )
+                    ],
+                  ),
+                ]
+              );
             }).toList(),
           ),
         ),

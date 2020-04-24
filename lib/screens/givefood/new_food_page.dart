@@ -276,7 +276,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
             String imageUrl = await _img.uploadFoodItemImage();
             //return;
             if (imageUrl != null) {
-              String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl, location: targetCoordinates);
+              String referenceID = await _db.addFoodItem(name: foodName, dateTime: dt, img: imageUrl, phoneNumber: user.phone, location: targetCoordinates);
               if (referenceID != null) {
                 print('user ${user.uid} with docID $referenceID');
                 //await _db.updateFoodItemForUser(reference: referenceID);

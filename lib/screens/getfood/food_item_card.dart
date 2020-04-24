@@ -30,7 +30,7 @@ class FoodItemCard extends StatelessWidget {
             SizedBox(height: 10.0),
             Text(foodItem.docID),
             SizedBox(height: 10.0),
-            Text(foodItem.uid),
+            Text(foodItem.uid.toString()),
           ],
         ),
       ),
