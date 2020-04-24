@@ -8,7 +8,7 @@ import 'package:food_savior/screens/givefood/images_selection.dart';
 
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
-import 'package:food_savior/screens/mainmenu/pastOrders/past_orders_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/waiting_orders/waiting_orders_wrapper.dart';
 import 'package:food_savior/screens/mainmenu/FAQs.dart';
 import 'package:food_savior/screens/mainmenu/profile/profile_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
@@ -17,7 +17,10 @@ import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/chat/messages.dart';
-
+import 'package:food_savior/screens/mainmenu/donated_items/donated_items_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/donated_items/donated_items.dart';
+import 'package:food_savior/screens/mainmenu/food_recieved/food_recieved_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/food_recieved/food_recieved.dart';
 
 //import 'package:food_savior/screens/maps/map_wrapper.dart';
 import 'package:food_savior/services/location_picker.dart';
@@ -57,7 +60,7 @@ class MyApp extends StatelessWidget {
           '/chat': (context) => ChatAppHome(),
           '/questions': (context) => Questions(),
          // '/map': (context) => MapWrapper(),
-          '/past-orders': (context) => PastOrdersWrapper(),
+          '/orders-waiting': (context) => WaitingOrdersWrapper(),
           '/location_picker' :(context) => LocationPicker(),
           '/forgot_pass' :(context) => ForgotPass()
           ,          

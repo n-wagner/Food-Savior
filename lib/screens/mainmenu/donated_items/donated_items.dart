@@ -4,13 +4,13 @@ import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/getfood/food_item_card.dart';
 import 'package:provider/provider.dart';
 
-class PastOrders extends StatefulWidget {
+class DonatedOrders extends StatefulWidget {
   @override
-  _PastOrdersState createState() => _PastOrdersState();
-  static const String title = "Past Orders";
+  _DonatedOrdersState createState() => _DonatedOrdersState();
+  static const String title = "Donated Orders";
 }
 
-class _PastOrdersState extends State<PastOrders>
+class _DonatedOrdersState extends State<DonatedOrders>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
@@ -49,7 +49,7 @@ class _PastOrdersState extends State<PastOrders>
 
     return Scaffold(
       appBar: AppBar( 
-        title: Text(PastOrders.title),
+        title: Text(DonatedOrders.title),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context);
@@ -59,12 +59,12 @@ class _PastOrdersState extends State<PastOrders>
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.lightGreen,
       ),
       body: SafeArea(
         child: Center(
           child: ListView(
-            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No past orders!")] : foodItems.map((FoodItem foodItem) {
+            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No Donated orders!")] : foodItems.map((FoodItem foodItem) {
               return FoodItemCard(foodItem: foodItem);
             }).toList(),
           ),
