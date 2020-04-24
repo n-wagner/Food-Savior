@@ -39,6 +39,9 @@ class MapRoutingState extends State<MapRouting> {
 
       print(currentLocation.latitude);
       print(currentLocation.longitude);
+      if (!mounted) {
+        return;
+      }
       setState(() {
 
         latLng =  LatLng(currentLocation.latitude, currentLocation.longitude);
@@ -52,6 +55,9 @@ class MapRoutingState extends State<MapRouting> {
   }
 
   void _onAddMarkerButtonPressed() {
+    if (!mounted) {
+      return;
+    }
      setState(() {
       _markers.add(Marker(
          markerId: MarkerId("111"),
