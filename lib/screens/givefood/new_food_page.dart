@@ -133,6 +133,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
     );
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // TODO: Marina: Initialize location to current location
+  }
 
   @override
   Widget build(BuildContext context) {

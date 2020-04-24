@@ -17,12 +17,6 @@ import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/chat/messages.dart';
-import 'package:food_savior/screens/mainmenu/donated_items/donated_items_wrapper.dart';
-import 'package:food_savior/screens/mainmenu/donated_items/donated_items.dart';
-import 'package:food_savior/screens/mainmenu/food_recieved/food_recieved_wrapper.dart';
-import 'package:food_savior/screens/mainmenu/food_recieved/food_recieved.dart';
-
-//import 'package:food_savior/screens/maps/map_wrapper.dart';
 import 'package:food_savior/services/location_picker.dart';
 
 
