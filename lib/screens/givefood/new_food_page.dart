@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:food_savior/services/image.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import 'package:intl/intl.dart';
@@ -35,7 +36,10 @@ class _NewFoodPageState extends State<NewFoodPage> {
   bool vegan = false;
   bool vegetarian = false;
   bool sugarFree = false;
+  LocationData currentLocation;
 
+
+  bool loading = true;
   List<double> targetCoordinates = [0, 0];    //TODO: make this initialized to current location in init function
   List<Placemark> placemark;
   var address;
@@ -73,7 +77,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(title),
+        Text(
+          title, 
+          style: TextStyle(
+            color: Colors.white, 
+            )
+          ),
         Checkbox(
           value: boolValue,
           onChanged: (bool value) {
@@ -114,8 +123,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
       ],
     );
   }
-
-  Widget getLocation() {
+ 
+  Widget pickLocation() {
     return MapBoxLocationPicker(
       popOnSelect: true,
       apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
@@ -135,11 +144,29 @@ class _NewFoodPageState extends State<NewFoodPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    getLocation();
+    loading = true;
     super.initState();
-    // TODO: Marina: Initialize location to current location
   }
 
+  getLocation() async{
+    var location = new Location();
+    location.onLocationChanged.listen(
+      (currentLocation) {
+
+        print(currentLocation.latitude);
+        print(currentLocation.longitude);
+        setState(() {
+
+        targetCoordinates =  [currentLocation.latitude, currentLocation.longitude];
+        });
+
+        print("getLocation:$targetCoordinates");
+        build(context);
+        loading = false;
+      }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -151,21 +178,6 @@ class _NewFoodPageState extends State<NewFoodPage> {
       print("*********************USER NOT LOGGED IN*********************");
       //_db = DatabaseService();
     }
-    // _image = loadImage();
-
-    // final appBar = AppBar(
-    //     title: Text(NewFoodPage.title),
-    //     leading: MaterialButton(
-    //       onPressed: () {
-    //         Navigator.pop(context);
-    //       },
-    //       child: Icon(
-    //         Icons.arrow_back,
-    //         color: Colors.black,
-    //       ),
-    //     ),
-    //     backgroundColor: Colors.lightGreen
-    //   );
 
     final foodNameBar = TextFormField(
       //Validates input, returns null if valid, helper text if not
@@ -264,15 +276,6 @@ class _NewFoodPageState extends State<NewFoodPage> {
         onPressed: _db == null ? null : () async {
           // Runs each validator from the Form Fields, only if all return null is this true
           if (_formKey.currentState.validate()) {
-            /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-            if (result == null) {
-              setState(() => error = 'please supply a valid email');
-            }
-          }*/
-            //Navigator.pushNamed(context, '/map_page');
-
-
             String imageUrl = await _img.uploadFoodItemImage();
             //return;
             if (imageUrl != null) {
@@ -313,13 +316,6 @@ class _NewFoodPageState extends State<NewFoodPage> {
         onPressed: () async {
           _img.getImage(fromGallery: false);
           
-          // _image = _img.getImageFromGallery();
-          // await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
-          //   setState(() {    
-          //     _image = image;    
-          //   });    
-          // }); 
-          //Navigator.pushNamed(context, '/image-select');
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen,
@@ -334,17 +330,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
-          // Runs each validator from the Form Fields, only if all return null is this true
-          //if (_formKey.currentState.validate()) {
-            /*dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-            if (result == null) {
-              setState(() => error = 'please supply a valid email');
-            }
-          }*/
           Navigator.pop(context);
-          //Navigator.pushNamed(context, '/home'); 
-          //}
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen,
@@ -392,7 +378,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-          return Navigator.push(context, MaterialPageRoute(builder: (context) => getLocation()),);
+          return Navigator.push(context, MaterialPageRoute(builder: (context) => pickLocation()),);
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen,
@@ -405,7 +391,13 @@ class _NewFoodPageState extends State<NewFoodPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
-        title: Text(NewFoodPage.title),
+        title: Text(
+          NewFoodPage.title,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white, 
+            )
+          ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context,);
@@ -415,12 +407,27 @@ class _NewFoodPageState extends State<NewFoodPage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.lime,
+        backgroundColor: Colors.lightGreen,
       ),
-      body: Form(
+
+      body: 
+      
+      loading 
+      ? 
+      Container(color: Colors.white,
+                child: Center( 
+                  child: 
+                      Text(
+                        'Loading page...', 
+                        style: TextStyle(
+                        color: Colors.blueGrey, 
+                        fontSize: 26)
+                      )
+                    )
+      )
+          :
+      Form(
         key: _formKey,
-
-
         child: Center(
           child: ListView(
             shrinkWrap: true,
@@ -428,19 +435,18 @@ class _NewFoodPageState extends State<NewFoodPage> {
             children: <Widget>[
               _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
               imageButton,
-
               SizedBox(
                 height: 20,
               ),
               foodNameBar,
               //ingredients_warnings,
-
               SizedBox(
                 height: 20,
               ),
-
-
-              Text('Basic date & time field (${format.pattern})'),
+              Text(
+                'Available Until:',
+                style: TextStyle(fontSize: 15)
+                ),
               DateTimeField(
                 format: format,
                 validator: (val) {
@@ -450,7 +456,6 @@ class _NewFoodPageState extends State<NewFoodPage> {
                     return "Please select a valid date/time";
                   }
                 },
-
                 onShowPicker: (context, currentValue) async {
                   final date = await showDatePicker(
                       context: context,
@@ -474,9 +479,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
                   });
                 },
               ),
-
-              Text( targetCoordinates.toString()),
+              Text('${format.pattern}',
+                style: TextStyle(fontSize: 15)
+                ),
+              
               pickLocationButton,
+              //Text( targetCoordinates.toString()),
               /*SizedBox(
                 height: 20,
               ),*/

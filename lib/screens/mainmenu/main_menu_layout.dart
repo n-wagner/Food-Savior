@@ -28,7 +28,17 @@ class _MenuLayoutState extends State<MenuLayout> {
                 Colors.lightGreen,
               ])
               ),
-            child: Text('Food Savior')),
+            child: Center(
+              child:Text(
+                'Food Savior',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  ),
+              ),
+            ),
+          ),
           CustomListTile(Icons.person, 'Profile', () {
             Navigator.pushNamed(context, '/profile-page');
           }),
