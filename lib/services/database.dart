@@ -47,13 +47,13 @@ class DatabaseService {
   }
 
   Future<void> updateAcceptedForFoodItem ({@required String foodID, @required String accepted}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'accepted': accepted,
     });
   }
 
   Future<void> setClosedForFoodItem ({@required String foodID, bool closed = true}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'closed': closed,
     });
   }
