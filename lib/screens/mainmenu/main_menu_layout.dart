@@ -58,9 +58,9 @@ class _MenuLayoutState extends State<MenuLayout> {
           // '/items-received': (context) => FoodRecievedWrapper(),
           // '/orders-waiting': (context) => WaitingOrdersWrapper(),
           // '/pickup-waiting': (context) => WaitingPickupWrapper(),
-          CustomListTile(Icons.chat, 'Chat', () {
-            Navigator.pushNamed(context, '/chat');
-          }),
+          //CustomListTile(Icons.chat, 'Chat', () {
+           // Navigator.pushNamed(context, '/chat');
+          //}),
           CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
           CustomListTile(Icons.feedback, 'FAQ', () 
           {

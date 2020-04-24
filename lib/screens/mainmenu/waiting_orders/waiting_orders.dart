@@ -73,6 +73,7 @@ class _WaitingOrdersState extends State<WaitingOrders>
                       RaisedButton(
                         onPressed: () {
                           //TODO: Juliana: Chat functionality
+                          Navigator.pushNamed(context, '/chat');
                           String phoneNumber = foodItem.uid[1];
                         },
                         child: Text("Chat"),
