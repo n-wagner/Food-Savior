@@ -32,9 +32,22 @@ class _MenuLayoutState extends State<MenuLayout> {
           CustomListTile(Icons.person, 'Profile', () {
             Navigator.pushNamed(context, '/profile-page');
           }),
-          CustomListTile(Icons.history, 'Orders waiting', () {
+          CustomListTile(Icons.history, 'Items Donated', () {
+            Navigator.pushNamed(context, '/items-donated');
+          }),
+          CustomListTile(Icons.history, 'Items Received', () {
+            Navigator.pushNamed(context, '/items-received');
+          }),
+          CustomListTile(Icons.history, 'Orders Waiting', () {
             Navigator.pushNamed(context, '/orders-waiting');
           }),
+          CustomListTile(Icons.history, 'Pickup Waiting', () {
+            Navigator.pushNamed(context, '/pickup-waiting');
+          }),
+          // '/items-donated': (context) => DonatedOrdersWrapper(),
+          // '/items-received': (context) => FoodRecievedWrapper(),
+          // '/orders-waiting': (context) => WaitingOrdersWrapper(),
+          // '/pickup-waiting': (context) => WaitingPickupWrapper(),
           CustomListTile(Icons.chat, 'Chat', () {
             Navigator.pushNamed(context, '/chat');
           }),

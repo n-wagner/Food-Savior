@@ -19,7 +19,7 @@ class User {
   }); //, this.foodItems, this.matches });
 
   String toString () {
-    String result = "uid: $uid, firstName: $firstName, lastName: $lastName, phone: $phone, address: $address\n";
+    String result = "User:\n\tuid: $uid, firstName: $firstName, lastName: $lastName, phone: $phone, address: $address\n";
     //result += "  foodItems: " + foodItems.toString() + "\n  matches: " + matches.toString();
     return result;
   }

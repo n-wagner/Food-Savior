@@ -120,9 +120,9 @@ class DatabaseService {
           ),
           img: item.data['img'] ?? '',
           docID: item.documentID ?? '',
-          uid: item.data['uid'] == null ? <String>['', ''] : (item.data['uid'] as List).cast<String>(),
-          latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List).cast<double>(),
-          swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map).cast<String, String>(),
+          uid: item.data['uid'] == null ? <String>['', ''] : (item.data['uid'] as List<dynamic>).cast<String>(),
+          latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List<dynamic>).cast<double>(),
+          swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map<dynamic, dynamic>).cast<String, String>(),
           accepted: item.data['accepted'] ?? '',
           closed: item.data['closed'] ?? false,     //TODO: Make this true, don't show items that aren't properly formatted
         );
