@@ -8,7 +8,7 @@ import 'package:food_savior/screens/givefood/images_selection.dart';
 
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
 import 'package:food_savior/screens/getfood/swipes_wrapper.dart';
-import 'package:food_savior/screens/mainmenu/waiting_orders/waiting_orders_wrapper.dart';
+
 import 'package:food_savior/screens/mainmenu/FAQs.dart';
 import 'package:food_savior/screens/mainmenu/profile/profile_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
@@ -19,6 +19,10 @@ import 'package:provider/provider.dart';
 import 'package:food_savior/screens/chat/messages.dart';
 import 'package:food_savior/services/location_picker.dart';
 
+import 'package:food_savior/screens/mainmenu/waiting_pickup/waiting_pickup_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/food_recieved/food_recieved_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/waiting_orders/waiting_orders_wrapper.dart';
+import 'package:food_savior/screens/mainmenu/donated_items/donated_items_wrapper.dart';
 
 
 void main() => runApp(MyApp());
