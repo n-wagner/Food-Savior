@@ -39,7 +39,9 @@ class _WaitingPickupState extends State<WaitingPickup>
       context,
       MaterialPageRoute(builder: (context) => AcceptanceChoice(swipers: swipers)),
     );
-    _db.updateAcceptedForFoodItem(foodID: foodID, accepted: result);
+    if (result != null) {
+      _db.updateAcceptedForFoodItem(foodID: foodID, accepted: result);
+    }
   }
 
   @override
