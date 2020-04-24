@@ -13,7 +13,7 @@ import 'package:food_savior/screens/mainmenu/FAQs.dart';
 import 'package:food_savior/screens/mainmenu/profile/profile_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
-import 'package:food_savior/screens/givefood/new_food_page.dart';
+import 'package:food_savior/screens/givefood/new_food_page_wrapper.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/chat/messages.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => Wrapper(),
           '/home': (context) => HomePage(),
           '/swipes': (context) => SwipesWrapper(),
-          '/new-food': (context) => NewFoodPage(),
+          '/new-food': (context) => NewFoodPageWrapper(),
           '/main-menu': (context) => MenuLayout(),
           '/test': (context) => CameraTest(),
           '/sign-up': (context) => SignUp(),

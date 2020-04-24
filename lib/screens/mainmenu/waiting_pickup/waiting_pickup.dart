@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/getfood/food_item_card.dart';
+import 'package:food_savior/screens/mainmenu/waiting_pickup/acceptance_choice.dart';
+import 'package:food_savior/services/database.dart';
 import 'package:provider/provider.dart';
 
 class WaitingPickup extends StatefulWidget {
@@ -16,6 +18,7 @@ class _WaitingPickupState extends State<WaitingPickup>
 
   User user;
   List<FoodItem> foodItems;
+  DatabaseService _db;
 
   @override
   void initState() {
@@ -29,10 +32,23 @@ class _WaitingPickupState extends State<WaitingPickup>
     _controller.dispose();
   }
 
+  Future<void> _navigateAndDisplaySelection(BuildContext context, String foodID, Map<String, String> swipers) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    String result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AcceptanceChoice(swipers: swipers)),
+    );
+    _db.updateAcceptedForFoodItem(foodID: foodID, accepted: result);
+  }
+
   @override
   Widget build(BuildContext context) {
     List<FoodItem> providerFoodItems = Provider.of<List<FoodItem>>(context);
     user = Provider.of<User>(context);
+    if (user != null) {
+      _db = DatabaseService(uid: user.uid);
+    }
     if (providerFoodItems != null && user != null && foodItems == null) {
       providerFoodItems.removeWhere((FoodItem item) {
         print("User " + user.toString());
@@ -73,13 +89,14 @@ class _WaitingPickupState extends State<WaitingPickup>
                       RaisedButton(
                         onPressed: () {
                           //TODO: Take me to a page where I can do drop downs with the phone numbers of the people
-                          List<String> swipers = foodItem.swipers.values.toList();
+                          Map<String, String> swipers = foodItem.swipers;
+                          _navigateAndDisplaySelection(context, foodItem.docID, swipers);
                         },
                         child: Text("Accept"),
                       ),
                       RaisedButton(
                         onPressed: foodItem.accepted == null || foodItem.accepted == '' ? null : () {
-                          //_db.setClosedForFoodItem(foodID: foodItem.docID)
+                          _db.setClosedForFoodItem(foodID: foodItem.docID);
                         },
                         child: Text("Close Order"),
                       )
