@@ -12,9 +12,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     
     <application
+        
         android:name="io.flutter.app.FlutterApplication"
         android:label="food_savior"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyC3vuwIY5x1YW6omcrPAuM5DfNUx-unTk8"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
