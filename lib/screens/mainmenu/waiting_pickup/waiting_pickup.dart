@@ -38,7 +38,7 @@ class _WaitingPickupState extends State<WaitingPickup>
         print("User " + user.toString());
         if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
         // Keep only things you've swiped on that are still active
-        if (item.closed == false && item.swipers.containsKey(user.uid)) {  // if (!user.matches.contains(item.docID)) {
+        if (item.closed == false && item.uid[0] == user.uid) {  // if (!user.matches.contains(item.docID)) {
           return false;
         } else {
           return true;
@@ -65,7 +65,28 @@ class _WaitingPickupState extends State<WaitingPickup>
         child: Center(
           child: ListView(
             children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No orders waiting to be picked up!")] : foodItems.map((FoodItem foodItem) {
-              return FoodItemCard(foodItem: foodItem);
+              return Column(
+                children: <Widget>[
+                  FoodItemCard(foodItem: foodItem),
+                  Row(
+                    children: <Widget>[
+                      RaisedButton(
+                        onPressed: () {
+                          //TODO: Take me to a page where I can do drop downs with the phone numbers of the people
+                          List<String> swipers = foodItem.swipers.values.toList();
+                        },
+                        child: Text("Accept"),
+                      ),
+                      RaisedButton(
+                        onPressed: foodItem.accepted == null || foodItem.accepted == '' ? null : () {
+                          //_db.setClosedForFoodItem(foodID: foodItem.docID)
+                        },
+                        child: Text("Close Order"),
+                      )
+                    ],
+                  ),
+                ]
+              );
             }).toList(),
           ),
         ),
