@@ -52,7 +52,7 @@ class _SwipePageState extends State<SwipePage> {
         // If the item is improperly stored this is an error
         if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
         // If the item is closed or duration is expired or you made the food Item or already swiped right on it, strip it out
-        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
+        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid[0] == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
           // Update items which are expired
           if (item.time.isBefore(DateTime.now()) && item.closed == false) {
             _databaseService.setClosedForFoodItem(foodID: item.docID);
