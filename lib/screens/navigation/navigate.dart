@@ -136,11 +136,28 @@ class MapRoutingState extends State<MapRouting> {
   Widget build(BuildContext context) {
     print("getLocation111:$latLng");
     return new Scaffold(
-
+      appBar: AppBar( 
+        title: Text(
+          'Get Food',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white, 
+            )
+          ),
+      ),
       body:
       loading
           ?
-      Container(color: Colors.red,)
+      Container(color: Colors.white,
+                child: Center(
+                  child: Text(
+                    'Loading page...', 
+                    style: TextStyle(
+                    color: Colors.blueGrey, 
+                    fontSize: 26)
+                  )
+                )
+              )
           :
       GoogleMap(
         polylines: polyLines,
