@@ -47,13 +47,13 @@ class DatabaseService {
   }
 
   Future<void> updateAcceptedForFoodItem ({@required String foodID, @required String accepted}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'accepted': accepted,
     });
   }
 
   Future<void> setClosedForFoodItem ({@required String foodID, bool closed = true}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'closed': closed,
     });
   }
@@ -73,12 +73,12 @@ class DatabaseService {
   //   });
   // }
 
-  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img, @required List<double> location}) async {
+  Future<String> addFoodItem({@required String name, @required DateTime dateTime, @required String img, @required String phoneNumber, @required List<double> location}) async {
     return foodItemCollection.add({
       'name':     name,
       'time':     dateTime,
       'img':      img,
-      'uid':      uid,
+      'uid':      [uid, phoneNumber],
       'location': location,
       'swipers':  Map<String, String>(),  //No swipers yet, so an empty map
       'accepted': null,                   //No one accepted yet so null
@@ -106,7 +106,7 @@ class DatabaseService {
           time: DateTime.fromMillisecondsSinceEpoch(0), 
           img: '',
           docID: '',
-          uid: '',
+          uid: <String>['', ''],
           latitudeLongitude: [double.nan, double.nan],
           swipers: Map<String, String>(),
           accepted: '',
@@ -120,9 +120,9 @@ class DatabaseService {
           ),
           img: item.data['img'] ?? '',
           docID: item.documentID ?? '',
-          uid: item.data['uid'] ?? '',
-          latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List).cast<double>(),
-          swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map).cast<String, String>(),
+          uid: item.data['uid'] == null ? <String>['', ''] : (item.data['uid'] as List<dynamic>).cast<String>(),
+          latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List<dynamic>).cast<double>(),
+          swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map<dynamic, dynamic>).cast<String, String>(),
           accepted: item.data['accepted'] ?? '',
           closed: item.data['closed'] ?? false,     //TODO: Make this true, don't show items that aren't properly formatted
         );
