@@ -3,6 +3,7 @@ import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/getfood/food_item_card.dart';
 import 'package:provider/provider.dart';
+import 'package:food_savior/screens/navigation/navigate.dart';
 
 class WaitingOrders extends StatefulWidget {
   @override
@@ -82,6 +83,7 @@ class _WaitingOrdersState extends State<WaitingOrders>
                         onPressed: foodItem.accepted != user.uid ? null : () {
                           //TODO: Morina: Here is where you call your map
                           List<double> latitudeLongitudeList = foodItem.latitudeLongitude;
+                          _navigateAndDisplaySelection(context, latitudeLongitudeList[0], latitudeLongitudeList[1]);
                         },
                         child: Text("Take me there!"),
                       )
@@ -95,4 +97,13 @@ class _WaitingOrdersState extends State<WaitingOrders>
       ),
     );
   }
+}
+
+_navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      // Create the SelectionScreen in the next step.
+      MaterialPageRoute(builder: (context) => MapRouting(lat, long) ));
 }
