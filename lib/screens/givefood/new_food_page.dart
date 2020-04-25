@@ -46,6 +46,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   List<Placemark> placemark;
   
   var address;
+  Timer _timer; 
   //File _image;  // = File('assets/images/noImage.jpg');
 
   // final user = Provider.of<User>(context);
@@ -128,7 +129,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   }
  
   Widget pickLocation() {
-    return MapBoxLocationPicker(
+    child:  MapBoxLocationPicker(
       popOnSelect: true,
       apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
       limit: 10,
@@ -139,7 +140,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
           targetCoordinates = place.geometry.coordinates; 
           //Navigator.pop(context);
           return targetCoordinates;
-        });
+          }
+        );
       },
       context: context,
     );
