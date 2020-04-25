@@ -13,7 +13,7 @@ import 'package:food_savior/screens/mainmenu/FAQs.dart';
 import 'package:food_savior/screens/mainmenu/profile/profile_wrapper.dart';
 import 'package:food_savior/screens/wrapper.dart';
 import 'package:food_savior/services/auth.dart';
-import 'package:food_savior/screens/givefood/new_food_page.dart';
+import 'package:food_savior/screens/givefood/new_food_page_wrapper.dart';
 import 'screens/authenticate/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/chat/messages.dart';
@@ -26,6 +26,21 @@ import 'package:food_savior/screens/mainmenu/donated_items/donated_items_wrapper
 
 
 void main() => runApp(MyApp());
+
+class MyCustomRoute<T> extends MaterialPageRoute<T> {
+  MyCustomRoute({ WidgetBuilder builder, RouteSettings settings })
+      : super(builder: builder, settings: settings);
+
+  @override
+  Widget buildTransitions(BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    // Fades between routes. (If you don't want any animation, 
+    // just return child.)
+    return new FadeTransition(opacity: animation, child: child);
+  }
+}
 
 class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
@@ -43,13 +58,19 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.lightGreen,
+          primaryTextTheme: Typography.whiteMountainView,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+
+          ),
+          buttonTheme: ButtonThemeData(
+           )
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => Wrapper(),
+          '/': (context ) => Wrapper(),
           '/home': (context) => HomePage(),
           '/swipes': (context) => SwipesWrapper(),
-          '/new-food': (context) => NewFoodPage(),
+          '/new-food': (context) => NewFoodPageWrapper(),
           '/main-menu': (context) => MenuLayout(),
           '/test': (context) => CameraTest(),
           '/sign-up': (context) => SignUp(),
@@ -70,5 +91,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:food_savior/services/image.dart';
@@ -12,15 +14,15 @@ import 'package:flutter/services.dart';
 import 'package:nominatim_location_picker/nominatim_location_picker.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
   static const String title = "New Food";
 
   @override
   _NewFoodPageState createState() => new _NewFoodPageState();
+  
 }
-
+// TODO: figure out why there are TWO back arrows
 class _NewFoodPageState extends State<NewFoodPage> {
   String foodName = '';
   String timeLeft = '';
@@ -40,8 +42,9 @@ class _NewFoodPageState extends State<NewFoodPage> {
 
 
   bool loading = true;
-  List<double> targetCoordinates = [0, 0];    //TODO: make this initialized to current location in init function
+  List<double> targetCoordinates = [0, 0];
   List<Placemark> placemark;
+  
   var address;
   //File _image;  // = File('assets/images/noImage.jpg');
 
@@ -144,7 +147,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
 
   @override
   void initState() {
-    getLocation();
+    getLocationWrapper();
     loading = true;
     super.initState();
   }
@@ -162,10 +165,29 @@ class _NewFoodPageState extends State<NewFoodPage> {
         });
 
         print("getLocation:$targetCoordinates");
-        build(context);
-        loading = false;
+        
       }
     );
+    return true;
+  }
+
+  getLocationWrapper() async {
+    try {
+       bool loaded = await getLocation().timeout(const Duration(milliseconds: 1));
+       if(loaded == true) 
+       {
+          build(context);
+          loading = false;
+          return;
+       }
+    } 
+    on TimeoutException {
+     Navigator.push(context, MaterialPageRoute(builder: (context) => pickLocation()),);
+     loading = false;
+    } 
+    on Error {
+     print('Error');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -392,21 +414,26 @@ class _NewFoodPageState extends State<NewFoodPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
-        title: Text(
-          NewFoodPage.title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white, 
+        title: Row(
+          children: [
+            MaterialButton(
+
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context,);
+                }, 
+              ),
+            Text(
+              NewFoodPage.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white, 
+              )
             )
-          ),
-        leading: MaterialButton(
-          onPressed: () {
-            Navigator.pop(context,);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
+          ]
         ),
         backgroundColor: Colors.lightGreen,
       ),
@@ -419,7 +446,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
                 child: Center( 
                   child: 
                       Text(
-                        'Loading page...', 
+                        'Getting Your Location...', 
                         style: TextStyle(
                         color: Colors.blueGrey, 
                         fontSize: 26)
@@ -427,75 +454,75 @@ class _NewFoodPageState extends State<NewFoodPage> {
                     )
       )
           :
-      Form(
-        key: _formKey,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
-              imageButton,
-              SizedBox(
-                height: 20,
-              ),
-              foodNameBar,
-              //ingredients_warnings,
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Available Until:',
-                style: TextStyle(fontSize: 15)
+        Form(
+          key: _formKey,
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 24.0, right: 24.0),
+              children: <Widget>[
+                _img.getImageForDisplay(), //Image.asset(_image.path, height: 150),
+                imageButton,
+                SizedBox(
+                  height: 20,
                 ),
-              DateTimeField(
-                format: format,
-                validator: (val) {
-                  if (val != null && val.isAfter(DateTime.now())) {
-                    return null;
-                  } else {
-                    return "Please select a valid date/time";
-                  }
-                },
-                onShowPicker: (context, currentValue) async {
-                  final date = await showDatePicker(
-                      context: context,
-                      firstDate: DateTime(1900),
-                      initialDate: currentValue ?? DateTime.now(),
-                      lastDate: DateTime(2100));
-                  if (date != null) {
-                    final time = await showTimePicker(
-                      context: context,
-                      initialTime:
-                          TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                    );
-                    return DateTimeField.combine(date, time);
-                  } else {
-                    return currentValue;
-                  }
-                },
-                onChanged: (val) {
-                  setState(() {
-                    dt = val;
-                  });
-                },
-              ),
-              Text('${format.pattern}',
-                style: TextStyle(fontSize: 15)
+                foodNameBar,
+                //ingredients_warnings,
+                SizedBox(
+                  height: 20,
                 ),
-              
-              pickLocationButton,
-              //Text( targetCoordinates.toString()),
-              /*SizedBox(
-                height: 20,
-              ),*/
+                Text(
+                  'Available Until:',
+                  style: TextStyle(fontSize: 15)
+                  ),
+                DateTimeField(
+                  format: format,
+                  validator: (val) {
+                    if (val != null && val.isAfter(DateTime.now())) {
+                      return null;
+                    } else {
+                      return "Please select a valid date/time";
+                    }
+                  },
+                  onShowPicker: (context, currentValue) async {
+                    final date = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
+                    if (date != null) {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime:
+                            TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                      );
+                      return DateTimeField.combine(date, time);
+                    } else {
+                      return currentValue;
+                    }
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      dt = val;
+                    });
+                  },
+                ),
+                Text('${format.pattern}',
+                  style: TextStyle(fontSize: 15)
+                  ),
+                
+                pickLocationButton,
+                //Text( targetCoordinates.toString()),
+                /*SizedBox(
+                  height: 20,
+                ),*/
 
-              createNewFoodButton,
-              cancelButton,
-            ],
+                createNewFoodButton,
+                cancelButton,
+              ],
+            ),
           ),
         ),
-      ),
     );
   }
 }

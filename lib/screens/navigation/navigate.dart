@@ -4,10 +4,13 @@ import 'package:food_savior/screens/navigation/map_request.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-
 class MapRouting extends StatefulWidget {
+  final double latitude;
+  final double longitude;
+  const MapRouting(this.latitude, this.longitude);
   @override
   State<MapRouting> createState() => MapRoutingState();
+
 }
 
 class MapRoutingState extends State<MapRouting> {
@@ -29,7 +32,6 @@ class MapRoutingState extends State<MapRouting> {
     super.initState();
   }
 
-
    getLocation() async {
 
     var location = new Location();
@@ -37,6 +39,9 @@ class MapRoutingState extends State<MapRouting> {
 
       print(currentLocation.latitude);
       print(currentLocation.longitude);
+      if (!mounted) {
+        return;
+      }
       setState(() {
 
         latLng =  LatLng(currentLocation.latitude, currentLocation.longitude);
@@ -50,6 +55,9 @@ class MapRoutingState extends State<MapRouting> {
   }
 
   void _onAddMarkerButtonPressed() {
+    if (!mounted) {
+      return;
+    }
      setState(() {
       _markers.add(Marker(
          markerId: MarkerId("111"),
@@ -75,7 +83,7 @@ class MapRoutingState extends State<MapRouting> {
   }
 
   void sendRequest() async {
-    LatLng destination = LatLng(25.718313, -80.274594);
+    LatLng destination = LatLng(widget.latitude, widget.longitude);
     String route = await _googleMapsServices.getRouteCoordinates(
         latLng, destination);
     createRoute(route);

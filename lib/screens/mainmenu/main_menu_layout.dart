@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
+import 'package:food_savior/services/size_config.dart';
 
 //class MenuLayout extends StatelessWidget {
   class MenuLayout extends StatefulWidget {
@@ -11,73 +12,96 @@ class _MenuLayoutState extends State<MenuLayout> {
 
   @override
   Widget build(BuildContext context) {
-  //return Scaffold(
-   // appBar: AppBar(
-    //    title: Text('test'),
-   //     backgroundColor: Colors.blueGrey,
-    //    ),
-  //  drawer: Drawer(
+
+    SizeConfigService.init(context);
 
     return Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: <Color>[
-                Colors.green,
-                Colors.lightGreen,
-              ])
+              gradient: LinearGradient(
+                colors: <Color>[
+                Colors.white,
+                Colors.lightGreen[50],
+                ]
               ),
-            child: Center(
-              child:Text(
-                'Food Savior',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  ),
+              image: DecorationImage(
+                image: AssetImage('assets/images/notextlogo.jpg'),
+              )
               ),
-            ),
           ),
-          CustomListTile(Icons.person, 'Profile', () {
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.person), 
+            title: Text('Profile', style: TextStyle(fontSize: 17)), 
+            onTap: () {
             Navigator.pushNamed(context, '/profile-page');
-          }),
-          CustomListTile(Icons.history, 'Items Donated', () {
-            Navigator.pushNamed(context, '/items-donated');
-          }),
-          CustomListTile(Icons.history, 'Items Received', () {
-            Navigator.pushNamed(context, '/items-received');
-          }),
-          CustomListTile(Icons.history, 'Orders Waiting', () {
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.history), 
+            title: Text('Items Donated', style: TextStyle(fontSize: 17)), 
+            onTap: () {
+              Navigator.pushNamed(context, '/items-donated');
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.history), 
+            title: Text('Items Received', style: TextStyle(fontSize: 17)), 
+            onTap:() {
+              Navigator.pushNamed(context, '/items-received');
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.history), 
+            title: Text('Orders Waiting', style: TextStyle(fontSize: 17)), 
+            onTap:() {
             Navigator.pushNamed(context, '/orders-waiting');
-          }),
-          CustomListTile(Icons.history, 'Pickup Waiting', () {
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.history), 
+            title: Text('Pickup Waiting', style: TextStyle(fontSize: 17)), 
+            onTap:() {
             Navigator.pushNamed(context, '/pickup-waiting');
-          }),
-          // '/items-donated': (context) => DonatedOrdersWrapper(),
-          // '/items-received': (context) => FoodRecievedWrapper(),
-          // '/orders-waiting': (context) => WaitingOrdersWrapper(),
-          // '/pickup-waiting': (context) => WaitingPickupWrapper(),
-          CustomListTile(Icons.chat, 'Chat', () {
-            Navigator.pushNamed(context, '/chat');
-          }),
-          CustomListTile(Icons.attach_money, 'Donate', ()=> {}),
-          CustomListTile(Icons.feedback, 'FAQ', () 
-          {
-            Navigator.pushNamed(context, '/questions');
-          }),
-          CustomListTile(Icons.settings, 'Settings', ()=> {}),
-                    CustomListTile(Icons.lock, 'Log out', () async {
-            await _auth.signOut();
-            Navigator.pop(context);
-          }),
-            //ListTile(
-           // title: Text('Log Out'),
-            //onTap: () async {
-             // await _auth.signOut();
-             // Navigator.pop(context);
-      
-        ],
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.attach_money), 
+            title: Text('Donate', style: TextStyle(fontSize: 17)), 
+            onTap:()=> {}
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.feedback), 
+            title: Text('FAQ', style: TextStyle(fontSize: 17)), 
+            onTap:() 
+            {
+              Navigator.pushNamed(context, '/questions');
+            }
+          ),
+          ListTile(
+            dense: true,
+            leading: (Icon(Icons.settings)), 
+            title: Text('Settings', style: TextStyle(fontSize: 17)), 
+            onTap:()=> {}
+            ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.lock), 
+            title: Text('Log out', style: TextStyle(fontSize: 17)), 
+            onTap:() async {
+              await _auth.signOut();
+              Navigator.pop(context);
+            }
+          ),
+        ]
       ),
           
   );

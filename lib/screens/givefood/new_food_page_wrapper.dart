@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_savior/models/food_item.dart';
 import 'package:food_savior/models/user.dart';
-import 'package:food_savior/screens/mainmenu/waiting_pickup/waiting_pickup.dart';
+import 'package:food_savior/screens/givefood/new_food_page.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:provider/provider.dart';
-// TODO: prettify
-class WaitingPickupWrapper extends StatelessWidget {
+
+class NewFoodPageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -16,13 +15,11 @@ class WaitingPickupWrapper extends StatelessWidget {
       //   value: DatabaseService().foodItems,
       //   child: PastOrders(),
       // );
-    } else {
+    } 
+    else {
       return StreamProvider<User>.value(
         value: DatabaseService(uid: user.uid).user,
-        child: StreamProvider<List<FoodItem>>.value(
-          value: DatabaseService(uid: user.uid).foodItems,
-          child: WaitingPickup(),
-        ),
+        child: NewFoodPage(),
       );
     }
   }

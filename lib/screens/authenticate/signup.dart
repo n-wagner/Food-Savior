@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_savior/models/user.dart';
 import 'package:food_savior/services/auth.dart';
 import 'package:food_savior/services/database.dart';
-
+import 'package:food_savior/services/size_config.dart';
 
 class SignUp extends StatefulWidget {
   static String tag = 'SignUp';
@@ -29,12 +29,13 @@ class _SignUpState extends State<SignUp> {
   @override
 
   Widget build(BuildContext context) {
+    SizeConfigService.init(context);
     final  logo = Hero(
       tag: 'logo',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 150.0,
-        child: Image.asset('assets/images/logo.JPG'),
+        radius:  SizeConfigService.blockSizeHorizontal * 30,
+        child: Image.asset('assets/images/logo.jpg'),
       ),
     );
 
@@ -60,8 +61,8 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.person),
         hintText: 'First Name',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
@@ -76,8 +77,9 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.person),
         hintText: 'Last Name',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
+        
       ),
     );
 
@@ -92,8 +94,12 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.home),
         hintText: 'Address',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
    
@@ -121,8 +127,12 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.phone),
         hintText: 'Phone Number',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
@@ -137,9 +147,14 @@ class _SignUpState extends State<SignUp> {
       obscureText: true,
       decoration: InputDecoration(
         icon: Icon(Icons.lock),
-        hintText: 'password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'Password',
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05
+        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
@@ -154,8 +169,13 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.lock),
         hintText: 'Confirm Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05
+        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
@@ -163,7 +183,7 @@ class _SignUpState extends State<SignUp> {
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
         ),
         
         onPressed: () async {
@@ -174,7 +194,8 @@ class _SignUpState extends State<SignUp> {
             // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
             if (result == null) {
               setState(() => error = 'please supply a valid email');
-            } else {
+            } 
+            else {
               _db = DatabaseService(uid: result.uid);
               await _db.updateUserData(firstName: firstNameVal, lastName: lastNameVal, phoneNumber: phoneVal, address: addressVal);
               Navigator.pop(context);
@@ -184,7 +205,12 @@ class _SignUpState extends State<SignUp> {
           //Navigator.of(context).pushNamed(SignUp.tag);
         },
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        padding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05
+        ),
         color: Colors.lightGreen[700],
         child: Text('Sign Up', style: TextStyle(color: Colors.white)),
       ),
@@ -200,27 +226,36 @@ class _SignUpState extends State<SignUp> {
       decoration: InputDecoration(
         icon: Icon(Icons.mail),
         hintText: 'E-mail',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05
+        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
-    // final body = Container(
-    //   width: MediaQuery.of(context).size.width,
-    //   padding: EdgeInsets.all(28.0),
-    //   //decoration: BoxDecoration(
-    //    // gradient: LinearGradient(colors: [
-    //      // Colors.brown[50],
-    //     //  Colors.brown[50],
-    //    // ]),
-    //   //),
-    //   child: Column(
-    //     children: <Widget>[ firstName, lastName,
-    //       address, phoneNumber,
-    //       password, confirmPassword,
-    //       createAccount],
-    //   ),
-    // );
+    final back = Padding(
+      padding: EdgeInsets.symmetric(vertical: 1.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
+        ),
+        
+        onPressed: () async {
+            Navigator.pop(context);
+          },
+        padding: EdgeInsets.fromLTRB(
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05, 
+          SizeConfigService.blockSizeHorizontal * 3.0, 
+          SizeConfigService.blockSizeVertical * 0.05
+        ),
+        color: Colors.lightGreen[700],
+        child: Text('Back', style: TextStyle(color: Colors.white)),
+      ),
+    );
 
     return Scaffold(
       body: Form(
@@ -228,25 +263,26 @@ class _SignUpState extends State<SignUp> {
         child: Center(
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            padding: EdgeInsets.only(left: SizeConfigService.blockSizeHorizontal * 5, right: SizeConfigService.blockSizeHorizontal * 5),
             children: <Widget>[
               logo,
-              SizedBox(height: 48.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               firstName,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               lastName,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               email,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               phoneNumber,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               address,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               password,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               confirmPassword,
-              SizedBox(height: 24.0),
-              createAccount
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
+              createAccount,
+              back,
             ],
           ),
         ),

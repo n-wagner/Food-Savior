@@ -47,13 +47,13 @@ class DatabaseService {
   }
 
   Future<void> updateAcceptedForFoodItem ({@required String foodID, @required String accepted}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'accepted': accepted,
     });
   }
 
   Future<void> setClosedForFoodItem ({@required String foodID, bool closed = true}) async {
-    return foodItemCollection.document(foodID).setData({
+    return foodItemCollection.document(foodID).updateData({
       'closed': closed,
     });
   }
@@ -124,7 +124,7 @@ class DatabaseService {
           latitudeLongitude: item.data['location'] == null ? [0, 0] : (item.data['location'] as List<dynamic>).cast<double>(),
           swipers: item.data['swipers'] == null ? Map<String, String>() : (item.data['swipers'] as Map<dynamic, dynamic>).cast<String, String>(),
           accepted: item.data['accepted'] ?? '',
-          closed: item.data['closed'] ?? false,     //TODO: Make this true, don't show items that aren't properly formatted
+          closed: item.data['closed'] ?? true,     //TODO: Make this true, don't show items that aren't properly formatted
         );
     }).toList();
   }

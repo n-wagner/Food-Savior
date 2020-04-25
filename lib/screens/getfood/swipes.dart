@@ -52,7 +52,7 @@ class _SwipePageState extends State<SwipePage> {
         // If the item is improperly stored this is an error
         if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
         // If the item is closed or duration is expired or you made the food Item or already swiped right on it, strip it out
-        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
+        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid[0] == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
           // Update items which are expired
           if (item.time.isBefore(DateTime.now()) && item.closed == false) {
             _databaseService.setClosedForFoodItem(foodID: item.docID);
@@ -95,12 +95,26 @@ class _SwipePageState extends State<SwipePage> {
     // });
 
     return Scaffold(
-      body: SafeArea(
+      body:
+      foodItems == null ?
+      Container(
+        color: Colors.white,
+        child: Center( 
+          child: 
+            Text(
+              'Getting Your Location...', 
+              style: TextStyle(
+              color: Colors.blueGrey, 
+              fontSize: 26)
+            )
+          )
+      )
+      :
+       SafeArea(
         child: Center(
         //child: Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            // TODO: Here (or below) we need to put a loading screen for when foodItems == null
             children: <Widget> [
               Container(
                 height: 2.0,
@@ -125,24 +139,47 @@ class _SwipePageState extends State<SwipePage> {
                         }
                       });
                     });
-                    // foodItems.removeWhere((FoodItem item) {
-                    //   if (docID == item.docID) {
-                    //     print(item);
-                    //     // foundItem = item;
-                    //     return true;
-                    //   } else {
-                    //     return false;
-                    //   }
-                    // });
-                    // foodItems.add(foundItem);
-                    // foodItems[docID] = item;
                   }
                 )
               ),
               Expanded(
                 child: Stack(
                   // TODO: Here we need to put a loading screen for when foodItems == null
-                  children: foodItems == null ? [Text("Loading!")] : foodItems.length == 0 ? [Text("No new Items!")] : foodItems.map((FoodItem foodItem) {
+                  children: 
+                  (foodItems == null) ? 
+          
+                    Container(
+                      color: Colors.white,
+                      child: Center( 
+                        child: 
+                          Text(
+                            'Loading...', 
+                            style: TextStyle(
+                            color: Colors.blueGrey, 
+                            fontSize: 26)
+                          )
+                        )  
+                      )
+                        : foodItems.length == 0 ? 
+                        Container(
+                          color: Colors.white,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/notextlogo.jpg'),
+                            ),
+                          ),
+
+                          child: Center( 
+                            child: 
+                              Text(
+                                'No New Food Items!', 
+                                style: TextStyle(
+                                color: Colors.blueGrey, 
+                                fontSize: 26)
+                              )
+                            )  
+                          )
+                           : foodItems.map((FoodItem foodItem) {
                     // if (foodItem != null) {
                     return Draggable(
                       onDragCompleted: null,
