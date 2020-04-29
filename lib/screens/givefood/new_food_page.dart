@@ -128,24 +128,24 @@ class _NewFoodPageState extends State<NewFoodPage> {
     );
   }
  
-  Widget pickLocation() {
-    child:  MapBoxLocationPicker(
-      popOnSelect: true,
-      apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
-      limit: 10,
-      searchHint: 'Search',
-      awaitingForLocation: "Pick location",
-      onSelected: (place) {
-        setState(() {
-          targetCoordinates = place.geometry.coordinates; 
-          //Navigator.pop(context);
-          return targetCoordinates;
-          }
-        );
-      },
-      context: context,
-    );
-  }
+  // Widget pickLocation() {
+  //   child:  MapBoxLocationPicker(
+  //     popOnSelect: true,
+  //     apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
+  //     limit: 10,
+  //     searchHint: 'Search',
+  //     awaitingForLocation: "Pick location",
+  //     onSelected: (place) {
+  //       setState(() {
+  //         targetCoordinates = place.geometry.coordinates; 
+  //         //Navigator.pop(context);
+  //         return targetCoordinates;
+  //         }
+  //       );
+  //     },
+  //     context: context,
+  //   );
+  // }
 
   @override
   void initState() {
@@ -184,7 +184,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
        }
     } 
     on TimeoutException {
-     Navigator.push(context, MaterialPageRoute(builder: (context) => pickLocation()),);
+      _navigateAndDisplaySelection(context, targetCoordinates[0], targetCoordinates[1]);
      loading = false;
     } 
     on Error {
@@ -403,7 +403,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
               setState(() => error = 'please supply a valid email');
             }
           }*/
-          return Navigator.push(context, MaterialPageRoute(builder: (context) => pickLocation()),);
+          _navigateAndDisplaySelection(context, targetCoordinates[0], targetCoordinates[1]);
         },
         padding: EdgeInsets.all(8),
         color: Colors.lightGreen,
@@ -531,3 +531,11 @@ class _NewFoodPageState extends State<NewFoodPage> {
   }
 }
 
+_navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    return await Navigator.pushNamed(
+      context,
+      // Create the SelectionScreen in the next step.
+      '/location_picker');
+}
