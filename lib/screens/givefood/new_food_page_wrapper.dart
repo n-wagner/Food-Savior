@@ -15,7 +15,8 @@ class NewFoodPageWrapper extends StatelessWidget {
       //   value: DatabaseService().foodItems,
       //   child: PastOrders(),
       // );
-    } else {
+    } 
+    else {
       return StreamProvider<User>.value(
         value: DatabaseService(uid: user.uid).user,
         child: NewFoodPage(),

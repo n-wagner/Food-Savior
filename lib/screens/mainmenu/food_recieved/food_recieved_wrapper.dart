@@ -11,12 +11,29 @@ class FoodRecievedWrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
     
     if (user == null) {
-      return Text("Loading...");
+      return 
+        Container
+        (
+          color: Colors.white,
+          child: Center( 
+            heightFactor: 17,
+            child: 
+              Text(
+                'Loading...', 
+                style: TextStyle(
+                color: Colors.blueGrey, 
+                fontSize: 26
+                )
+              )
+            )
+        );
       // StreamProvider<List<FoodItem>>.value(
       //   value: DatabaseService().foodItems,
       //   child: PastOrders(),
       // );
-    } else {
+    } 
+    else 
+    {
       return StreamProvider<User>.value(
         value: DatabaseService(uid: user.uid).user,
         child: StreamProvider<List<FoodItem>>.value(

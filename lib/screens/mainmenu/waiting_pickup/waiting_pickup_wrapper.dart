@@ -4,7 +4,7 @@ import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/mainmenu/waiting_pickup/waiting_pickup.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:provider/provider.dart';
-
+// TODO: prettify
 class WaitingPickupWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

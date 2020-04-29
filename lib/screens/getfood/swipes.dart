@@ -95,12 +95,26 @@ class _SwipePageState extends State<SwipePage> {
     // });
 
     return Scaffold(
-      body: SafeArea(
+      body:
+      foodItems == null ?
+      Container(
+        color: Colors.white,
+        child: Center( 
+          child: 
+            Text(
+              'Getting Your Location...', 
+              style: TextStyle(
+              color: Colors.blueGrey, 
+              fontSize: 26)
+            )
+          )
+      )
+      :
+       SafeArea(
         child: Center(
         //child: Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            // TODO: Here (or below) we need to put a loading screen for when foodItems == null
             children: <Widget> [
               Container(
                 height: 2.0,
@@ -125,24 +139,47 @@ class _SwipePageState extends State<SwipePage> {
                         }
                       });
                     });
-                    // foodItems.removeWhere((FoodItem item) {
-                    //   if (docID == item.docID) {
-                    //     print(item);
-                    //     // foundItem = item;
-                    //     return true;
-                    //   } else {
-                    //     return false;
-                    //   }
-                    // });
-                    // foodItems.add(foundItem);
-                    // foodItems[docID] = item;
                   }
                 )
               ),
               Expanded(
                 child: Stack(
                   // TODO: Here we need to put a loading screen for when foodItems == null
-                  children: foodItems == null ? [Text("Loading!")] : foodItems.length == 0 ? [Text("No new Items!")] : foodItems.map((FoodItem foodItem) {
+                  children: 
+                  (foodItems == null) ? 
+          
+                    Container(
+                      color: Colors.white,
+                      child: Center( 
+                        child: 
+                          Text(
+                            'Loading...', 
+                            style: TextStyle(
+                            color: Colors.blueGrey, 
+                            fontSize: 26)
+                          )
+                        )  
+                      )
+                        : foodItems.length == 0 ? 
+                        Container(
+                          color: Colors.white,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/notextlogo.jpg'),
+                            ),
+                          ),
+
+                          child: Center( 
+                            child: 
+                              Text(
+                                'No New Food Items!', 
+                                style: TextStyle(
+                                color: Colors.blueGrey, 
+                                fontSize: 26)
+                              )
+                            )  
+                          )
+                           : foodItems.map((FoodItem foodItem) {
                     // if (foodItem != null) {
                     return Draggable(
                       onDragCompleted: null,

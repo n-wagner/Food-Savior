@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/screens/mainmenu/main_menu_layout.dart';
+import 'package:food_savior/services/size_config.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -17,73 +18,33 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final  logo = Hero(
-    //   tag: 'home',
-    //   child: CircleAvatar(
-    //   backgroundColor: Colors.transparent,
-    //   radius: 48.0,
-    //   child: Image.asset('assets/images/logo.jpg'),
-    //   ),
-    // );
+    SizeConfigService.init(context);
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.orange[100],
-      // appBar: AppBar(   //Basically a top menu/bar thing
-      //   title: Text('Food Savior'),
-      //   backgroundColor: Colors.orange[400],
-      //   elevation: 0.0,   //Makes it flat against the bacground (no shadows)
-      //   actions: <Widget>[
-      //     FlatButton.icon(
-      //       icon: Icon(Icons.person),
-      //       label: Text('logout'),
-      //       onPressed: () async {
-      //         await _auth.signOut();    //Don't need to save this value because we don't plan to use it, just need to wait until it finishes
-      //       }
-      //     )
-      //   ],
-      // ),
+      backgroundColor: Colors.white,
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
             Expanded(
-              child: FlatButton(
-                color: Colors.lightBlue[100],
-                child: Text(
-                  'Give Food',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/new-food');
-                  // Navigator.push(
-                  //   context, 
-                  //   MaterialPageRoute(
-                  //     builder: (context) => NewFoodPage(u: widget.u)
-                  //   )
-                  // );
+                child: IconButton(
+                    icon: Image.asset('assets/images/givelogo.JPG'),
+                    iconSize: SizeConfigService.blockSizeHorizontal * 50,
+                    onPressed: () {
+                        Navigator.pushNamed(context, '/new-food');
                 },
               ),
             ),
             Expanded(
-              child: FlatButton(
-                color: Colors.blue[200],
-                child: Text(
-                  'Get Food',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-                onPressed: () {
-                  // Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                  //   builder: (BuildContext context) {
-                  //     return SwipePage();
-                  //   }),
-                  // );
-                  Navigator.pushNamed(context, '/swipes');
-                },
+              child: IconButton(
+                    icon: Image.asset(
+                      'assets/images/getlogo.JPG',
+                    ),
+                    iconSize: SizeConfigService.blockSizeHorizontal * 50,
+                    onPressed: () {
+                    Navigator.pushNamed(context, '/swipes');
+                  },
               ),
             ),
           ]
@@ -91,12 +52,14 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: MenuLayout(),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 130),
+        padding: EdgeInsets.only(top:  SizeConfigService.blockSizeHorizontal * 30),
         child: FloatingActionButton(
+          child: Icon(
+            Icons.menu, 
+            color: Colors.white),
           onPressed: () {
             _scaffoldKey.currentState.openDrawer();
           },
-          child: Icon(Icons.menu),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,

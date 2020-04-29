@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 
 import 'package:nominatim_location_picker/nominatim_location_picker.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:fade/fade.dart';
 
 class NewFoodPage extends StatefulWidget {
   //static const String tag = 'new-food';
@@ -21,8 +20,9 @@ class NewFoodPage extends StatefulWidget {
 
   @override
   _NewFoodPageState createState() => new _NewFoodPageState();
+  
 }
-
+// TODO: figure out why there are TWO back arrows
 class _NewFoodPageState extends State<NewFoodPage> {
   String foodName = '';
   String timeLeft = '';
@@ -42,7 +42,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
 
 
   bool loading = true;
-  List<double> targetCoordinates = [0, 0];    //TODO: make this initialized to current location in init function
+  List<double> targetCoordinates = [0, 0];
   List<Placemark> placemark;
   
   var address;
@@ -129,24 +129,21 @@ class _NewFoodPageState extends State<NewFoodPage> {
   }
  
   Widget pickLocation() {
-    return Fade(
-      visible: true,
-      duration: Duration( seconds: 1),
-      child:  MapBoxLocationPicker(
-        popOnSelect: true,
-        apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
-        limit: 10,
-        searchHint: 'Search',
-        awaitingForLocation: "Pick location",
-        onSelected: (place) {
-          setState(() {
-            targetCoordinates = place.geometry.coordinates; 
-            //Navigator.pop(context);
-            return targetCoordinates;
-          });
-        },
-        context: context,
-      )
+    child:  MapBoxLocationPicker(
+      popOnSelect: true,
+      apiKey: "pk.eyJ1IjoibWFyaXptaWV2YSIsImEiOiJjazhqZnd1anAwZ2s4M21tdmk2eG05c3dtIn0.yLfRxI4__alVuC14pIlHXg",
+      limit: 10,
+      searchHint: 'Search',
+      awaitingForLocation: "Pick location",
+      onSelected: (place) {
+        setState(() {
+          targetCoordinates = place.geometry.coordinates; 
+          //Navigator.pop(context);
+          return targetCoordinates;
+          }
+        );
+      },
+      context: context,
     );
   }
 
@@ -186,12 +183,12 @@ class _NewFoodPageState extends State<NewFoodPage> {
           return;
        }
     } 
-    on TimeoutException catch (e) {
+    on TimeoutException {
      Navigator.push(context, MaterialPageRoute(builder: (context) => pickLocation()),);
      loading = false;
     } 
-    on Error catch (e) {
-     print('Error: $e');
+    on Error {
+     print('Error');
     }
   }
   @override
@@ -419,21 +416,26 @@ class _NewFoodPageState extends State<NewFoodPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
-        title: Text(
-          NewFoodPage.title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white, 
+        title: Row(
+          children: [
+            MaterialButton(
+
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context,);
+                }, 
+              ),
+            Text(
+              NewFoodPage.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white, 
+              )
             )
-          ),
-        leading: MaterialButton(
-          onPressed: () {
-            Navigator.pop(context,);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
+          ]
         ),
         backgroundColor: Colors.lightGreen,
       ),
@@ -443,21 +445,20 @@ class _NewFoodPageState extends State<NewFoodPage> {
       loading 
       ? 
       Container(color: Colors.white,
-                child: Center( 
-                  child: 
-                      Text(
-                        'Getting Your Location...', 
-                        style: TextStyle(
-                        color: Colors.blueGrey, 
-                        fontSize: 26)
-                      )
-                    )
+        child: Center( 
+          heightFactor: 17,
+          child: 
+            Text(
+              'Getting Your Location...', 
+              style: TextStyle(
+                color: Colors.blueGrey, 
+                fontSize: 26
+              )
+            )
+        )
       )
           :
-      Fade(
-        visible: true,
-        duration: Duration(seconds: 1),
-        child: Form(
+        Form(
           key: _formKey,
           child: Center(
             child: ListView(
@@ -526,7 +527,6 @@ class _NewFoodPageState extends State<NewFoodPage> {
             ),
           ),
         ),
-      )
     );
   }
 }

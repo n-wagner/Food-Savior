@@ -14,23 +14,27 @@ class FoodItemCard extends StatelessWidget {
       margin: EdgeInsets.all(30.0),
       child: Container(
         width: SizeConfigService.safeBlockHorizontal * 70, //3 00.0,
-        height: SizeConfigService.safeBlockVertical * 90, // 500.0,
+        height: SizeConfigService.safeBlockVertical * 72, // 500.0,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: Image.network(foodItem.img).image, //(foodItem.img),
-            fit: BoxFit.cover,
+            fit: BoxFit.scaleDown,
           ),
         ),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 10.0),
-            Text(foodItem.name),
-            SizedBox(height: 10.0),
-            Text(foodItem.time.toLocal().toString()),
-            SizedBox(height: 10.0),
-            Text(foodItem.docID),
-            SizedBox(height: 10.0),
-            Text(foodItem.uid.toString()),
+            SizedBox(height: SizeConfigService.blockSizeVertical * 5),
+            Text(
+              foodItem.name + "\nAvailable Until:\n" + foodItem.time.toLocal().toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                
+                letterSpacing: 1.25,
+                fontSize: 20,
+                backgroundColor: Colors.white,
+              )
+            ),
+            SizedBox(height: SizeConfigService.blockSizeVertical * 10),
           ],
         ),
       ),
@@ -40,3 +44,4 @@ class FoodItemCard extends StatelessWidget {
     );
   }
 }
+

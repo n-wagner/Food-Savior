@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_savior/services/auth.dart';
+import 'package:food_savior/services/size_config.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -20,12 +21,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfigService.init(context);
     final logo = Hero(
       tag: 'food savior',
       child: CircleAvatar(
         backgroundColor: Colors.brown[50],
-        radius: 250.0,
-        child: Image.asset('assets/images/logo.JPG'),
+        radius: SizeConfigService.blockSizeHorizontal * 40,
+        child: Image.asset('assets/images/logo.jpg'),
       ),
     );
 
@@ -41,8 +43,12 @@ class _LoginPageState extends State<LoginPage> {
       initialValue: '',
       decoration: InputDecoration(
         hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            SizeConfigService.blockSizeHorizontal * 10
+          )
+        ),
       ),
     );
 
@@ -57,19 +63,19 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
       ),
     );
 
     final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 4.0),
+      padding: EdgeInsets.symmetric(vertical: SizeConfigService.blockSizeHorizontal * 1),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
         ),
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        padding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
         color: Colors.lightGreen[700],
         child: Text(
           'Log In',
@@ -85,7 +91,6 @@ class _LoginPageState extends State<LoginPage> {
               setState(() => error = 'please supply a valid email or password');
             }
           }
-          //Navigator.of(context).pushNamed(HomePage.tag);
         }
       ),
     );
@@ -94,21 +99,12 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
         ),
-        onPressed: () {//async {
-          // Runs each validator from the Form Fields, only if all return null is this true
-          //if (_formKey.currentState.validate()) {
-           // dynamic result = await _auth.registerWithEmailAndPassword(emailVal, passwordVal);
-            // Null back means something went wrong with registering, no need to do something otherwise as we are listening for user changes and make things happen based off that
-           // if (result == null) {
-            //  setState(() => error = 'please supply a valid email');
-           // }
-        //  }
-          //Navigator.of(context).pushNamed(SignUp.tag);
+        onPressed: () {
           Navigator.pushNamed(context, '/sign-up');
         },
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(SizeConfigService.blockSizeHorizontal * 1),
         color: Colors.lightGreen[700],
         child: Text('Sign up', style: TextStyle(color: Colors.white)),
       ),
@@ -124,46 +120,7 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
-    // final errorMessage = Text(
-    //   error,
-    //   style: TextStyle(color: Colors.red, fontSize: 14.0),
-    // );
-
-    // final body = Container(
-    //   width: MediaQuery
-    //       .of(context)
-    //       .size
-    //       .width,
-    //   padding: EdgeInsets.all(28.0),
-    //   decoration: BoxDecoration(
-    //     //gradient: LinearGradient(colors: [
-    //       // Colors.brown[50],
-    //       // Colors.lime[200],
-    //    // ])
-    //   ),
-    //   child: Center(
-    //     child: Column(
-    //       children: <Widget>[
-    //         logo,
-    //         //SizedBox(height: 48.0),
-    //         email,
-    //         SizedBox(height: 8.0),
-    //         password,
-    //         //SizedBox(height: 24.0),
-    //         loginButton,
-    //         //SizedBox(height: 8.0),
-    //         signupButton,
-    //         //SizedBox(height: 8.0),
-    //         forgotLabel,
-    //         errorMessage
-    //       ],
-    //     ),
-    //   ),
-    // );
-
-
     return Scaffold(
-      
       backgroundColor: Colors.brown[50],
       // Form associated with global key, allows for future validation of the form
       body: Form(
@@ -171,15 +128,18 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            padding: EdgeInsets.only(
+              left: SizeConfigService.blockSizeHorizontal * 10, 
+              right: SizeConfigService.blockSizeHorizontal * 10
+              ),
             children: <Widget>[
               logo,
               error == null ? Container() : Text(error),
-              SizedBox(height: 48.0),
+              //SizedBox(height: 10.0),
               email,
-              SizedBox(height: 8.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
               password,
-              SizedBox(height: 24.0),
+              SizedBox(height: SizeConfigService.blockSizeVertical * 5),
               loginButton,
               signupButton,
               forgotLabel

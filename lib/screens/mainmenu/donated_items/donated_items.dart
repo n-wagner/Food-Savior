@@ -65,7 +65,38 @@ class _DonatedOrdersState extends State<DonatedOrders>
       body: SafeArea(
         child: Center(
           child: ListView(
-            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No Donated orders!")] : foodItems.map((FoodItem foodItem) {
+            children: foodItems == null ? [
+              Container(
+                color: Colors.white,
+                child: Center( 
+                  heightFactor: 17,
+                  child: 
+                    Text(
+                      'Loading...', 
+                      style: TextStyle(
+                      color: Colors.blueGrey, 
+                      fontSize: 26)
+                    )
+                  )
+                )
+              ]
+              :
+               foodItems.length == 0 ? [
+                 Container(
+                  color: Colors.white,
+                  child: Center( 
+                    heightFactor: 17,
+                    child: 
+                      Text(
+                        'No donated items!', 
+                        style: TextStyle(
+                        color: Colors.blueGrey, 
+                        fontSize: 26
+                        )
+                      )
+                    )
+                  )
+                ] : foodItems.map((FoodItem foodItem) {
               return FoodItemCard(foodItem: foodItem);
             }).toList(),
           ),
