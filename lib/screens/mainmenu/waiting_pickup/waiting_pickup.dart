@@ -85,7 +85,33 @@ class _WaitingPickupState extends State<WaitingPickup>
       body: SafeArea(
         child: Center(
           child: ListView(
-            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No orders waiting to be picked up!")] : foodItems.map((FoodItem foodItem) {
+            children: foodItems == null ? [Container(
+                  color: Colors.white,
+                  child: Center( 
+                    heightFactor: 17,
+                    child: 
+                      Text(
+                        'Loading', 
+                        style: TextStyle(
+                          color: Colors.blueGrey, 
+                          fontSize: 26
+                        )
+                      )
+                    )
+                  )]: foodItems.length == 0 ? [Container(
+                  color: Colors.white,
+                  child: Center( 
+                    heightFactor: 17,
+                    child: 
+                      Text(
+                        'No Orders', 
+                        style: TextStyle(
+                          color: Colors.blueGrey, 
+                          fontSize: 26
+                        )
+                      )
+                    )
+                  )] : foodItems.map((FoodItem foodItem) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center, 
                 children: <Widget>[
