@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: IconButton(
                     icon: Image.asset(
-                      'assets/images/getlogo.jpg',
+                      'assets/images/getlogo.JPG',
                     ),
                     iconSize: SizeConfigService.blockSizeHorizontal * 50,
                     onPressed: () {

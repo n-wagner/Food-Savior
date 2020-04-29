@@ -66,39 +66,104 @@ class _WaitingOrdersState extends State<WaitingOrders>
       body: SafeArea(
         child: Center(
           child: ListView(
-            children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No orders waiting!")] : foodItems.map((FoodItem foodItem) {
-              return Column(
-                children: <Widget>[
-                  FoodItemCard(foodItem: foodItem),
-                  Row(
-                    children: <Widget>[
-                      RaisedButton(
-                        onPressed: () {
-                          final CallsAndMessagesService _callsandmessagesservice = CallsAndMessagesService();
-                          //Navigator.pushNamed(context, '/chat');
-                          String phoneNumber = foodItem.uid[1];
-                          _callsandmessagesservice.sendSms(phoneNumber);
-                        },
-                        child: Text("Chat"),
-                      ),
-                      RaisedButton(
-                        onPressed: foodItem.accepted != user.uid ? null : () {
-                          List<double> latitudeLongitudeList = foodItem.latitudeLongitude;
-                          _navigateAndDisplaySelection(context, latitudeLongitudeList[0], latitudeLongitudeList[1]);
-                        },
-                        child: Text("Take me there!"),
+            children: 
+              foodItems == null ? 
+                Container(
+                  color: Colors.white,
+                  child: Center( 
+                    heightFactor: 17,
+                    child: 
+                      Text(
+                        'Loading...', 
+                        style: TextStyle(
+                          color: Colors.blueGrey, 
+                          fontSize: 26,
                       )
-                    ],
-                  ),
-                ]
-              );
-            }).toList(),
+                    )
+                  )
+                )
+              : 
+              foodItems.length == 0 ?
+                Container(
+                  color: Colors.white,
+                  child: Center( 
+                    heightFactor: 17,
+                    child: 
+                      Text(
+                        'No Orders Waiting!', 
+                        style: TextStyle(
+                          color: Colors.blueGrey, 
+                          fontSize: 26
+                        )
+                      )
+                    )
+                  )
+                :
+                foodItems.map
+                (
+                    (FoodItem foodItem) 
+                  {
+                    return Column
+                    (
+                      children: <Widget>[
+                        FoodItemCard(foodItem: foodItem),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>
+                          [
+                            MaterialButton(
+                              padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                              color: Colors.lightGreen,
+                              disabledColor: Colors.grey,
+                              onPressed: () {
+                                final CallsAndMessagesService _callsandmessagesservice = CallsAndMessagesService();
+                                //Navigator.pushNamed(context, '/chat');
+                                String phoneNumber = foodItem.uid[1];
+                                _callsandmessagesservice.sendSms(phoneNumber);
+                              },
+                              child: Text(
+                                "Chat",
+                                style: TextStyle(
+                                  fontSize: 20, 
+                                  letterSpacing: 1.25,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 15,),
+                            MaterialButton(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              color: Colors.lightGreen,
+                              disabledColor: Colors.grey,
+                              onPressed: foodItem.accepted != user.uid ? null : () 
+                              {
+                                List<double> latitudeLongitudeList = foodItem.latitudeLongitude;
+                                _navigateAndDisplaySelection(context, latitudeLongitudeList[0], latitudeLongitudeList[1]);
+                              },
+                              child: Text
+                              (
+                                "Take me there!",
+                                style: TextStyle
+                                ( 
+                                    fontSize: 20, 
+                                    letterSpacing: 1.3,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                  }
+                ).toList(),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
-  }
-}
+        );
+      }
+    }
 
 _navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
     // Navigator.push returns a Future that completes after calling

@@ -87,26 +87,53 @@ class _WaitingPickupState extends State<WaitingPickup>
           child: ListView(
             children: foodItems == null ? [Text("Loading...")]: foodItems.length == 0 ? [Text("No orders waiting to be picked up!")] : foodItems.map((FoodItem foodItem) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
                 children: <Widget>[
                   FoodItemCard(foodItem: foodItem),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      RaisedButton(
+                      MaterialButton(
+                        padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                        color: Colors.lightGreen,
+                        disabledColor: Colors.grey,
                         onPressed: () {
                           //TODO: Take me to a page where I can do drop downs with the phone numbers of the people
                           Map<String, String> swipers = foodItem.swipers;
                           _navigateAndDisplaySelection(context, foodItem.docID, swipers);
                         },
-                        child: Text("Accept"),
+                        child: Text(
+                          "Accept",
+                          style: TextStyle(
+                            fontSize: 20, 
+                            letterSpacing: 1.25,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      RaisedButton(
-                        onPressed: foodItem.accepted == null || foodItem.accepted == '' ? null : () {
+                      SizedBox(width: 15,),
+                      MaterialButton(
+                        padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                        color: Colors.lightGreen,
+                        disabledColor: Colors.grey,
+                        onPressed: 
+                        foodItem.accepted == null || foodItem.accepted == '' ? null : () 
+                        {
                           _db.setClosedForFoodItem(foodID: foodItem.docID);
-                          setState((){
-                            foodItems.remove(foodItem);
-                          });
+                          setState( ()
+                            {
+                              foodItems.remove(foodItem);
+                            }
+                          );
                         },
-                        child: Text("Close Order"),
+                        child: Text(
+                          "Close Order",
+                          style: TextStyle(
+                            fontSize: 20, 
+                            letterSpacing: 1.3,
+                            color: Colors.white,
+                          ),
+                        ),
                       )
                     ],
                   ),

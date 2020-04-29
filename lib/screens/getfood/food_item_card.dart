@@ -14,7 +14,7 @@ class FoodItemCard extends StatelessWidget {
       margin: EdgeInsets.all(30.0),
       child: Container(
         width: SizeConfigService.safeBlockHorizontal * 70, //3 00.0,
-        height: SizeConfigService.safeBlockVertical * 90, // 500.0,
+        height: SizeConfigService.safeBlockVertical * 72, // 500.0,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: Image.network(foodItem.img).image, //(foodItem.img),
@@ -26,9 +26,12 @@ class FoodItemCard extends StatelessWidget {
             SizedBox(height: SizeConfigService.blockSizeVertical * 5),
             Text(
               foodItem.name + "\nAvailable Until:\n" + foodItem.time.toLocal().toString(),
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
+                
+                letterSpacing: 1.25,
+                fontSize: 20,
+                backgroundColor: Colors.white,
               )
             ),
             SizedBox(height: SizeConfigService.blockSizeVertical * 10),

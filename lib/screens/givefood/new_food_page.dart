@@ -445,15 +445,17 @@ class _NewFoodPageState extends State<NewFoodPage> {
       loading 
       ? 
       Container(color: Colors.white,
-                child: Center( 
-                  child: 
-                      Text(
-                        'Getting Your Location...', 
-                        style: TextStyle(
-                        color: Colors.blueGrey, 
-                        fontSize: 26)
-                      )
-                    )
+        child: Center( 
+          heightFactor: 17,
+          child: 
+            Text(
+              'Getting Your Location...', 
+              style: TextStyle(
+                color: Colors.blueGrey, 
+                fontSize: 26
+              )
+            )
+        )
       )
           :
         Form(
