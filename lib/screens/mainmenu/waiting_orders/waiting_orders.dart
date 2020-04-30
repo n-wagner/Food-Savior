@@ -5,7 +5,7 @@ import 'package:food_savior/screens/chat/service.dart';
 import 'package:food_savior/screens/getfood/food_item_card.dart';
 import 'package:provider/provider.dart';
 import 'package:food_savior/screens/navigation/navigate.dart';
-// TODO: prettify
+
 class WaitingOrders extends StatefulWidget {
   @override
   _WaitingOrdersState createState() => _WaitingOrdersState();

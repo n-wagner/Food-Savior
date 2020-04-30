@@ -159,12 +159,6 @@ class _SwipePageState extends State<SwipePage> {
                                 ? [
                                     Container(
                                         //color: Colors.white,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/notextlogo.jpg'),
-                                          ),
-                                        ),
                                         child: Center(
                                             child: Text('No New Food Items!',
                                                 style: TextStyle(

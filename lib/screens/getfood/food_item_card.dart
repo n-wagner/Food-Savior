@@ -31,7 +31,7 @@ class FoodItemCard extends StatelessWidget {
                 
                 letterSpacing: 1.25,
                 fontSize: 20,
-                backgroundColor: Colors.white,
+                //backgroundColor: Colors.white,
               )
             ),
             SizedBox(height: SizeConfigService.blockSizeVertical * 10),
