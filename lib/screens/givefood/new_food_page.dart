@@ -46,7 +46,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   List<Placemark> placemark;
   
   var address;
-  Timer _timer; 
+  //Timer _timer; 
   //File _image;  // = File('assets/images/noImage.jpg');
 
   // final user = Provider.of<User>(context);
