@@ -144,11 +144,10 @@ class _SwipePageState extends State<SwipePage> {
               ),
               Expanded(
                 child: Stack(
-                  // TODO: Here we need to put a loading screen for when foodItems == null
                   children: 
                   (foodItems == null) ? 
-          
-                    Container(
+                    [
+                      Container(
                       color: Colors.white,
                       child: Center( 
                         child: 
@@ -159,16 +158,10 @@ class _SwipePageState extends State<SwipePage> {
                             fontSize: 26)
                           )
                         )  
-                      )
+                      ),
+                      ]
                         : foodItems.length == 0 ? 
-                        Container(
-                          color: Colors.white,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/notextlogo.jpg'),
-                            ),
-                          ),
-
+                        [Container(
                           child: Center( 
                             child: 
                               Text(
@@ -178,7 +171,7 @@ class _SwipePageState extends State<SwipePage> {
                                 fontSize: 26)
                               )
                             )  
-                          )
+                          ) ] 
                            : foodItems.map((FoodItem foodItem) {
                     // if (foodItem != null) {
                     return Draggable(

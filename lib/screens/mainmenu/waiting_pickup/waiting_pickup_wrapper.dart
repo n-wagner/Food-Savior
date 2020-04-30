@@ -4,14 +4,25 @@ import 'package:food_savior/models/user.dart';
 import 'package:food_savior/screens/mainmenu/waiting_pickup/waiting_pickup.dart';
 import 'package:food_savior/services/database.dart';
 import 'package:provider/provider.dart';
-// TODO: prettify
+
 class WaitingPickupWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     
     if (user == null) {
-      return Text("Loading...");
+      return Container(
+        color: Colors.white,
+        child: Center( 
+          child: 
+            Text(
+              'Loading...', 
+              style: TextStyle(
+              color: Colors.blueGrey, 
+              fontSize: 26)
+            )
+          )  
+        );
       // StreamProvider<List<FoodItem>>.value(
       //   value: DatabaseService().foodItems,
       //   child: PastOrders(),

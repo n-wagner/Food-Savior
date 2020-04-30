@@ -11,7 +11,7 @@ class WaitingPickup extends StatefulWidget {
   _WaitingPickupState createState() => _WaitingPickupState();
   static const String title = "Waiting Pick Up Orders";
 }
-// TODO: prettify
+
 class _WaitingPickupState extends State<WaitingPickup>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
