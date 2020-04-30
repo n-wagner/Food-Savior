@@ -5,7 +5,7 @@ class AcceptanceChoice extends StatelessWidget {
 
   final Map<String, String> swipers;
   AcceptanceChoice({ this.swipers });
-// TODO: prettify
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
