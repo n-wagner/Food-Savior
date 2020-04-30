@@ -27,7 +27,7 @@ class _SwipePageState extends State<SwipePage> {
   //     });
   //   });
   // }
-  
+
   // @override
   // Future<void> initState () async {
   //   super.initState();
@@ -50,9 +50,15 @@ class _SwipePageState extends State<SwipePage> {
       providerFoodItems.removeWhere((FoodItem item) {
         print("User " + user.toString());
         // If the item is improperly stored this is an error
-        if (item.uid == null || item.swipers == null) throw new FormatException("item uid or swipers map was found null", item);
+        if (item.uid == null || item.swipers == null)
+          throw new FormatException(
+              "item uid or swipers map was found null", item);
         // If the item is closed or duration is expired or you made the food Item or already swiped right on it, strip it out
-        if (item.closed == true || item.time.isBefore(DateTime.now()) || item.uid[0] == user.uid || item.swipers.containsKey(user.uid)) { //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
+        if (item.closed == true ||
+            item.time.isBefore(DateTime.now()) ||
+            item.uid[0] == user.uid ||
+            item.swipers.containsKey(user.uid)) {
+          //if (user.foodItems.contains(item.docID) || user.matches.contains(item.docID)) {
           // Update items which are expired
           if (item.time.isBefore(DateTime.now()) && item.closed == false) {
             _databaseService.setClosedForFoodItem(foodID: item.docID);
@@ -95,139 +101,134 @@ class _SwipePageState extends State<SwipePage> {
     // });
 
     return Scaffold(
-      body:
-      foodItems == null ?
-      Container(
-        color: Colors.white,
-        child: Center( 
-          child: 
-            Text(
-              'Getting Your Location...', 
-              style: TextStyle(
-              color: Colors.blueGrey, 
-              fontSize: 26)
-            )
-          )
-      )
-      :
-       SafeArea(
-        child: Center(
-        //child: Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget> [
-              Container(
-                height: 2.0,
-                width: 25.0,
-                color: Colors.lightGreen,
-                child: DragTarget<String>(
-                  builder: (BuildContext context, List<String> candidateData, List rejectedData) {
-                    return Container();
-                  },
-                  onWillAccept: (data) => true,
-                  onAccept: (String docID) {
-                    print("Rejected: docID $docID");
-                    // FoodItem foundItem;
-                    setState(() {
-                      foodItems.removeWhere((FoodItem item) {
-                        if (docID == item.docID) {
-                          print(item);
-                          // foundItem = item;
-                          return true;
-                        } else {
-                          return false;
-                        }
-                      });
-                    });
-                  }
-                )
-              ),
-              Expanded(
-                child: Stack(
-                  children: 
-                  (foodItems == null) ? 
-                    [
-                      Container(
-                      color: Colors.white,
-                      child: Center( 
-                        child: 
-                          Text(
-                            'Loading...', 
-                            style: TextStyle(
-                            color: Colors.blueGrey, 
-                            fontSize: 26)
-                          )
-                        )  
+      body: foodItems == null
+          ? Container(
+              color: Colors.white,
+              child: Center(
+                  child: Text('Getting Your Location...',
+                      style: TextStyle(color: Colors.blueGrey, fontSize: 26))))
+          : SafeArea(
+              child: Center(
+                //child: Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                        height: 2.0,
+                        width: 25.0,
+                        color: Colors.lightGreen,
+                        child: DragTarget<String>(
+                            builder: (BuildContext context,
+                                List<String> candidateData, List rejectedData) {
+                              return Container();
+                            },
+                            onWillAccept: (data) => true,
+                            onAccept: (String docID) {
+                              print("Rejected: docID $docID");
+                              // FoodItem foundItem;
+                              setState(() {
+                                foodItems.removeWhere((FoodItem item) {
+                                  if (docID == item.docID) {
+                                    print(item);
+                                    // foundItem = item;
+                                    return true;
+                                  } else {
+                                    return false;
+                                  }
+                                });
+                              });
+                            })),
+                    Expanded(
+                      child: Stack(
+                        // TODO: Here we need to put a loading screen for when foodItems == null
+                        children: (foodItems == null)
+                            ? [
+                                Container(
+                                    color: Colors.white,
+                                    child: Center(
+                                        child: Text('Loading...',
+                                            style: TextStyle(
+                                                color: Colors.blueGrey,
+                                                fontSize: 26
+                                            )
+                                        )
+                                    )
+                                )
+                              ]
+                            : foodItems.length == 0
+                                ? [
+                                    Container(
+                                        //color: Colors.white,
+                                        child: Center(
+                                            child: Text('No New Food Items!',
+                                                style: TextStyle(
+                                                    color: Colors.blueGrey,
+                                                    fontSize: 26
+                                                )
+                                            )
+                                        )
+                                    )
+                                  ]
+                                : foodItems.map((FoodItem foodItem) {
+                                    // if (foodItem != null) {
+                                    return Draggable(
+                                      onDragCompleted: null,
+                                      // onDragEnd: (dragDetails) {
+                                      //   setState(() {
+                                      //     foodItems.remove(foodItem.docID);
+                                      //   });
+                                      // },
+                                      child: FoodItemCard(foodItem: foodItem),
+                                      childWhenDragging: Container(),
+                                      feedback:
+                                          FoodItemCard(foodItem: foodItem),
+                                      data: foodItem.docID,
+                                    );
+                                    // } else {
+                                    //   return Container();
+                                    // }
+                                  }).toList(),
                       ),
-                      ]
-                        : foodItems.length == 0 ? 
-                        [Container(
-                          child: Center( 
-                            child: 
-                              Text(
-                                'No New Food Items!', 
-                                style: TextStyle(
-                                color: Colors.blueGrey, 
-                                fontSize: 26)
-                              )
-                            )  
-                          ) ] 
-                           : foodItems.map((FoodItem foodItem) {
-                    // if (foodItem != null) {
-                    return Draggable(
-                      onDragCompleted: null,
-                      // onDragEnd: (dragDetails) {
-                      //   setState(() {
-                      //     foodItems.remove(foodItem.docID);
-                      //   });
-                      // },
-                      child: FoodItemCard(foodItem: foodItem),
-                      childWhenDragging: Container(),
-                      feedback: FoodItemCard(foodItem: foodItem),
-                      data: foodItem.docID,
-                    );
-                    // } else {
-                    //   return Container();
-                    // }
-                  }).toList(),
+                    ),
+                    Container(
+                        height: 2.0,
+                        width: 25.0,
+                        color: Colors.lightGreen,
+                        child: DragTarget<String>(
+                            builder: (BuildContext context,
+                                List<String> candidateData, List rejectedData) {
+                              return Container();
+                            },
+                            onWillAccept: (data) => true,
+                            onAccept: (String docID) {
+                              Map<String, String> swiper = {
+                                user.uid: user.phone
+                              };
+                              print(
+                                  "Accepted: docID $docID, swiper: ${swiper.toString()}");
+                              // FoodItem foundItem;
+                              //_databaseService.updateMatchForUser(reference: docID);
+                              //Add the swiper to the existing map (swiper uid: swiper phone number)
+                              _databaseService.updateSwipesForFoodItem(
+                                  foodID: docID, swiper: swiper);
+                              setState(() {
+                                foodItems.removeWhere((FoodItem item) {
+                                  if (docID == item.docID) {
+                                    print(item);
+                                    // foundItem = item;
+                                    return true;
+                                  } else {
+                                    return false;
+                                  }
+                                });
+                              });
+                              // foodItems.add(foundItem);
+                              // foodItems[docID] = item;
+                            })),
+                  ],
                 ),
               ),
-              Container(
-                height: 2.0,
-                width: 25.0,
-                color: Colors.lightGreen,
-                child: DragTarget<String>(
-                  builder: (BuildContext context, List<String> candidateData, List rejectedData) {
-                    return Container();
-                  },
-                  onWillAccept: (data) => true,
-                  onAccept: (String docID) {
-                    Map<String, String> swiper = {user.uid: user.phone};
-                    print("Accepted: docID $docID, swiper: ${swiper.toString()}");
-                    // FoodItem foundItem;
-                    //_databaseService.updateMatchForUser(reference: docID);
-                    //Add the swiper to the existing map (swiper uid: swiper phone number)
-                    _databaseService.updateSwipesForFoodItem(foodID: docID, swiper: swiper);
-                    setState(() {
-                      foodItems.removeWhere((FoodItem item) {
-                        if (docID == item.docID) {
-                          print(item);
-                          // foundItem = item;
-                          return true;
-                        } else {
-                          return false;
-                        }
-                      });
-                    });
-                    // foodItems.add(foundItem);
-                    // foodItems[docID] = item;
-                  }
-                )
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

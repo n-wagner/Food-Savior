@@ -29,7 +29,8 @@ class _MenuLayoutState extends State<MenuLayout> {
               image: DecorationImage(
                 image: AssetImage('assets/images/notextlogo.jpg'),
               )
-              ),
+            ),
+            child: Container(),
           ),
           ListTile(
             dense: true,

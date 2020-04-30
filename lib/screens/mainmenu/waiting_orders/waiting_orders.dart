@@ -31,6 +31,16 @@ class _WaitingOrdersState extends State<WaitingOrders>
     _controller.dispose();
   }
 
+  Future<void> _navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    Navigator.push(
+      context,
+      // Create the SelectionScreen in the next step.
+      MaterialPageRoute(builder: (context) => MapRouting(lat, long))
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<FoodItem> providerFoodItems = Provider.of<List<FoodItem>>(context);
@@ -165,11 +175,11 @@ class _WaitingOrdersState extends State<WaitingOrders>
       }
     }
 
-_navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
-    // Navigator.push returns a Future that completes after calling
-    // Navigator.pop on the Selection Screen.
-    return await Navigator.push(
-      context,
-      // Create the SelectionScreen in the next step.
-      MaterialPageRoute(builder: (context) => MapRouting(lat, long) ));
-}
+// _navigateAndDisplaySelection(BuildContext context, double lat, double long) async {
+//     // Navigator.push returns a Future that completes after calling
+//     // Navigator.pop on the Selection Screen.
+//     return await Navigator.push(
+//       context,
+//       // Create the SelectionScreen in the next step.
+//       MaterialPageRoute(builder: (context) => MapRouting(lat, long) ));
+// }
