@@ -78,7 +78,7 @@ class _WaitingOrdersState extends State<WaitingOrders>
           child: ListView(
             children: 
               foodItems == null ? 
-                Container(
+              [  Container(
                   color: Colors.white,
                   child: Center( 
                     heightFactor: 17,
@@ -91,9 +91,10 @@ class _WaitingOrdersState extends State<WaitingOrders>
                       )
                     )
                   )
-                )
+                ) ]
               : 
               foodItems.length == 0 ?
+              [
                 Container(
                   color: Colors.white,
                   child: Center( 
@@ -108,6 +109,7 @@ class _WaitingOrdersState extends State<WaitingOrders>
                       )
                     )
                   )
+              ] 
                 :
                 foodItems.map
                 (
