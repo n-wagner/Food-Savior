@@ -23,7 +23,7 @@ class FoodItemCard extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            SizedBox(height: SizeConfigService.blockSizeVertical * 5),
+            SizedBox(height: SizeConfigService.safeBlockVertical * 5),
             Text(
               foodItem.name + "\nAvailable Until:\n" + foodItem.time.toLocal().toString(),
               textAlign: TextAlign.center,
@@ -34,7 +34,7 @@ class FoodItemCard extends StatelessWidget {
                 //backgroundColor: Colors.white,
               )
             ),
-            SizedBox(height: SizeConfigService.blockSizeVertical * 10),
+            SizedBox(height: SizeConfigService.safeBlockHorizontal * 10),
           ],
         ),
       ),

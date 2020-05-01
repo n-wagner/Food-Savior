@@ -219,28 +219,24 @@ class _NewFoodPageState extends State<NewFoodPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar( 
-        title: Row(
-          children: [
-            MaterialButton(
-
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-                }, 
-              ),
-            Text(
-              NewFoodPage.title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white, 
-              )
-            )
-          ]
+        centerTitle: true,
+        title: Text(
+          NewFoodPage.title,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white, 
+          )
         ),
         backgroundColor: Colors.lightGreen,
+        leading: MaterialButton (
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon (
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
       ),
 
       body: 

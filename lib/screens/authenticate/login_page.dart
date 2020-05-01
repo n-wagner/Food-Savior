@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       tag: 'food savior',
       child: CircleAvatar(
         backgroundColor: Colors.brown[50],
-        radius: SizeConfigService.blockSizeHorizontal * 40,
+        radius: SizeConfigService.safeBlockHorizontal * 40,
         child: Image.asset('assets/images/logo.JPG'),
       ),
     );
@@ -43,10 +43,15 @@ class _LoginPageState extends State<LoginPage> {
       initialValue: '',
       decoration: InputDecoration(
         hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05, 
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            SizeConfigService.blockSizeHorizontal * 10
+            SizeConfigService.safeBlockHorizontal * 10
           )
         ),
       ),
@@ -63,19 +68,29 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10)),
+        contentPadding: EdgeInsets.fromLTRB(
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05, 
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05
+        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfigService.safeBlockHorizontal * 10)),
       ),
     );
 
     final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: SizeConfigService.blockSizeHorizontal * 1),
+      padding: EdgeInsets.symmetric(vertical: SizeConfigService.safeBlockHorizontal * 1),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
+          borderRadius: BorderRadius.circular(SizeConfigService.safeBlockHorizontal * 10),
         ),
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        padding: EdgeInsets.fromLTRB(SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05, SizeConfigService.blockSizeHorizontal * 3.0, SizeConfigService.blockSizeVertical * 0.05),
+        padding: EdgeInsets.fromLTRB(
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05, 
+          SizeConfigService.safeBlockHorizontal * 3.0, 
+          SizeConfigService.safeBlockVertical * 0.05
+        ),
         color: Colors.lightGreen[700],
         child: Text(
           'Log In',
@@ -99,12 +114,12 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 4.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SizeConfigService.blockSizeHorizontal * 10),
+          borderRadius: BorderRadius.circular(SizeConfigService.safeBlockHorizontal * 10),
         ),
         onPressed: () {
           Navigator.pushNamed(context, '/sign-up');
         },
-        padding: EdgeInsets.all(SizeConfigService.blockSizeHorizontal * 1),
+        padding: EdgeInsets.all(SizeConfigService.safeBlockHorizontal * 1),
         color: Colors.lightGreen[700],
         child: Text('Sign up', style: TextStyle(color: Colors.white)),
       ),
@@ -125,25 +140,27 @@ class _LoginPageState extends State<LoginPage> {
       // Form associated with global key, allows for future validation of the form
       body: Form(
         key: _formKey,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-              left: SizeConfigService.blockSizeHorizontal * 10, 
-              right: SizeConfigService.blockSizeHorizontal * 10
+        child: SafeArea(
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(
+                left: SizeConfigService.safeBlockHorizontal * 10, 
+                right: SizeConfigService.safeBlockHorizontal * 10
               ),
-            children: <Widget>[
-              logo,
-              error == null ? Container() : Text(error),
-              //SizedBox(height: 10.0),
-              email,
-              SizedBox(height: SizeConfigService.blockSizeVertical * 2),
-              password,
-              SizedBox(height: SizeConfigService.blockSizeVertical * 5),
-              loginButton,
-              signupButton,
-              forgotLabel
-            ],
+              children: <Widget>[
+                logo,
+                error == null ? Container() : Text(error),
+                //SizedBox(height: 10.0),
+                email,
+                SizedBox(height: SizeConfigService.safeBlockVertical * 2),
+                password,
+                SizedBox(height: SizeConfigService.safeBlockVertical * 5),
+                loginButton,
+                signupButton,
+                forgotLabel
+              ],
+            ),
           ),
         ),
       ),

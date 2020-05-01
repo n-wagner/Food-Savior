@@ -140,23 +140,25 @@ class _ForgotPassState extends State<ForgotPass> {
       // Form associated with global key, allows for future validation of the form
       body: Form(
         key: _formKey,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              logo,
-              SizedBox(height: 48.0),
-              email,
-              SizedBox(height: 8.0),
-              password,
-              SizedBox(height: 8.0),
-              confirmNewPass,
-              SizedBox(height: 24.0),
-              changePass,
-              
-              
-            ],
+        child: SafeArea(
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 24.0, right: 24.0),
+              children: <Widget>[
+                logo,
+                SizedBox(height: 48.0),
+                email,
+                SizedBox(height: 8.0),
+                password,
+                SizedBox(height: 8.0),
+                confirmNewPass,
+                SizedBox(height: 24.0),
+                changePass,
+                
+                
+              ],
+            ),
           ),
         ),
       ),

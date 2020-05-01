@@ -53,13 +53,17 @@ class _FoodRecievedState extends State<FoodRecieved>
 
     return Scaffold(
       appBar: AppBar( 
-        title: Text(FoodRecieved.title),
+        centerTitle: true,
+        title: Text(
+          FoodRecieved.title,
+          textAlign: TextAlign.center,
+        ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.white,
           ),
         ),
