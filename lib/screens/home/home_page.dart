@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     SizeConfigService.init(context);
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.brown[50],
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,6 +36,10 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+             Container(
+              height: 5,
+              color: Colors.brown[100]),
+
             Expanded(
               child: IconButton(
                     icon: Image.asset(
@@ -56,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         child: FloatingActionButton(
           child: Icon(
             Icons.menu, 
-            color: Colors.white),
+            color: Colors.brown[50]),
           onPressed: () {
             _scaffoldKey.currentState.openDrawer();
           },
