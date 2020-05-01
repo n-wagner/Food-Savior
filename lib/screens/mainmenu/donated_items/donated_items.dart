@@ -49,14 +49,18 @@ class _DonatedOrdersState extends State<DonatedOrders>
     }
 
     return Scaffold(
-      appBar: AppBar( 
-        title: Text(DonatedOrders.title),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          DonatedOrders.title,
+          textAlign: TextAlign.center,
+        ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.white,
           ),
         ),

@@ -23,40 +23,42 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       backgroundColor: Colors.brown[50],
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget> [
-            Expanded(
-                child: IconButton(
-                    icon: Image.asset('assets/images/givelogo.JPG'),
-                    iconSize: SizeConfigService.blockSizeHorizontal * 50,
-                    onPressed: () {
-                        Navigator.pushNamed(context, '/new-food');
-                },
-              ),
-            ),
-             Container(
-              height: 5,
-              color: Colors.brown[100]),
-
-            Expanded(
-              child: IconButton(
-                    icon: Image.asset(
-                      'assets/images/getlogo.JPG',
-                    ),
-                    iconSize: SizeConfigService.blockSizeHorizontal * 50,
-                    onPressed: () {
-                    Navigator.pushNamed(context, '/swipes');
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget> [
+              Expanded(
+                  child: IconButton(
+                      icon: Image.asset('assets/images/givelogo.JPG'),
+                      iconSize: SizeConfigService.safeBlockHorizontal * 50,
+                      onPressed: () {
+                          Navigator.pushNamed(context, '/new-food');
                   },
+                ),
               ),
-            ),
-          ]
+               Container(
+                height: 5,
+                color: Colors.brown[100]),
+
+              Expanded(
+                child: IconButton(
+                      icon: Image.asset(
+                        'assets/images/getlogo.JPG',
+                      ),
+                      iconSize: SizeConfigService.safeBlockHorizontal * 50,
+                      onPressed: () {
+                      Navigator.pushNamed(context, '/swipes');
+                    },
+                ),
+              ),
+            ]
+          ),
         ),
       ),
       drawer: MenuLayout(),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(top:  SizeConfigService.blockSizeHorizontal * 30),
+        padding: EdgeInsets.only(top: SizeConfigService.safeBlockVertical * 25),
         child: FloatingActionButton(
           child: Icon(
             Icons.menu, 

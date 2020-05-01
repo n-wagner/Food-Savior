@@ -70,13 +70,17 @@ class _WaitingPickupState extends State<WaitingPickup>
 
     return Scaffold(
       appBar: AppBar( 
-        title: Text(WaitingPickup.title),
+        centerTitle: true,
+        title: Text(
+          WaitingPickup.title,
+          textAlign: TextAlign.center,
+        ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.white,
           ),
         ),

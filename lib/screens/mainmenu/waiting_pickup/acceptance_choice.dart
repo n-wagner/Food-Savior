@@ -10,13 +10,17 @@ class AcceptanceChoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar( 
-        title: Text(AcceptanceChoice.title),
+        centerTitle: true,
+        title: Text(
+          AcceptanceChoice.title,
+          textAlign: TextAlign.center,
+        ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context, null);
           },
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.white,
           ),
         ),

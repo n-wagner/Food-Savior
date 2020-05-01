@@ -10,17 +10,20 @@ class _QuestionsState extends State<Questions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('FAQ'),
-      leading: MaterialButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
+        centerTitle: true,
+        title: Text(
+          'FAQ',
+          textAlign: TextAlign.center,
         ),
-      ),
-            
+        leading: MaterialButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),    
       ),
       body: ListView.builder(
         itemCount: data.length,

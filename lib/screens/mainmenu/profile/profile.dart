@@ -42,7 +42,8 @@ class MapScreenState extends State<ProfilePage>
           title: Text(
             'Profile', 
             style: TextStyle( fontSize: 20), 
-            textAlign: TextAlign.center),
+            textAlign: TextAlign.center
+          ),
           leading: MaterialButton(
             onPressed: () {
               Navigator.pop(context);
@@ -60,29 +61,29 @@ class MapScreenState extends State<ProfilePage>
           Column(
             children: <Widget>[
               new Container(
-                height: SizeConfigService.blockSizeVertical * 27,
+                height: SizeConfigService.safeBlockVertical * 26,
                 color: Colors.white,
                 child: new Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(
-                        left: SizeConfigService.blockSizeHorizontal * 20, 
-                        top: SizeConfigService.blockSizeVertical * 2
+                        left: SizeConfigService.safeBlockHorizontal * 20, 
+                        top: SizeConfigService.safeBlockVertical * 2
                         ),
                       child: new Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                       )
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 20.0),
+                      padding: EdgeInsets.only(top: SizeConfigService.safeBlockVertical * 1),
                       child: new Stack(fit: StackFit.loose, children: <Widget>[
                         new Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Container(
-                                width: SizeConfigService.blockSizeHorizontal * 40,
-                                height: SizeConfigService.blockSizeVertical * 20,
+                                width: SizeConfigService.safeBlockHorizontal * 40,
+                                height: SizeConfigService.safeBlockVertical * 20,
                                 decoration: new BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
@@ -95,8 +96,8 @@ class MapScreenState extends State<ProfilePage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                            top: SizeConfigService.blockSizeVertical * 14,    // old value: 90
-                            right: SizeConfigService.blockSizeHorizontal * 20 // old value: 100.0
+                            top: SizeConfigService.safeBlockVertical * 14,    // old value: 90
+                            right: SizeConfigService.safeBlockHorizontal * 20 // old value: 100.0
                           ),
                           child: new Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -121,9 +122,9 @@ class MapScreenState extends State<ProfilePage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                            top: SizeConfigService.blockSizeVertical * 14,    // old value: 90
-                            left: SizeConfigService.blockSizeHorizontal * 20 // old value: 100
-                            ),
+                            top: SizeConfigService.safeBlockVertical * 14,    // old value: 90
+                            left: SizeConfigService.safeBlockHorizontal * 20 // old value: 100
+                          ),
                           child: new Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -160,9 +161,9 @@ class MapScreenState extends State<ProfilePage>
                     children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(
-                              left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                              right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                              top: SizeConfigService.blockSizeHorizontal * 1 // 
+                              left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                              right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                              top: SizeConfigService.safeBlockVertical * 0.75 // 
                             ),
                           child: new Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,9 +193,9 @@ class MapScreenState extends State<ProfilePage>
                         ),
                       Padding(
                           padding: EdgeInsets.only(
-                              left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                              right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                              top: SizeConfigService.blockSizeHorizontal * 5// 
+                              left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                              right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                              top: SizeConfigService.safeBlockVertical * 5// 
                             ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -215,9 +216,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                              left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                              right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                              top: SizeConfigService.blockSizeHorizontal * 1// 
+                              left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                              right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                              top: SizeConfigService.safeBlockVertical * 1// 
                             ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -237,9 +238,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -260,9 +261,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -283,9 +284,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -306,9 +307,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -325,9 +326,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -348,9 +349,9 @@ class MapScreenState extends State<ProfilePage>
                           )),
                       Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                            right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                            top: SizeConfigService.blockSizeHorizontal * 1// 
+                            left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                            right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                            top: SizeConfigService.safeBlockVertical * 1// 
                           ),
                           child: new Row(
                             mainAxisSize: MainAxisSize.max,
@@ -386,9 +387,9 @@ class MapScreenState extends State<ProfilePage>
 
   Widget _getActionButtons() {
     return Padding(
-      padding: EdgeInsets.only(left: SizeConfigService.blockSizeHorizontal * 5, // old value 25
-                              right: SizeConfigService.blockSizeHorizontal * 5,// old value 25 
-                              top: SizeConfigService.blockSizeHorizontal * 1// 
+      padding: EdgeInsets.only(left: SizeConfigService.safeBlockHorizontal * 5, // old value 25
+                              right: SizeConfigService.safeBlockHorizontal * 5,// old value 25 
+                              top: SizeConfigService.safeBlockVertical * 1// 
                           ),
       child: new Row(
         mainAxisSize: MainAxisSize.max,

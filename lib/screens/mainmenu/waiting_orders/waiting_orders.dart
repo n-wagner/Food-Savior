@@ -61,13 +61,17 @@ class _WaitingOrdersState extends State<WaitingOrders>
 
     return Scaffold(
       appBar: AppBar( 
-        title: Text(WaitingOrders.title),
+        centerTitle: true,
+        title: Text(
+          WaitingOrders.title,
+          textAlign: TextAlign.center
+        ),
         leading: MaterialButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.white,
           ),
         ),
