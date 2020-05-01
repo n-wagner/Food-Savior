@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius:  SizeConfigService.blockSizeHorizontal * 30,
-        child: Image.asset('assets/images/logo.jpg'),
+        child: Image.asset('assets/images/logo.JPG'),
       ),
     );
 
